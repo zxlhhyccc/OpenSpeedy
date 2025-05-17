@@ -30,9 +30,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         resources.qrc
         images/icon.ico images/logo.png
         icons.rc
-
-
     )
+
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET OpenSpeedy APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
@@ -47,12 +46,18 @@ else()
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
+      add_definitions("-DUNICODE -DNOMINMAX")
         add_executable(OpenSpeedy
             ${PROJECT_SOURCES}
+            winutils.h winutils.cpp
+            processmonitor.h processmonitor.cpp
+            resources.qrc
+            images/icon.ico images/logo.png
+            icons.rc
         )
     endif()
 
-    qt6_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    #qt6_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
 target_link_libraries(OpenSpeedy PRIVATE Qt${QT_VERSION_MAJOR}::Widgets speedpatch)
