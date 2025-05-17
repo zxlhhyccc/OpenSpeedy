@@ -12,22 +12,30 @@ static std::atomic<double> factor = 1.0;
 #pragma comment(linker, "/section:shared,RWS")
 
 
+
 static std::shared_mutex mutex;
-typedef UINT_PTR(*SETTIMER)(HWND,UINT_PTR,UINT,TIMERPROC);
-typedef DWORD(*TIMEGETTIME)(VOID);
-typedef DWORD(*GETTICKCOUNT)(VOID);
-typedef ULONGLONG(*GETTICKCOUNT64)(VOID);
-typedef BOOL(*QUERYPERFOMANCECOUNTER)(LARGE_INTEGER*);
-typedef VOID(*GETSYSTEMTIMEASFILETIME)(LPFILETIME);
-typedef VOID(*GETSYSTEMTIMEPRECISEASFILETIME)(LPFILETIME);
+typedef VOID(WINAPI *SLEEP)(DWORD);
+typedef UINT_PTR(WINAPI *SETTIMER)(HWND,UINT_PTR,UINT,TIMERPROC);
+typedef DWORD(WINAPI *TIMEGETTIME)(VOID);
+typedef DWORD(WINAPI *GETTICKCOUNT)(VOID);
+typedef ULONGLONG(WINAPI *GETTICKCOUNT64)(VOID);
+typedef BOOL(WINAPI *QUERYPERFORMANCECOUNTER)(LARGE_INTEGER*);
+typedef BOOL(WINAPI *QUERYPERFORMANCEFREQUENCY)(LARGE_INTEGER*);
+typedef VOID(WINAPI *GETSYSTEMTIMEASFILETIME)(LPFILETIME);
+typedef VOID(WINAPI *GETSYSTEMTIMEPRECISEASFILETIME)(LPFILETIME);
 
 
 static DWORD firstTimeGetTime = 0;
 static DWORD firstGetTickCount = 0;
 static ULONGLONG firstGetTickCount64 = 0;
 static LARGE_INTEGER firstQueryPerformanceCounter = { 0 };
+static LARGE_INTEGER firstQueryPerformanceFrequency = {0};
+
 static FILETIME firstGetSystemTimeAsFileTime = {0};
 static FILETIME firstGetSystemTimePreciseAsFileTime = {0};
+
+static SLEEP pfnKernelSleep = NULL;
+static SLEEP pfnDetourSleep = NULL;
 
 static SETTIMER pfnKernelSetTimer = NULL;
 static SETTIMER pfnDetourSetTimer = NULL;
@@ -41,8 +49,11 @@ static GETTICKCOUNT pfnDetourGetTickCount = NULL;
 static GETTICKCOUNT64 pfnKernelGetTickCount64 = NULL;
 static GETTICKCOUNT64 pfnDetourGetTickCount64 = NULL;
 
-static QUERYPERFOMANCECOUNTER pfnKernelQueryPerformanceCounter = NULL;
-static QUERYPERFOMANCECOUNTER pfnDetourQueryPerformanceCounter = NULL;
+static QUERYPERFORMANCECOUNTER pfnKernelQueryPerformanceCounter = NULL;
+static QUERYPERFORMANCECOUNTER pfnDetourQueryPerformanceCounter = NULL;
+
+static QUERYPERFORMANCEFREQUENCY pfnKernelQueryPerformanceFrequency = NULL;
+static QUERYPERFORMANCEFREQUENCY pfnDetourQueryPerformanceFrequency = NULL;
 
 static GETSYSTEMTIMEASFILETIME pfnKernelGetSystemTimeAsFileTime = NULL;
 static GETSYSTEMTIMEASFILETIME pfnDetourGetSystemTimeAsFileTime = NULL;
@@ -50,10 +61,16 @@ static GETSYSTEMTIMEASFILETIME pfnDetourGetSystemTimeAsFileTime = NULL;
 static GETSYSTEMTIMEPRECISEASFILETIME pfnKernelGetSystemTimePreciseAsFileTime = NULL;
 static GETSYSTEMTIMEPRECISEASFILETIME pfnDetourGetSystemTimePreciseAsFileTime = NULL;
 
-UINT_PTR DetourSetTimer(HWND hWnd, UINT_PTR nIDEvent, UINT uElapse, TIMERPROC lpTimerFunc)
+VOID WINAPI DetourSleep(DWORD dwMilliseconds)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
-    return pfnKernelSetTimer(hWnd, nIDEvent, uElapse/factor.load(), lpTimerFunc);
+    pfnKernelSleep(dwMilliseconds / factor.load());
+}
+
+UINT_PTR WINAPI DetourSetTimer(HWND hWnd, UINT_PTR nIDEvent, UINT uElapse, TIMERPROC lpTimerFunc)
+{
+    std::shared_lock<std::shared_mutex> lock(mutex);
+    return pfnKernelSetTimer(hWnd, nIDEvent, uElapse / factor.load(), lpTimerFunc);
 }
 
 DWORD DetourTimeGetTime(VOID)
@@ -77,7 +94,7 @@ ULONGLONG DetourGetTickCount64(VOID)
     return firstGetTickCount64 + delta;
 }
 
-BOOL DetourQueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount)
+BOOL WINAPI DetourQueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
     if (lpPerformanceCount == NULL)
@@ -94,7 +111,22 @@ BOOL DetourQueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount)
     }
 }
 
-VOID DetourGetSystemTimeAsFileTime(LPFILETIME lpSystemTimeAsFileTime)
+BOOL WINAPI DetourQueryPerformanceFrequency(LARGE_INTEGER* lpFrequency)
+{
+    std::shared_lock<std::shared_mutex> lock(mutex);
+    if (lpFrequency == NULL)
+    {
+        return FALSE;
+    }
+    else
+    {
+        BOOL rtncode = pfnKernelQueryPerformanceFrequency(lpFrequency);
+        lpFrequency->QuadPart = factor.load() * lpFrequency->QuadPart;
+        return rtncode;
+    }
+}
+
+VOID WINAPI DetourGetSystemTimeAsFileTime(LPFILETIME lpSystemTimeAsFileTime)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
     if (lpSystemTimeAsFileTime == NULL)
@@ -120,7 +152,7 @@ VOID DetourGetSystemTimeAsFileTime(LPFILETIME lpSystemTimeAsFileTime)
     }
 }
 
-VOID DetourGetSystemTimePreciseAsFileTime(LPFILETIME lpSystemTimeAsFileTime)
+VOID WINAPI DetourGetSystemTimePreciseAsFileTime(LPFILETIME lpSystemTimeAsFileTime)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
     if (lpSystemTimeAsFileTime == NULL)
@@ -155,7 +187,7 @@ VOID MH_UNHOOK(LPVOID pTarget) {
     MH_RemoveHook(pTarget);
 }
 
-// Export to change speed factor for hacker process
+
 SPEEDPATCH_API void SetSpeedFactor(double factor_) {
     factor.store(factor_);
 }
@@ -175,17 +207,21 @@ BOOL APIENTRY DllMain(HMODULE hModule,
         firstGetTickCount = GetTickCount();
         firstGetTickCount64 = GetTickCount64();
         QueryPerformanceCounter(&firstQueryPerformanceCounter);
+        QueryPerformanceFrequency(&firstQueryPerformanceFrequency);
         GetSystemTimeAsFileTime(&firstGetSystemTimeAsFileTime);
         GetSystemTimePreciseAsFileTime(&firstGetSystemTimePreciseAsFileTime);
 
+        MH_HOOK(&Sleep, &DetourSleep, reinterpret_cast<LPVOID*>(&pfnKernelSleep));
         MH_HOOK(&SetTimer, &DetourSetTimer, reinterpret_cast<LPVOID*>(&pfnKernelSetTimer));
         MH_HOOK(&timeGetTime, &DetourTimeGetTime, reinterpret_cast<LPVOID*>(&pfnKernelTimeGetTime));
         MH_HOOK(&GetTickCount, &DetourGetTickCount, reinterpret_cast<LPVOID*>(&pfnKernelGetTickCount));
         MH_HOOK(&GetTickCount64, &DetourGetTickCount64, reinterpret_cast<LPVOID*>(&pfnKernelGetTickCount64));
         MH_HOOK(&QueryPerformanceCounter, &DetourQueryPerformanceCounter, reinterpret_cast<LPVOID*>(&pfnKernelQueryPerformanceCounter));
+        MH_HOOK(&QueryPerformanceFrequency, &DetourQueryPerformanceFrequency, reinterpret_cast<LPVOID*>(&pfnKernelQueryPerformanceFrequency));
         MH_HOOK(&GetSystemTimeAsFileTime, &DetourGetSystemTimeAsFileTime, reinterpret_cast<LPVOID*>(&pfnKernelGetSystemTimeAsFileTime));
         MH_HOOK(&GetSystemTimePreciseAsFileTime, &DetourGetSystemTimePreciseAsFileTime, reinterpret_cast<LPVOID*>(&pfnKernelGetSystemTimePreciseAsFileTime));
-        break;
+
+break;
     case DLL_THREAD_ATTACH:
         break;
     case DLL_THREAD_DETACH:
