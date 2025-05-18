@@ -11,9 +11,9 @@ static std::atomic<double> factor = 1.0;
 #pragma data_seg()
 #pragma comment(linker, "/section:shared,RWS")
 
-
-
 static std::shared_mutex mutex;
+static std::atomic<double> pre_factor = 1.0;
+
 typedef VOID(WINAPI *SLEEP)(DWORD);
 typedef UINT_PTR(WINAPI *SETTIMER)(HWND,UINT_PTR,UINT,TIMERPROC);
 typedef DWORD(WINAPI *TIMEGETTIME)(VOID);
@@ -24,15 +24,7 @@ typedef BOOL(WINAPI *QUERYPERFORMANCEFREQUENCY)(LARGE_INTEGER*);
 typedef VOID(WINAPI *GETSYSTEMTIMEASFILETIME)(LPFILETIME);
 typedef VOID(WINAPI *GETSYSTEMTIMEPRECISEASFILETIME)(LPFILETIME);
 
-
-static DWORD firstTimeGetTime = 0;
-static DWORD firstGetTickCount = 0;
-static ULONGLONG firstGetTickCount64 = 0;
-static LARGE_INTEGER firstQueryPerformanceCounter = { 0 };
-static LARGE_INTEGER firstQueryPerformanceFrequency = {0};
-
-static FILETIME firstGetSystemTimeAsFileTime = {0};
-static FILETIME firstGetSystemTimePreciseAsFileTime = {0};
+inline VOID shouldUpdateAll();
 
 static SLEEP pfnKernelSleep = NULL;
 static SLEEP pfnDetourSleep = NULL;
@@ -73,27 +65,97 @@ UINT_PTR WINAPI DetourSetTimer(HWND hWnd, UINT_PTR nIDEvent, UINT uElapse, TIMER
     return pfnKernelSetTimer(hWnd, nIDEvent, uElapse / factor.load(), lpTimerFunc);
 }
 
+static DWORD baselineKernelTimeGetTime = 0;
+static DWORD baselineDetourTimeGetTime = 0;
+static DWORD prevcallKernelTimeGetTime = 0;
+static DWORD prevcallDetourTimeGetTime = 0;
+static std::atomic<bool> shouldUpdateTimeGetTime = false;
+
 DWORD DetourTimeGetTime(VOID)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
-    DWORD delta = factor.load() * (pfnKernelTimeGetTime() - firstTimeGetTime);
-    return firstTimeGetTime + delta;
+    if (pre_factor != factor)
+    {
+        pre_factor = factor.load();
+        shouldUpdateAll();
+    }
+
+    bool expected = true;
+    if (shouldUpdateTimeGetTime.compare_exchange_weak(expected, false))
+    {
+        baselineKernelTimeGetTime = prevcallKernelTimeGetTime;
+        baselineDetourTimeGetTime = prevcallDetourTimeGetTime;
+    }
+    DWORD now = pfnKernelTimeGetTime();
+    prevcallKernelTimeGetTime = now;
+    DWORD delta = factor * (now - baselineKernelTimeGetTime);
+
+    prevcallDetourTimeGetTime = baselineDetourTimeGetTime + delta;
+    return baselineDetourTimeGetTime + delta;
 }
 
+static DWORD baselineKernelGetTickCount = 0;
+static DWORD baselineDetourGetTickCount = 0;
+static DWORD prevcallKernelGetTickCount = 0;
+static DWORD prevcallDetourGetTickCount = 0;
+static std::atomic<bool> shouldUpdateGetTickCount = false;
 DWORD DetourGetTickCount(VOID)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
-    DWORD delta = factor.load() * (pfnKernelGetTickCount() - firstGetTickCount);
-    return firstGetTickCount + delta;
+    if (pre_factor != factor)
+    {
+        pre_factor = factor.load();
+        shouldUpdateAll();
+    }
+
+    bool expected = true;
+    if (shouldUpdateGetTickCount.compare_exchange_weak(expected, false))
+    {
+        baselineKernelGetTickCount = prevcallKernelGetTickCount;
+        baselineDetourGetTickCount = prevcallDetourGetTickCount;
+    }
+
+    DWORD now = pfnKernelGetTickCount();
+    prevcallKernelGetTickCount = now;
+
+    DWORD delta = factor * (now - baselineKernelGetTickCount);
+    prevcallDetourGetTickCount = baselineDetourGetTickCount + delta;
+    return baselineDetourGetTickCount + delta;
 }
 
+static ULONGLONG baselineKernelGetTickCount64 = 0;
+static ULONGLONG baselineDetourGetTickCount64 = 0;
+static ULONGLONG prevcallKernelGetTickCount64 = 0;
+static ULONGLONG prevcallDetourGetTickCount64 = 0;
+std::atomic<bool> shouldUpdateGetTickCount64 = false;
 ULONGLONG DetourGetTickCount64(VOID)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
-    ULONGLONG delta = factor.load() * (pfnKernelGetTickCount64() - firstGetTickCount64);
-    return firstGetTickCount64 + delta;
+    if (pre_factor != factor)
+    {
+        pre_factor = factor.load();
+        shouldUpdateAll();
+    }
+
+    bool expected = true;
+    if (shouldUpdateGetTickCount64.compare_exchange_weak(expected, false))
+    {
+        baselineKernelGetTickCount64 = prevcallKernelGetTickCount64;
+        baselineDetourGetTickCount64 = prevcallDetourGetTickCount64;
+    }
+
+    ULONGLONG now = pfnKernelGetTickCount64();
+    prevcallKernelGetTickCount64 = now;
+    ULONGLONG delta = factor * (now - baselineKernelGetTickCount64);
+    prevcallDetourGetTickCount64 = baselineDetourGetTickCount64 + delta;
+    return baselineDetourGetTickCount64 + delta;
 }
 
+static LARGE_INTEGER baselineKernelQueryPerformanceCounter = {0};
+static LARGE_INTEGER baselineDetourQueryPerformanceCounter = {0};
+static LARGE_INTEGER prevcallKernelQueryPerformanceCounter = {0};
+static LARGE_INTEGER prevcallDetourQueryPerformanceCounter = {0};
+static std::atomic<bool> shouldUpdateQueryPerformanceCounter = false;
 BOOL WINAPI DetourQueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
@@ -101,16 +163,35 @@ BOOL WINAPI DetourQueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount)
     {
         return FALSE;
     }
-    else
+
+    if (pre_factor != factor)
     {
-        LARGE_INTEGER now = { 0 };
-        BOOL rtncode = pfnKernelQueryPerformanceCounter(&now);
-        LONGLONG delta = factor.load() * (now.QuadPart - firstQueryPerformanceCounter.QuadPart);
-        lpPerformanceCount->QuadPart = firstQueryPerformanceCounter.QuadPart + delta;
-        return rtncode;
+        pre_factor = factor.load();
+        shouldUpdateAll();
     }
+
+    // 更新基准时间点
+    bool expected = true;
+    if (shouldUpdateQueryPerformanceCounter.compare_exchange_weak(expected, false))
+    {
+        baselineKernelQueryPerformanceCounter = prevcallKernelQueryPerformanceCounter;
+        baselineDetourQueryPerformanceCounter = prevcallDetourQueryPerformanceCounter;
+    }
+
+    BOOL rtncode = pfnKernelQueryPerformanceCounter(&prevcallKernelQueryPerformanceCounter);
+    if (rtncode == TRUE)
+    {
+        *lpPerformanceCount = prevcallKernelQueryPerformanceCounter;
+    }
+
+    LONGLONG delta = factor * (lpPerformanceCount->QuadPart - baselineKernelQueryPerformanceCounter.QuadPart);
+    lpPerformanceCount->QuadPart = baselineDetourQueryPerformanceCounter.QuadPart + delta;
+    prevcallDetourQueryPerformanceCounter = *lpPerformanceCount;
+    return rtncode;
+
 }
 
+static LARGE_INTEGER baselineKernelQueryPerformanceFrequency = {0};
 BOOL WINAPI DetourQueryPerformanceFrequency(LARGE_INTEGER* lpFrequency)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
@@ -121,61 +202,107 @@ BOOL WINAPI DetourQueryPerformanceFrequency(LARGE_INTEGER* lpFrequency)
     else
     {
         BOOL rtncode = pfnKernelQueryPerformanceFrequency(lpFrequency);
-        lpFrequency->QuadPart = factor.load() * lpFrequency->QuadPart;
+        lpFrequency->QuadPart = factor * lpFrequency->QuadPart;
         return rtncode;
     }
 }
 
+static std::atomic<FILETIME> baselineKernelGetSystemTimeAsFileTime({0});
+static std::atomic<FILETIME> baselineDetourGetSystemTimeAsFileTime({0});
+static std::atomic<FILETIME> prevcallKernelGetSystemTimeAsFileTime({0});
+static std::atomic<FILETIME> prevcallDetourGetSystemTimeAsFileTime({0});
+static std::atomic<bool> shouldUpdateGetSystemTimeAsFileTime = false;
 VOID WINAPI DetourGetSystemTimeAsFileTime(LPFILETIME lpSystemTimeAsFileTime)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
     if (lpSystemTimeAsFileTime == NULL)
     {
-        return pfnKernelGetSystemTimeAsFileTime(lpSystemTimeAsFileTime);
+        return;
     }
-    else
-    {
-        ULARGE_INTEGER firstDateTime = {0};
-        firstDateTime.LowPart = firstGetSystemTimeAsFileTime.dwLowDateTime;
-        firstDateTime.HighPart = firstGetSystemTimeAsFileTime.dwHighDateTime;
-        FILETIME now = {0};
-        pfnKernelGetSystemTimeAsFileTime(&now);
-        ULARGE_INTEGER nowDateTime = {0};
-        nowDateTime.LowPart = now.dwLowDateTime;
-        nowDateTime.HighPart = now.dwHighDateTime;
-        ULARGE_INTEGER rtnDateTime = {0};
 
-        ULONGLONG delta = factor.load() * (nowDateTime.QuadPart - firstDateTime.QuadPart);
-        rtnDateTime.QuadPart = firstDateTime.QuadPart + delta;
-        lpSystemTimeAsFileTime->dwLowDateTime = rtnDateTime.LowPart;
-        lpSystemTimeAsFileTime->dwHighDateTime = rtnDateTime.HighPart;
+    if (pre_factor != factor)
+    {
+        pre_factor = factor.load();
+        shouldUpdateAll();
     }
+
+    bool expected = true;
+    if (shouldUpdateGetSystemTimeAsFileTime.compare_exchange_weak(expected, false))
+    {
+        baselineKernelGetSystemTimeAsFileTime.store(prevcallKernelGetSystemTimeAsFileTime.load());
+        baselineDetourGetSystemTimeAsFileTime.store(prevcallDetourGetSystemTimeAsFileTime.load());
+    }
+
+    // 从全局变量读取基准点快照到线程栈
+    FILETIME baselineKernelSnapshot = baselineKernelGetSystemTimeAsFileTime.load();
+    ULARGE_INTEGER baselineKernel = {baselineKernelSnapshot.dwLowDateTime, baselineKernelSnapshot.dwHighDateTime};
+    FILETIME baselineDetourSnapshot = baselineDetourGetSystemTimeAsFileTime.load();
+    ULARGE_INTEGER baselineDetour = {baselineDetourSnapshot.dwLowDateTime, baselineDetourSnapshot.dwHighDateTime};
+
+    FILETIME ftNow = {0};
+    pfnKernelGetSystemTimeAsFileTime(&ftNow);
+    prevcallKernelGetSystemTimeAsFileTime.store(ftNow);
+    ULARGE_INTEGER ulNow = {ftNow.dwLowDateTime, ftNow.dwHighDateTime};
+
+    ULONGLONG delta = factor * (ulNow.QuadPart - baselineKernel.QuadPart);
+    ULARGE_INTEGER ulRtn = {0};
+    ulRtn.QuadPart = baselineDetour.QuadPart + delta;
+    prevcallDetourGetSystemTimeAsFileTime.store({ulRtn.LowPart, ulRtn.HighPart});
+    (*lpSystemTimeAsFileTime) = { ulRtn.LowPart, ulRtn.HighPart};
 }
 
+static std::atomic<FILETIME> baselineKernelGetSystemTimePreciseAsFileTime({0});
+static std::atomic<FILETIME> baselineDetourGetSystemTimePreciseAsFileTime({0});
+static std::atomic<FILETIME> prevcallKernelGetSystemTimePreciseAsFileTime({0});
+static std::atomic<FILETIME> prevcallDetourGetSystemTimePreciseAsFileTime({0});
+static std::atomic<bool> shouldUpdateGetSystemTimePreciseAsFileTime = false;
 VOID WINAPI DetourGetSystemTimePreciseAsFileTime(LPFILETIME lpSystemTimeAsFileTime)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
     if (lpSystemTimeAsFileTime == NULL)
     {
-        return pfnKernelGetSystemTimePreciseAsFileTime(lpSystemTimeAsFileTime);
+        return;
     }
-    else
-    {
-        ULARGE_INTEGER firstDateTime = {0};
-        firstDateTime.LowPart = firstGetSystemTimeAsFileTime.dwLowDateTime;
-        firstDateTime.HighPart = firstGetSystemTimeAsFileTime.dwHighDateTime;
-        FILETIME now = {0};
-        pfnKernelGetSystemTimePreciseAsFileTime(&now);
-        ULARGE_INTEGER nowDateTime = {0};
-        nowDateTime.LowPart = now.dwLowDateTime;
-        nowDateTime.HighPart = now.dwHighDateTime;
-        ULARGE_INTEGER rtnDateTime = {0};
 
-        ULONGLONG delta = factor.load() * (nowDateTime.QuadPart - firstDateTime.QuadPart);
-        rtnDateTime.QuadPart = firstDateTime.QuadPart + delta;
-        lpSystemTimeAsFileTime->dwLowDateTime = rtnDateTime.LowPart;
-        lpSystemTimeAsFileTime->dwHighDateTime = rtnDateTime.HighPart;
+    if (pre_factor != factor)
+    {
+        pre_factor = factor.load();
+        shouldUpdateAll();
     }
+
+    bool expected = true;
+    if (shouldUpdateGetSystemTimePreciseAsFileTime.compare_exchange_weak(expected, false))
+    {
+        baselineKernelGetSystemTimePreciseAsFileTime.store(prevcallKernelGetSystemTimePreciseAsFileTime.load());
+        baselineDetourGetSystemTimePreciseAsFileTime.store(prevcallDetourGetSystemTimePreciseAsFileTime.load());
+    }
+
+    // 从全局变量读取基准点快照到线程栈
+    FILETIME baselineKernelSnapshot = baselineKernelGetSystemTimePreciseAsFileTime.load();
+    ULARGE_INTEGER baselineKernel = {baselineKernelSnapshot.dwLowDateTime, baselineKernelSnapshot.dwHighDateTime};
+    FILETIME baselineDetourSnapshot = baselineDetourGetSystemTimePreciseAsFileTime.load();
+    ULARGE_INTEGER baselineDetour = {baselineDetourSnapshot.dwLowDateTime, baselineDetourSnapshot.dwHighDateTime};
+
+
+    FILETIME ftNow = {0};
+    pfnKernelGetSystemTimePreciseAsFileTime(&ftNow);
+    prevcallKernelGetSystemTimePreciseAsFileTime.store(ftNow);
+    ULARGE_INTEGER ulNow = {ftNow.dwLowDateTime, ftNow.dwHighDateTime};
+
+    ULONGLONG delta = factor * (ulNow.QuadPart - baselineKernel.QuadPart);
+    ULARGE_INTEGER ulRtn = {0};
+    ulRtn.QuadPart = baselineDetour.QuadPart + delta;
+    prevcallDetourGetSystemTimePreciseAsFileTime.store({ulRtn.LowPart, ulRtn.HighPart});
+    (*lpSystemTimeAsFileTime) = {ulRtn.LowPart, ulRtn.HighPart};
+}
+
+inline VOID shouldUpdateAll()
+{
+    shouldUpdateGetTickCount = true;
+    shouldUpdateGetTickCount64 = true;
+    shouldUpdateQueryPerformanceCounter = true;
+    shouldUpdateGetSystemTimeAsFileTime = true;
+    shouldUpdateGetSystemTimePreciseAsFileTime = true;
 }
 
 VOID MH_HOOK(LPVOID pTarget, LPVOID pDetour, LPVOID* ppOriginal) {
@@ -197,19 +324,49 @@ BOOL APIENTRY DllMain(HMODULE hModule,
                       LPVOID lpReserved
                       )
 {
+    FILETIME now = {0};
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
         if (MH_Initialize() != MH_OK) {
             return FALSE;
         }
-        firstTimeGetTime = timeGetTime();
-        firstGetTickCount = GetTickCount();
-        firstGetTickCount64 = GetTickCount64();
-        QueryPerformanceCounter(&firstQueryPerformanceCounter);
-        QueryPerformanceFrequency(&firstQueryPerformanceFrequency);
-        GetSystemTimeAsFileTime(&firstGetSystemTimeAsFileTime);
-        GetSystemTimePreciseAsFileTime(&firstGetSystemTimePreciseAsFileTime);
+
+        baselineKernelTimeGetTime = timeGetTime();
+
+        /* Initial GetTickCount */
+        baselineKernelGetTickCount = GetTickCount();
+        prevcallKernelGetTickCount = baselineKernelGetTickCount;
+        baselineDetourGetTickCount = baselineKernelGetTickCount;
+        prevcallDetourGetTickCount = baselineKernelGetTickCount;
+
+        baselineKernelGetTickCount64 = GetTickCount64();
+        prevcallKernelGetTickCount64 = baselineKernelGetTickCount64;
+        baselineDetourGetTickCount64 = baselineKernelGetTickCount64;
+        prevcallDetourGetTickCount64 = baselineKernelGetTickCount64;
+
+        /* Initial QueryPerformanceCounter */
+        QueryPerformanceCounter(&baselineKernelQueryPerformanceCounter);
+        prevcallKernelQueryPerformanceCounter = baselineKernelQueryPerformanceCounter;
+        baselineDetourQueryPerformanceCounter = baselineKernelQueryPerformanceCounter;
+        prevcallDetourQueryPerformanceCounter = baselineKernelQueryPerformanceCounter;
+
+        /* Initial QueryPerformanceFrequency */
+        QueryPerformanceFrequency(&baselineKernelQueryPerformanceFrequency);
+
+        /* Initial GetSystemTimeAsFileTime */
+        GetSystemTimeAsFileTime(&now);
+        baselineKernelGetSystemTimeAsFileTime.store(now);
+        prevcallKernelGetSystemTimeAsFileTime.store(now);
+        baselineDetourGetSystemTimeAsFileTime.store(now);
+        prevcallDetourGetSystemTimeAsFileTime.store(now);
+
+        /* Initial GetSystemTimePreciseAsFileTime */
+        GetSystemTimePreciseAsFileTime(&now);
+        baselineKernelGetSystemTimePreciseAsFileTime.store(now);
+        prevcallKernelGetSystemTimePreciseAsFileTime.store(now);
+        baselineDetourGetSystemTimePreciseAsFileTime.store(now);
+        prevcallDetourGetSystemTimePreciseAsFileTime.store(now);
 
         MH_HOOK(&Sleep, &DetourSleep, reinterpret_cast<LPVOID*>(&pfnKernelSleep));
         MH_HOOK(&SetTimer, &DetourSetTimer, reinterpret_cast<LPVOID*>(&pfnKernelSetTimer));
@@ -234,10 +391,13 @@ break;
 
         {
             std::unique_lock<std::shared_mutex> lock(mutex);
+            MH_UNHOOK(pfnKernelSleep);
+            MH_UNHOOK(pfnKernelSetTimer);
             MH_UNHOOK(pfnKernelTimeGetTime);
             MH_UNHOOK(pfnKernelGetTickCount);
             MH_UNHOOK(pfnKernelGetTickCount64);
             MH_UNHOOK(pfnKernelQueryPerformanceCounter);
+            MH_UNHOOK(pfnKernelQueryPerformanceFrequency);
             MH_UNHOOK(pfnKernelGetSystemTimeAsFileTime);
             MH_UNHOOK(pfnKernelGetSystemTimePreciseAsFileTime);
         }

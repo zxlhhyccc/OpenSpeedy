@@ -21,6 +21,8 @@ ProcessMonitor::ProcessMonitor(QTreeWidget *treeWidget, QLabel *label, QObject *
 
 ProcessMonitor::~ProcessMonitor()
 {
+    // 注释： 程序退出时, unhook已经注入的进程
+    /*
     QList<ProcessInfo> processList = winutils::getProcessList();
     for (const auto& info: processList)
     {
@@ -29,8 +31,8 @@ ProcessMonitor::~ProcessMonitor()
             std::wstring dllPath = QDir::toNativeSeparators(m_dllPath).toStdWString();
             winutils::unhookDll(info.pid, dllPath);
         }
-
     }
+    */
 }
 
 void ProcessMonitor::setFilter(QString processName)
