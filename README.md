@@ -35,9 +35,9 @@ OpenSpeedy 是一款开源免费的游戏变速工具，让你的游戏突破帧
 # 🔧 技术原理
 OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调整：
 
-函数名	所属库	功能
-|SetTimer|user32.dll|创建基于消息的计时器|
+|函数名	| 所属库 |	功能 |
 |--------|----------|------------------|
+|SetTimer|user32.dll|创建基于消息的计时器|
 |timeGetTime | winmm.dll	| 获取系统启动后经过的毫秒数 |
 |GetTickCount | kernel32.dll	| 获取系统启动后经过的毫秒数 |
 |GetTickCount64	| kernel32.dll	| 获取系统启动后经过的毫秒数(64位) |
