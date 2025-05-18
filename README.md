@@ -29,8 +29,8 @@ OpenSpeedy 是一款开源免费的游戏变速工具，让你的游戏突破帧
 ![image](https://github.com/user-attachments/assets/648e721d-9c3a-4d82-954c-19b16355d084)
 3. 勾选游戏进程，在 OpenSpeedy 界面中调整速度倍率
 ![image](https://github.com/user-attachments/assets/71033b7b-948b-45d0-8f8e-3890878007c0)
-4. 即刻生效，效果如下
-<video src="https://github.com/user-attachments/assets/3ad4d200-7d27-4dfa-95a1-d594a416772b"></video>
+4. 即刻生效，对比效果如下
+<video src="https://github.com/user-attachments/assets/fcd55af9-633f-4808-a663-afd12a804a92"></video>
 
 # 🔧 技术原理
 OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调整：
