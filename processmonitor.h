@@ -58,9 +58,9 @@ private:
 
     void update(const QList<ProcessInfo> &processList);
 
-    void injectDll(const ProcessInfo &info);
+    void injectDll(DWORD processId, bool is64Bit);
 
-    void unhookDll(const ProcessInfo &info);
+    void unhookDll(DWORD processId, bool is64Bit);
 
     void startBridge32();
 

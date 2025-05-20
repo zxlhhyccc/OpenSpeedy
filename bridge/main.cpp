@@ -20,9 +20,10 @@ void handleInject(int processId, QString dllPath) {
 
 }
 
-void handleUnhook(int processId) {
+void handleUnhook(int processId, QString dllPath) {
     qDebug() << "执行 unhook，进程ID:" << processId;
     // 这里实现你的unhook逻辑
+    winutils::unhookDll(processId, dllPath.toStdWString());
 }
 
 void handleChange(double factor) {
@@ -59,7 +60,7 @@ int main(int argc, char *argv[])
             handleInject(pid, dllPath);
         } else if ((match = unhookRegex.match(line)).hasMatch()) {
             int pid = match.captured(1).toInt();
-            handleUnhook(pid);
+            handleUnhook(pid, dllPath);
         } else if ((match = changeRegex.match(line)).hasMatch()) {
             double factor = match.captured(1).toDouble();
             handleChange(factor);
