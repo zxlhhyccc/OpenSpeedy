@@ -342,6 +342,9 @@ BOOL APIENTRY DllMain(HMODULE hModule,
         }
 
         baselineKernelTimeGetTime = timeGetTime();
+        prevcallKernelTimeGetTime = baselineKernelTimeGetTime;
+        baselineDetourTimeGetTime = baselineKernelTimeGetTime;
+        prevcallDetourTimeGetTime = baselineKernelTimeGetTime;
 
         /* Initial GetTickCount */
         baselineKernelGetTickCount = GetTickCount();
