@@ -308,6 +308,7 @@ VOID WINAPI DetourGetSystemTimePreciseAsFileTime(LPFILETIME lpSystemTimeAsFileTi
 
 inline VOID shouldUpdateAll()
 {
+    shouldUpdateTimeGetTime = true;
     shouldUpdateGetTickCount = true;
     shouldUpdateGetTickCount64 = true;
     shouldUpdateQueryPerformanceCounter = true;
@@ -341,6 +342,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
             return FALSE;
         }
 
+        /* Initial timeGetTime */
         baselineKernelTimeGetTime = timeGetTime();
         prevcallKernelTimeGetTime = baselineKernelTimeGetTime;
         baselineDetourTimeGetTime = baselineKernelTimeGetTime;
@@ -386,7 +388,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
         MH_HOOK(&GetTickCount, &DetourGetTickCount, reinterpret_cast<LPVOID*>(&pfnKernelGetTickCount));
         MH_HOOK(&GetTickCount64, &DetourGetTickCount64, reinterpret_cast<LPVOID*>(&pfnKernelGetTickCount64));
         MH_HOOK(&QueryPerformanceCounter, &DetourQueryPerformanceCounter, reinterpret_cast<LPVOID*>(&pfnKernelQueryPerformanceCounter));
-        MH_HOOK(&QueryPerformanceFrequency, &DetourQueryPerformanceFrequency, reinterpret_cast<LPVOID*>(&pfnKernelQueryPerformanceFrequency));
+        //MH_HOOK(&QueryPerformanceFrequency, &DetourQueryPerformanceFrequency, reinterpret_cast<LPVOID*>(&pfnKernelQueryPerformanceFrequency));
         MH_HOOK(&GetSystemTimeAsFileTime, &DetourGetSystemTimeAsFileTime, reinterpret_cast<LPVOID*>(&pfnKernelGetSystemTimeAsFileTime));
         MH_HOOK(&GetSystemTimePreciseAsFileTime, &DetourGetSystemTimePreciseAsFileTime, reinterpret_cast<LPVOID*>(&pfnKernelGetSystemTimePreciseAsFileTime));
 
@@ -409,7 +411,7 @@ break;
             MH_UNHOOK(pfnKernelGetTickCount);
             MH_UNHOOK(pfnKernelGetTickCount64);
             MH_UNHOOK(pfnKernelQueryPerformanceCounter);
-            MH_UNHOOK(pfnKernelQueryPerformanceFrequency);
+            //MH_UNHOOK(pfnKernelQueryPerformanceFrequency);
             MH_UNHOOK(pfnKernelGetSystemTimeAsFileTime);
             MH_UNHOOK(pfnKernelGetSystemTimePreciseAsFileTime);
         }
