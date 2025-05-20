@@ -1,0 +1,39 @@
+cmake_minimum_required(VERSION 3.16)
+
+project(Bridge LANGUAGES CXX)
+
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ..)
+
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
+
+# 判断是32位还是64位
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+  set(TARGET_NAME "bridge64")
+  set(SPEEDPATCH_LIBRARY "speedpatch64")
+elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+  set(TARGET_NAME "bridge32")
+  set(SPEEDPATCH_LIBRARY "speedpatch32")
+else()
+  set(TARGET_NAME "bridge64")
+  set(SPEEDPATCH_LIBRARY "speedpatch")
+endif()
+
+add_executable(${TARGET_NAME}
+  main.cpp
+)
+
+target_link_libraries(${TARGET_NAME} Qt${QT_VERSION_MAJOR}::Core ${SPEEDPATCH_LIBRARY} winutils)
+
+include(GNUInstallDirs)
+install(TARGETS ${TARGET_NAME}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)

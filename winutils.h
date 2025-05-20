@@ -5,7 +5,6 @@
 #include <tlhelp32.h>
 #include <string>
 #include <QString>
-#include <QIcon>
 #include <QSet>
 
 struct ProcessInfo {
@@ -13,6 +12,7 @@ struct ProcessInfo {
     DWORD parentPid;
     QString name;
     DWORD threadCount;
+    bool is64Bit;
     DWORD priorityClass;
     SIZE_T memoryUsage;
 };
@@ -37,10 +37,6 @@ public:
 
     static QString getProcessPath(DWORD processId);
 
-    // 获取进程图标
-    static QIcon getProcessIcon(QString processPath);
-
-    static QIcon getDefaultIcon(const QString &processName);
 
 private:
 };

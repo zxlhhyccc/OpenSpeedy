@@ -8,6 +8,7 @@ set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
@@ -47,20 +48,29 @@ else()
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
       add_definitions("-DUNICODE -DNOMINMAX")
-        add_executable(OpenSpeedy
-            ${PROJECT_SOURCES}
-            winutils.h winutils.cpp
-            processmonitor.h processmonitor.cpp
-            resources.qrc
-            images/icon.ico images/logo.png
-            icons.rc
-        )
+      add_executable(OpenSpeedy
+          ${PROJECT_SOURCES}
+          processmonitor.h processmonitor.cpp
+          resources.qrc
+          images/icon.ico images/logo.png
+          icons.rc
+          config.h
+      )
+
+      add_library(winutils
+        winutils.h winutils.cpp)
+      target_include_directories(winutils PUBLIC
+          ${CMAKE_CURRENT_SOURCE_DIR}
+      )
+    target_link_libraries(winutils PUBLIC Qt${QT_VERSION_MAJOR}::Core)
     endif()
 
     #qt6_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-target_link_libraries(OpenSpeedy PRIVATE Qt${QT_VERSION_MAJOR}::Widgets speedpatch)
+
+
+target_link_libraries(OpenSpeedy PRIVATE Qt${QT_VERSION_MAJOR}::Widgets winutils)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -89,3 +99,4 @@ if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(OpenSpeedy)
 endif()
 add_subdirectory(speedpatch)
+add_subdirectory(bridge)

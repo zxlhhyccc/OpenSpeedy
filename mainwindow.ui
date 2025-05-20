@@ -342,7 +342,7 @@
         </column>
         <column>
          <property name="text">
-          <string>线程数</string>
+          <string>平台架构</string>
          </property>
          <property name="font">
           <font>
