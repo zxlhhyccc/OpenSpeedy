@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSystemTrayIcon>
 #include "ProcessMonitor.h"
 
 QT_BEGIN_NAMESPACE
@@ -23,10 +24,21 @@ private slots:
 
     void on_processNameFilter_textChanged(const QString &arg1);
 
+    void iconActivated(QSystemTrayIcon::ActivationReason reason);
 private:
     Ui::MainWindow *ui;
     QThread *m_thread;
     ProcessMonitor *m_processMonitor;
 
+    QSystemTrayIcon *trayIcon;
+    QMenu *trayMenu;
+    QAction *showAction;
+    QAction *hideAction;
+    QAction *quitAction;
+
+    void createTray();
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
 };
 #endif // MAINWINDOW_H
