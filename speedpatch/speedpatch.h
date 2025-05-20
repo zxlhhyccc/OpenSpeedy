@@ -9,7 +9,7 @@
 #endif
 
 extern "C" {
-SPEEDPATCH_API void SetSpeedFactor(double factor_);
+SPEEDPATCH_API void ChangeSpeed(double factor_);
 }
 
 #endif // SPEEDPATCH_H

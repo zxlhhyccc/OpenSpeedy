@@ -4,8 +4,11 @@
 #include <QDir>
 #include <QHeaderView>
 #include <QList>
+#include <QStyle>
+#include <QFileIconProvider>
 #include <QApplication>
 #include <QtConcurrent/QtConcurrent>
+#include "config.h"
 ProcessMonitor::ProcessMonitor(QTreeWidget *treeWidget, QLabel *label, QObject *parent)
     : m_treeWidget(treeWidget), m_treeStatusLabel(label)
 {
@@ -14,13 +17,19 @@ ProcessMonitor::ProcessMonitor(QTreeWidget *treeWidget, QLabel *label, QObject *
     m_treeWidget->setUniformRowHeights(true);
     m_treeWidget->sortByColumn(0, Qt::AscendingOrder);
     connect(m_treeWidget, &QTreeWidget::itemChanged, this, &ProcessMonitor::onItemChanged);
-    m_dllPath = QCoreApplication::applicationDirPath() + "/speedpatch.dll";
+
+    this->startBridge32();
+    this->startBridge64();
     init();
     refresh();
 }
 
 ProcessMonitor::~ProcessMonitor()
 {
+    this->terminalBridge();
+    delete m_bridge32;
+    delete m_bridge64;
+
     // 注释： 程序退出时, unhook已经注入的进程
     /*
     QList<ProcessInfo> processList = winutils::getProcessList();
@@ -228,7 +237,8 @@ void ProcessMonitor::update(const QList<ProcessInfo> &processList)
             QTreeWidgetItem *item = m_processItemMap[info.pid];
             item->setText(1, QString::number(info.pid));
             item->setText(2, QString("%1 MB").arg(info.memoryUsage / 1024 / 1024));
-            item->setText(3, QString::number(info.threadCount));
+            QString arch = info.is64Bit ? "x64" : "x86";
+            item->setText(3, arch);
 
             QString priority;
             switch (info.priorityClass) {
@@ -242,8 +252,8 @@ void ProcessMonitor::update(const QList<ProcessInfo> &processList)
             if (m_speedupItems.contains(info.name)) {
                 item->setCheckState(5, Qt::Checked);
                 std::wstring dllPath = QDir::toNativeSeparators(m_dllPath).toStdWString();
-                QFuture<void> future = QtConcurrent::run([info, dllPath]() {
-                    winutils::injectDll(info.pid, dllPath);
+                QFuture<void> future = QtConcurrent::run([&]() {
+                    this->injectDll(info);
                 });
             } else {
                 item->setCheckState(5, Qt::Unchecked);
@@ -255,7 +265,8 @@ void ProcessMonitor::update(const QList<ProcessInfo> &processList)
             item->setText(0, info.name);
             item->setText(1, QString::number(info.pid));
             item->setText(2, QString("%1 MB").arg(info.memoryUsage / 1024 / 1024));
-            item->setText(3, QString::number(info.threadCount));
+            QString arch = info.is64Bit ? "x64" : "x86";
+            item->setText(3, arch);
 
             // 加载进程图标
             item->setIcon(0, getProcessIconCached(info.pid));
@@ -283,6 +294,85 @@ void ProcessMonitor::update(const QList<ProcessInfo> &processList)
         }
     }
 }
+
+void ProcessMonitor::injectDll(const ProcessInfo &info)
+{
+    QString cmd = QString("inject %1\n").arg(info.pid);
+    if (!info.is64Bit)
+    {
+        m_bridge32->write(cmd.toUtf8(), cmd.size());
+        m_bridge32->waitForBytesWritten();
+    }
+    else
+    {
+        m_bridge64->write(cmd.toUtf8(), cmd.size());
+        m_bridge64->waitForBytesWritten();
+    }
+}
+
+void ProcessMonitor::unhookDll(const ProcessInfo &info)
+{
+
+}
+
+void ProcessMonitor::startBridge32()
+{
+    m_bridge32 = new QProcess();
+    QStringList params32;
+    m_bridge32->start(BRIDGE32_EXE, params32);
+    if (!m_bridge32->waitForStarted())
+    {
+        qDebug() << "32位桥接子进程启动失败";
+    }
+    else
+    {
+        qDebug() << "32位桥接子进程已启动";
+    }
+    m_bridge32->setProcessChannelMode(QProcess::MergedChannels);
+    connect(m_bridge32, &QProcess::readyReadStandardOutput, [&]() {
+        QByteArray data = m_bridge32->readAllStandardOutput();
+        qDebug() << "收到输出:" << QString(data).trimmed();
+    });
+}
+
+void ProcessMonitor::startBridge64()
+{
+    m_bridge64 = new QProcess();
+    QStringList params64;
+    m_bridge64->start(BRIDGE64_EXE, params64);
+    if (!m_bridge64->waitForStarted())
+    {
+        qDebug() << "64位桥接子进程启动失败";
+    }
+    else
+    {
+        qDebug() << "64位桥接子进程已启动";
+    }
+    m_bridge64->setProcessChannelMode(QProcess::MergedChannels);
+    connect(m_bridge64, &QProcess::readyReadStandardOutput, [&](){
+        QByteArray data = m_bridge64->readAllStandardOutput();
+        qDebug() << "收到输出:" << QString(data).trimmed();
+    });
+}
+
+void ProcessMonitor::terminalBridge()
+{
+    QString cmd = QString("exit\n");
+    m_bridge32->write(cmd.toUtf8(), cmd.size());
+    m_bridge32->waitForBytesWritten();
+    m_bridge64->write(cmd.toUtf8(), cmd.size());
+    m_bridge64->waitForBytesWritten();
+}
+
+void ProcessMonitor::changeSpeed(double factor)
+{
+    QString cmd = QString("change %1\n").arg(factor);
+    m_bridge32->write(cmd.toUtf8(), cmd.size());
+    m_bridge32->waitForBytesWritten();
+    m_bridge64->write(cmd.toUtf8(), cmd.size());
+    m_bridge64->waitForBytesWritten();
+}
+
 QIcon ProcessMonitor::getProcessIconCached(DWORD processId)
 {
     QString processPath = winutils::getProcessPath(processId);
@@ -290,9 +380,48 @@ QIcon ProcessMonitor::getProcessIconCached(DWORD processId)
         return m_iconCache[processPath];
     }
 
-    QIcon icon = winutils::getProcessIcon(processPath);
+    QIcon icon = getProcessIcon(processPath);
     m_iconCache.insert(processPath, icon);
     return icon;
 }
 
+QIcon ProcessMonitor::getDefaultIcon(const QString &processName)
+{
+    // 根据进程名称或类型提供更有针对性的默认图标
+    if (processName.endsWith(".dll", Qt::CaseInsensitive)) {
+        return QApplication::style()->standardIcon(QStyle::SP_DriveCDIcon);
+    }
+    else if (processName.contains("service", Qt::CaseInsensitive)) {
+        return QApplication::style()->standardIcon(QStyle::SP_DriveNetIcon);
+    }
+    else if (processName.startsWith("sys", Qt::CaseInsensitive)) {
+        return QApplication::style()->standardIcon(QStyle::SP_DriveHDIcon);
+    }
+
+    // 通用默认图标
+    return QApplication::style()->standardIcon(QStyle::SP_FileIcon);
+}
+
+QIcon ProcessMonitor::getProcessIcon(QString processPath)
+{
+    int lastSlashPos = std::max(processPath.lastIndexOf('/'), processPath.lastIndexOf('\\'));
+    QString processName;
+    if (lastSlashPos == -1) {
+        processName = processPath;
+    }
+    processName = processPath.mid(lastSlashPos + 1);
+
+    if (processPath.isEmpty()) {
+        return QApplication::style()->standardIcon(QStyle::SP_FileIcon );  // 默认图标
+    }
+
+    QFileInfo fileInfo(processPath);
+    if (fileInfo.exists()) {
+        // 使用Qt的QFileIconProvider获取文件图标
+        QFileIconProvider iconProvider;
+        return iconProvider.icon(fileInfo);
+    }
+
+    return getDefaultIcon(processName);
+}
 

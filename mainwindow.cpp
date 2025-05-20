@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "SpeedPatch/speedpatch.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -49,7 +48,8 @@ void MainWindow::on_sliderCtrl_valueChanged(int value)
     {
         speedFactor = 1;
     }
-    SetSpeedFactor(speedFactor);
+
+    m_processMonitor->changeSpeed(speedFactor);
     ui->sliderCtrl->setToolTip(QString("%1倍").arg(speedFactor));
     ui->sliderLabel->setText(QString("x%1倍").arg(speedFactor));
 }

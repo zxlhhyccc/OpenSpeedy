@@ -6,9 +6,10 @@
 #include <QLabel>
 #include <QTimer>
 #include <QThread>
+#include <QProcess>
+#include <QMap>
 #include <windows.h>
 #include <tlhelp32.h>
-#include <QMap>
 #include "winutils.h"
 class ProcessMonitor : public QObject
 {
@@ -21,6 +22,8 @@ public:
     void setInterval(int msec);
     // 设置过滤
     void setFilter(QString processName);
+
+    void changeSpeed(double factor);
 
 public slots:
     // 定时刷新槽函数
@@ -38,6 +41,9 @@ private:
     QTimer *m_timer = nullptr;
     QString m_dllPath;
 
+    QProcess *m_bridge32;
+    QProcess *m_bridge64;
+
     // 图标缓存
     QHash<QString, QIcon> m_iconCache;
 
@@ -51,6 +57,21 @@ private:
     void dump();
 
     void update(const QList<ProcessInfo> &processList);
+
+    void injectDll(const ProcessInfo &info);
+
+    void unhookDll(const ProcessInfo &info);
+
+    void startBridge32();
+
+    void startBridge64();
+
+    void terminalBridge();
+
+    // 获取进程图标
+    static QIcon getProcessIcon(QString processPath);
+
+    static QIcon getDefaultIcon(const QString &processName);
 
     QIcon getProcessIconCached(DWORD proccessId);
 };

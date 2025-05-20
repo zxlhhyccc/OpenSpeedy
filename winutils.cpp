@@ -4,9 +4,6 @@
 #include <tlhelp32.h>
 #include <QDebug>
 #include <QFileInfo>
-#include <QFileIconProvider>
-#include <QApplication>
-#include <QStyle>
 #include <string>
 #include <wchar.h>
 
@@ -189,7 +186,9 @@ QList<ProcessInfo> winutils::getProcessList() {
             } else {
                 info.memoryUsage = 0;
             }
-
+            BOOL wow64Process = FALSE;
+            IsWow64Process(hProcess, &wow64Process);
+            info.is64Bit = !wow64Process;
             info.priorityClass = GetPriorityClass(hProcess);
             CloseHandle(hProcess);
         } else {
@@ -203,6 +202,7 @@ QList<ProcessInfo> winutils::getProcessList() {
     CloseHandle(hProcessSnap);
     return processList;
 }
+
 
 QString winutils::getProcessPath(DWORD processId)
 {
@@ -220,42 +220,3 @@ QString winutils::getProcessPath(DWORD processId)
     return processPath;
 }
 
-QIcon winutils::getDefaultIcon(const QString &processName)
-{
-    // 根据进程名称或类型提供更有针对性的默认图标
-    if (processName.endsWith(".dll", Qt::CaseInsensitive)) {
-        return QApplication::style()->standardIcon(QStyle::SP_DriveCDIcon);
-    }
-    else if (processName.contains("service", Qt::CaseInsensitive)) {
-        return QApplication::style()->standardIcon(QStyle::SP_DriveNetIcon);
-    }
-    else if (processName.startsWith("sys", Qt::CaseInsensitive)) {
-        return QApplication::style()->standardIcon(QStyle::SP_DriveHDIcon);
-    }
-
-    // 通用默认图标
-    return QApplication::style()->standardIcon(QStyle::SP_FileIcon);
-}
-
-QIcon winutils::getProcessIcon(QString processPath)
-{
-    int lastSlashPos = std::max(processPath.lastIndexOf('/'), processPath.lastIndexOf('\\'));
-    QString processName;
-    if (lastSlashPos == -1) {
-        processName = processPath;
-    }
-    processName = processPath.mid(lastSlashPos + 1);
-
-    if (processPath.isEmpty()) {
-        return QApplication::style()->standardIcon(QStyle::SP_FileIcon );  // 默认图标
-    }
-
-    QFileInfo fileInfo(processPath);
-    if (fileInfo.exists()) {
-        // 使用Qt的QFileIconProvider获取文件图标
-        QFileIconProvider iconProvider;
-        return iconProvider.icon(fileInfo);
-    }
-
-    return getDefaultIcon(processName);
-}

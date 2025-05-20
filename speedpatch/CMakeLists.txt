@@ -10,15 +10,27 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ..)
 
-add_library(speedpatch SHARED
+# 判断是32位还是64位
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(SUFFIX "64")
+elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+    set(SUFFIX "32")
+else()
+    set(SUFFIX "")
+endif()
+
+# 设置目标名带后缀
+set(TARGET_NAME "speedpatch${SUFFIX}")
+
+add_library(${TARGET_NAME} SHARED
   speedpatch.cpp
   speedpatch.h
   vcpkg.json
 )
 
-target_link_libraries(speedpatch PRIVATE
+target_link_libraries(${TARGET_NAME} PRIVATE
   minhook
 )
-target_compile_definitions(speedpatch PRIVATE SPEEDPATCH_LIBRARY)
+target_compile_definitions(${TARGET_NAME} PRIVATE SPEEDPATCH_LIBRARY)
 
 add_subdirectory(minhook/)

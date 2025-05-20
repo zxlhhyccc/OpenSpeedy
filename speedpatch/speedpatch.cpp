@@ -53,16 +53,26 @@ static GETSYSTEMTIMEASFILETIME pfnDetourGetSystemTimeAsFileTime = NULL;
 static GETSYSTEMTIMEPRECISEASFILETIME pfnKernelGetSystemTimePreciseAsFileTime = NULL;
 static GETSYSTEMTIMEPRECISEASFILETIME pfnDetourGetSystemTimePreciseAsFileTime = NULL;
 
+SPEEDPATCH_API void ChangeSpeed(double factor_)
+{
+    factor.store(factor_);
+}
+
+double SpeedFactor()
+{
+    return factor.load();
+}
+
 VOID WINAPI DetourSleep(DWORD dwMilliseconds)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
-    pfnKernelSleep(dwMilliseconds / factor.load());
+    pfnKernelSleep(dwMilliseconds / SpeedFactor());
 }
 
 UINT_PTR WINAPI DetourSetTimer(HWND hWnd, UINT_PTR nIDEvent, UINT uElapse, TIMERPROC lpTimerFunc)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
-    return pfnKernelSetTimer(hWnd, nIDEvent, uElapse / factor.load(), lpTimerFunc);
+    return pfnKernelSetTimer(hWnd, nIDEvent, uElapse / SpeedFactor(), lpTimerFunc);
 }
 
 static DWORD baselineKernelTimeGetTime = 0;
@@ -74,9 +84,9 @@ static std::atomic<bool> shouldUpdateTimeGetTime = false;
 DWORD DetourTimeGetTime(VOID)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
-    if (pre_factor != factor)
+    if (pre_factor != SpeedFactor())
     {
-        pre_factor = factor.load();
+        pre_factor = SpeedFactor();
         shouldUpdateAll();
     }
 
@@ -88,7 +98,7 @@ DWORD DetourTimeGetTime(VOID)
     }
     DWORD now = pfnKernelTimeGetTime();
     prevcallKernelTimeGetTime = now;
-    DWORD delta = factor * (now - baselineKernelTimeGetTime);
+    DWORD delta = SpeedFactor() * (now - baselineKernelTimeGetTime);
 
     prevcallDetourTimeGetTime = baselineDetourTimeGetTime + delta;
     return baselineDetourTimeGetTime + delta;
@@ -102,9 +112,9 @@ static std::atomic<bool> shouldUpdateGetTickCount = false;
 DWORD DetourGetTickCount(VOID)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
-    if (pre_factor != factor)
+    if (pre_factor != SpeedFactor())
     {
-        pre_factor = factor.load();
+        pre_factor = SpeedFactor();
         shouldUpdateAll();
     }
 
@@ -118,7 +128,7 @@ DWORD DetourGetTickCount(VOID)
     DWORD now = pfnKernelGetTickCount();
     prevcallKernelGetTickCount = now;
 
-    DWORD delta = factor * (now - baselineKernelGetTickCount);
+    DWORD delta = SpeedFactor() * (now - baselineKernelGetTickCount);
     prevcallDetourGetTickCount = baselineDetourGetTickCount + delta;
     return baselineDetourGetTickCount + delta;
 }
@@ -131,9 +141,9 @@ std::atomic<bool> shouldUpdateGetTickCount64 = false;
 ULONGLONG DetourGetTickCount64(VOID)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
-    if (pre_factor != factor)
+    if (pre_factor != SpeedFactor())
     {
-        pre_factor = factor.load();
+        pre_factor = SpeedFactor();
         shouldUpdateAll();
     }
 
@@ -146,7 +156,7 @@ ULONGLONG DetourGetTickCount64(VOID)
 
     ULONGLONG now = pfnKernelGetTickCount64();
     prevcallKernelGetTickCount64 = now;
-    ULONGLONG delta = factor * (now - baselineKernelGetTickCount64);
+    ULONGLONG delta = SpeedFactor() * (now - baselineKernelGetTickCount64);
     prevcallDetourGetTickCount64 = baselineDetourGetTickCount64 + delta;
     return baselineDetourGetTickCount64 + delta;
 }
@@ -164,9 +174,9 @@ BOOL WINAPI DetourQueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount)
         return FALSE;
     }
 
-    if (pre_factor != factor)
+    if (pre_factor != SpeedFactor())
     {
-        pre_factor = factor.load();
+        pre_factor = SpeedFactor();
         shouldUpdateAll();
     }
 
@@ -184,7 +194,7 @@ BOOL WINAPI DetourQueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount)
         *lpPerformanceCount = prevcallKernelQueryPerformanceCounter;
     }
 
-    LONGLONG delta = factor * (lpPerformanceCount->QuadPart - baselineKernelQueryPerformanceCounter.QuadPart);
+    LONGLONG delta = SpeedFactor() * (lpPerformanceCount->QuadPart - baselineKernelQueryPerformanceCounter.QuadPart);
     lpPerformanceCount->QuadPart = baselineDetourQueryPerformanceCounter.QuadPart + delta;
     prevcallDetourQueryPerformanceCounter = *lpPerformanceCount;
     return rtncode;
@@ -202,7 +212,7 @@ BOOL WINAPI DetourQueryPerformanceFrequency(LARGE_INTEGER* lpFrequency)
     else
     {
         BOOL rtncode = pfnKernelQueryPerformanceFrequency(lpFrequency);
-        lpFrequency->QuadPart = factor * lpFrequency->QuadPart;
+        lpFrequency->QuadPart = SpeedFactor() * lpFrequency->QuadPart;
         return rtncode;
     }
 }
@@ -220,9 +230,9 @@ VOID WINAPI DetourGetSystemTimeAsFileTime(LPFILETIME lpSystemTimeAsFileTime)
         return;
     }
 
-    if (pre_factor != factor)
+    if (pre_factor != SpeedFactor())
     {
-        pre_factor = factor.load();
+        pre_factor = SpeedFactor();
         shouldUpdateAll();
     }
 
@@ -244,7 +254,7 @@ VOID WINAPI DetourGetSystemTimeAsFileTime(LPFILETIME lpSystemTimeAsFileTime)
     prevcallKernelGetSystemTimeAsFileTime.store(ftNow);
     ULARGE_INTEGER ulNow = {ftNow.dwLowDateTime, ftNow.dwHighDateTime};
 
-    ULONGLONG delta = factor * (ulNow.QuadPart - baselineKernel.QuadPart);
+    ULONGLONG delta = SpeedFactor() * (ulNow.QuadPart - baselineKernel.QuadPart);
     ULARGE_INTEGER ulRtn = {0};
     ulRtn.QuadPart = baselineDetour.QuadPart + delta;
     prevcallDetourGetSystemTimeAsFileTime.store({ulRtn.LowPart, ulRtn.HighPart});
@@ -264,9 +274,9 @@ VOID WINAPI DetourGetSystemTimePreciseAsFileTime(LPFILETIME lpSystemTimeAsFileTi
         return;
     }
 
-    if (pre_factor != factor)
+    if (pre_factor != SpeedFactor())
     {
-        pre_factor = factor.load();
+        pre_factor = SpeedFactor();
         shouldUpdateAll();
     }
 
@@ -289,7 +299,7 @@ VOID WINAPI DetourGetSystemTimePreciseAsFileTime(LPFILETIME lpSystemTimeAsFileTi
     prevcallKernelGetSystemTimePreciseAsFileTime.store(ftNow);
     ULARGE_INTEGER ulNow = {ftNow.dwLowDateTime, ftNow.dwHighDateTime};
 
-    ULONGLONG delta = factor * (ulNow.QuadPart - baselineKernel.QuadPart);
+    ULONGLONG delta = SpeedFactor() * (ulNow.QuadPart - baselineKernel.QuadPart);
     ULARGE_INTEGER ulRtn = {0};
     ulRtn.QuadPart = baselineDetour.QuadPart + delta;
     prevcallDetourGetSystemTimePreciseAsFileTime.store({ulRtn.LowPart, ulRtn.HighPart});
@@ -305,19 +315,18 @@ inline VOID shouldUpdateAll()
     shouldUpdateGetSystemTimePreciseAsFileTime = true;
 }
 
-VOID MH_HOOK(LPVOID pTarget, LPVOID pDetour, LPVOID* ppOriginal) {
+VOID MH_HOOK(LPVOID pTarget, LPVOID pDetour, LPVOID* ppOriginal)
+{
     MH_CreateHook(pTarget, pDetour, ppOriginal);
     MH_EnableHook(pTarget);
 }
 
-VOID MH_UNHOOK(LPVOID pTarget) {
+VOID MH_UNHOOK(LPVOID pTarget)
+{
     MH_RemoveHook(pTarget);
 }
 
 
-SPEEDPATCH_API void SetSpeedFactor(double factor_) {
-    factor.store(factor_);
-}
 
 BOOL APIENTRY DllMain(HMODULE hModule,
                       DWORD  ul_reason_for_call,
