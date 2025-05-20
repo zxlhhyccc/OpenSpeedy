@@ -103,9 +103,9 @@ void ProcessMonitor::onItemChanged(QTreeWidgetItem *item, int column)
             m_speedupItems.remove(item->text(0));
             // 启动线程任务
             DWORD processId = item->text(1).toLong();
-            std::wstring dllPath = QDir::toNativeSeparators(m_dllPath).toStdWString();
-            QFuture<void> future = QtConcurrent::run([processId, dllPath]() {
-                winutils::unhookDll(processId, dllPath);
+            bool is64Bit = item->text(3) == "x64" ? true : false;
+            QFuture<void> future = QtConcurrent::run([&]() {
+                this->unhookDll(processId, is64Bit);
             });
             dump();
         }
@@ -253,7 +253,7 @@ void ProcessMonitor::update(const QList<ProcessInfo> &processList)
                 item->setCheckState(5, Qt::Checked);
                 std::wstring dllPath = QDir::toNativeSeparators(m_dllPath).toStdWString();
                 QFuture<void> future = QtConcurrent::run([&]() {
-                    this->injectDll(info);
+                    this->injectDll(info.pid, info.is64Bit);
                 });
             } else {
                 item->setCheckState(5, Qt::Unchecked);
@@ -295,10 +295,10 @@ void ProcessMonitor::update(const QList<ProcessInfo> &processList)
     }
 }
 
-void ProcessMonitor::injectDll(const ProcessInfo &info)
+void ProcessMonitor::injectDll(DWORD processId, bool is64Bit)
 {
-    QString cmd = QString("inject %1\n").arg(info.pid);
-    if (!info.is64Bit)
+    QString cmd = QString("inject %1\n").arg(processId);
+    if (!is64Bit)
     {
         m_bridge32->write(cmd.toUtf8(), cmd.size());
         m_bridge32->waitForBytesWritten();
@@ -310,9 +310,19 @@ void ProcessMonitor::injectDll(const ProcessInfo &info)
     }
 }
 
-void ProcessMonitor::unhookDll(const ProcessInfo &info)
+void ProcessMonitor::unhookDll(DWORD processId, bool is64Bit)
 {
-
+    QString cmd = QString("unhook %1\n").arg(processId);
+    if (!is64Bit)
+    {
+        m_bridge32->write(cmd.toUtf8(), cmd.size());
+        m_bridge32->waitForBytesWritten();
+    }
+    else
+    {
+        m_bridge64->write(cmd.toUtf8(), cmd.size());
+        m_bridge64->waitForBytesWritten();
+    }
 }
 
 void ProcessMonitor::startBridge32()
