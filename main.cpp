@@ -2,11 +2,95 @@
 #include <QApplication>
 #include <QLocalServer>
 #include <QLocalSocket>
+#include <QMessageBox>
+#include <QDir>
+#include <QDateTime>
 #include <QLocale>
 #include <QTranslator>
+#include <windows.h>
+#include <dbghelp.h>
+
+// 链接dbghelp库
+#pragma comment(lib, "dbghelp.lib")
+
+typedef BOOL(WINAPI* MINIDUMPWRITEDUMP)(
+    HANDLE hProcess,
+    DWORD ProcessId,
+    HANDLE hFile,
+    MINIDUMP_TYPE DumpType,
+    PMINIDUMP_EXCEPTION_INFORMATION ExceptionParam,
+    PMINIDUMP_USER_STREAM_INFORMATION UserStreamParam,
+    PMINIDUMP_CALLBACK_INFORMATION CallbackParam
+    );
+
+// 自定义异常处理函数
+LONG WINAPI createMiniDump(EXCEPTION_POINTERS* exceptionPointers)
+{
+    // 创建dump目录
+    QDir dumpDir(QDir::currentPath() + "/dumps");
+    if (!dumpDir.exists()) {
+        dumpDir.mkpath(".");
+    }
+
+    // 创建dump文件名
+    QString dumpFileName = QString("%1/crash_%2.dmp")
+                               .arg(dumpDir.absolutePath())
+                               .arg(QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss"));
+
+    // 创建dump文件
+    HANDLE hFile = CreateFile(
+        dumpFileName.toStdWString().c_str(),
+        GENERIC_WRITE,
+        FILE_SHARE_READ,
+        NULL,
+        CREATE_ALWAYS,
+        FILE_ATTRIBUTE_NORMAL,
+        NULL
+        );
+
+    if (hFile == INVALID_HANDLE_VALUE) {
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
+
+    // 设置dump信息
+    MINIDUMP_EXCEPTION_INFORMATION exInfo;
+    exInfo.ThreadId = GetCurrentThreadId();
+    exInfo.ExceptionPointers = exceptionPointers;
+    exInfo.ClientPointers = FALSE;
+
+    // 设置dump类型 - 可以根据需要修改
+    MINIDUMP_TYPE dumpType = (MINIDUMP_TYPE)(
+        MiniDumpWithFullMemory |
+        MiniDumpWithHandleData |
+        MiniDumpWithThreadInfo |
+        MiniDumpWithUnloadedModules
+        );
+
+    // 写入dump文件
+    BOOL success = MiniDumpWriteDump(
+        GetCurrentProcess(),
+        GetCurrentProcessId(),
+        hFile,
+        dumpType,
+        &exInfo,
+        NULL,
+        NULL
+        );
+
+    CloseHandle(hFile);
+
+    // 通知用户
+    if (success) {
+        QMessageBox::information(nullptr, "应用崩溃",
+                                 QString("应用程序发生崩溃，已生成转储文件：%1").arg(dumpFileName));
+    }
+
+    return EXCEPTION_EXECUTE_HANDLER;
+}
 
 int main(int argc, char *argv[])
 {
+    SetUnhandledExceptionFilter(createMiniDump);
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     QApplication a(argc, argv);
