@@ -310,6 +310,9 @@
         <property name="expandsOnDoubleClick">
          <bool>true</bool>
         </property>
+        <attribute name="headerCascadingSectionResizes">
+         <bool>true</bool>
+        </attribute>
         <column>
          <property name="text">
           <string>进程名称</string>

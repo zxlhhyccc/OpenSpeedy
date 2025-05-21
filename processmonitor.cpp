@@ -12,6 +12,7 @@
 ProcessMonitor::ProcessMonitor(QTreeWidget *treeWidget, QLabel *label, QObject *parent)
     : m_treeWidget(treeWidget), m_treeStatusLabel(label)
 {
+    m_treeWidget->header()->setMinimumHeight(40);
     m_treeWidget->setColumnWidth(0, 250);
     m_treeWidget->setColumnWidth(5, 50);
     m_treeWidget->setUniformRowHeights(true);
@@ -51,7 +52,6 @@ void ProcessMonitor::setFilter(QString processName)
 
 void ProcessMonitor::refresh()
 {
-    qDebug() << "定时器触发，当前线程ID:" << QThread::currentThreadId();
     QList<ProcessInfo> processList = winutils::getProcessList();
     if (m_filter == "")
     {
