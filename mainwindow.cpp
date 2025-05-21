@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <QCloseEvent>
+#include <QScreen>
+#include <QDebug>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -12,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_thread, &QThread::started, m_processMonitor, &ProcessMonitor::start);
     connect(m_thread, &QThread::finished, m_processMonitor, &QObject::deleteLater);
     connect(m_thread, &QThread::finished, m_thread, &QThread::deleteLater);
+    connect(QGuiApplication::primaryScreen(), &QScreen::logicalDotsPerInchChanged, this, &MainWindow::recreateTray);
     m_thread->start();
     m_processMonitor->start();
 
@@ -125,6 +128,18 @@ void MainWindow::createTray()
 
     // 显示托盘图标
     trayIcon->show();
+}
+
+void MainWindow::recreateTray()
+{
+    qDebug() << "重绘托盘";
+    resize(960, 640);
+    delete trayMenu;
+    delete trayIcon;
+    delete showAction;
+    delete hideAction;
+    delete quitAction;
+    createTray();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)

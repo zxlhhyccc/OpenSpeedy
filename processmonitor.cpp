@@ -12,6 +12,7 @@
 ProcessMonitor::ProcessMonitor(QTreeWidget *treeWidget, QLabel *label, QObject *parent)
     : m_treeWidget(treeWidget), m_treeStatusLabel(label)
 {
+    m_treeWidget->header()->setMinimumHeight(40);
     m_treeWidget->setColumnWidth(0, 250);
     m_treeWidget->setColumnWidth(5, 50);
     m_treeWidget->setUniformRowHeights(true);
@@ -51,7 +52,6 @@ void ProcessMonitor::setFilter(QString processName)
 
 void ProcessMonitor::refresh()
 {
-    qDebug() << "定时器触发，当前线程ID:" << QThread::currentThreadId();
     QList<ProcessInfo> processList = winutils::getProcessList();
     if (m_filter == "")
     {
@@ -89,24 +89,23 @@ void ProcessMonitor::onItemChanged(QTreeWidgetItem *item, int column)
 {
     if (column == 5 && (item->flags() & Qt::ItemIsUserCheckable))
     {
+        int *p = nullptr;
+        int a = *p;
         Qt::CheckState checkState = item->checkState(column);
+        QString processName = item->text(0);
+        DWORD pid = item->text(1).toLong();
+        bool is64Bit = item->text(3) == "x64" ? true : false;
         if (checkState == Qt::Checked)
         {
-            item->setCheckState(5, Qt::Checked);
-            m_speedupItems.insert(item->text(0));
+            qDebug() << processName << "勾选";
+            m_speedupItems.insert(processName);
             dump();
         }
         else
         {
-            qDebug() << item->text(0) << "取消勾选";
-            item->setCheckState(5, Qt::Unchecked);
-            m_speedupItems.remove(item->text(0));
-            // 启动线程任务
-            DWORD processId = item->text(1).toLong();
-            bool is64Bit = item->text(3) == "x64" ? true : false;
-            QFuture<void> future = QtConcurrent::run([&]() {
-                this->unhookDll(processId, is64Bit);
-            });
+            qDebug() << processName << "取消勾选";
+            m_speedupItems.remove(processName);
+            this->unhookDll(pid, is64Bit);
             dump();
         }
     }
@@ -251,10 +250,7 @@ void ProcessMonitor::update(const QList<ProcessInfo> &processList)
             item->setText(4, priority);
             if (m_speedupItems.contains(info.name)) {
                 item->setCheckState(5, Qt::Checked);
-                std::wstring dllPath = QDir::toNativeSeparators(m_dllPath).toStdWString();
-                QFuture<void> future = QtConcurrent::run([&]() {
-                    this->injectDll(info.pid, info.is64Bit);
-                });
+                this->injectDll(info.pid, info.is64Bit);
             } else {
                 item->setCheckState(5, Qt::Unchecked);
             }

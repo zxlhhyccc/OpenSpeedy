@@ -25,6 +25,9 @@ private slots:
     void on_processNameFilter_textChanged(const QString &arg1);
 
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
+
+    void recreateTray();
+
 private:
     Ui::MainWindow *ui;
     QThread *m_thread;
@@ -37,6 +40,8 @@ private:
     QAction *quitAction;
 
     void createTray();
+
+
 
 protected:
     void closeEvent(QCloseEvent *event) override;
