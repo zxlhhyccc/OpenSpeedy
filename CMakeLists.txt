@@ -55,6 +55,7 @@ else()
           images/icon.ico images/logo.png
           icons.rc
           config.h
+          windbg.h
       )
 
       add_library(winutils

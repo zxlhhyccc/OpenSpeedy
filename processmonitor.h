@@ -1,21 +1,23 @@
 #ifndef PROCESSMONITOR_H
 #define PROCESSMONITOR_H
 
-#include <QObject>
-#include <QTreeWidget>
-#include <QLabel>
-#include <QTimer>
-#include <QThread>
-#include <QProcess>
-#include <QMap>
 #include <windows.h>
-#include <tlhelp32.h>
 #include "winutils.h"
+#include <QLabel>
+#include <QMap>
+#include <QObject>
+#include <QProcess>
+#include <QThread>
+#include <QTimer>
+#include <QTreeWidget>
+#include <tlhelp32.h>
 class ProcessMonitor : public QObject
 {
     Q_OBJECT
-public:
-    explicit ProcessMonitor(QTreeWidget *treeWidget, QLabel *label, QObject *parent = nullptr);
+   public:
+    explicit ProcessMonitor(QTreeWidget *treeWidget,
+                            QLabel *label,
+                            QObject *parent = nullptr);
     ~ProcessMonitor();
 
     // 设置刷新间隔（毫秒）
@@ -25,16 +27,16 @@ public:
 
     void changeSpeed(double factor);
 
-public slots:
+   public slots:
     // 定时刷新槽函数
     void refresh();
 
     void start();
 
-private slots:
+   private slots:
     void onItemChanged(QTreeWidgetItem *item, int column);
 
-private:
+   private:
     QTreeWidget *m_treeWidget;
     QLabel *m_treeStatusLabel;
     QString m_filter;
@@ -48,7 +50,7 @@ private:
     QHash<QString, QIcon> m_iconCache;
 
     // 存储进程ID到TreeWidgetItem的映射
-    QMap<DWORD, QTreeWidgetItem*> m_processItemMap;
+    QMap<DWORD, QTreeWidgetItem *> m_processItemMap;
     // 存储需要加速的进程
     QSet<QString> m_speedupItems;
 
@@ -76,4 +78,4 @@ private:
     QIcon getProcessIconCached(DWORD proccessId);
 };
 
-#endif // PROCESSMONITOR_H
+#endif  // PROCESSMONITOR_H

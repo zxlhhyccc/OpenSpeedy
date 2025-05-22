@@ -1,13 +1,15 @@
 #ifndef WINUTILS_H
 #define WINUTILS_H
-
 #include <windows.h>
-#include <tlhelp32.h>
-#include <string>
-#include <QString>
-#include <QSet>
 
-struct ProcessInfo {
+#include <QSet>
+#include <QString>
+
+#include <string>
+#include <tlhelp32.h>
+
+struct ProcessInfo
+{
     DWORD pid;
     DWORD parentPid;
     QString name;
@@ -19,10 +21,10 @@ struct ProcessInfo {
 
 class winutils
 {
-public:
+   public:
     winutils();
 
-public:
+   public:
     // DLL 注入
     static bool injectDll(DWORD processId, const std::wstring &dllPath);
 
@@ -37,8 +39,7 @@ public:
 
     static QString getProcessPath(DWORD processId);
 
-
-private:
+   private:
 };
 
-#endif // WINUTILS_H
+#endif  // WINUTILS_H

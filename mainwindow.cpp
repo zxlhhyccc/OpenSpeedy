@@ -1,20 +1,24 @@
-#include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "mainwindow.h"
 #include <QCloseEvent>
-#include <QScreen>
 #include <QDebug>
+#include <QScreen>
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    m_processMonitor = new ProcessMonitor(ui->processMonitorWidget, ui->processMonitorLabel, nullptr);
+    m_processMonitor = new ProcessMonitor(ui->processMonitorWidget,
+                                          ui->processMonitorLabel, nullptr);
     m_thread = new QThread(this);
 
-    connect(m_thread, &QThread::started, m_processMonitor, &ProcessMonitor::start);
-    connect(m_thread, &QThread::finished, m_processMonitor, &QObject::deleteLater);
+    connect(m_thread, &QThread::started, m_processMonitor,
+            &ProcessMonitor::start);
+    connect(m_thread, &QThread::finished, m_processMonitor,
+            &QObject::deleteLater);
     connect(m_thread, &QThread::finished, m_thread, &QThread::deleteLater);
-    connect(QGuiApplication::primaryScreen(), &QScreen::logicalDotsPerInchChanged, this, &MainWindow::recreateTray);
+    connect(QGuiApplication::primaryScreen(),
+            &QScreen::logicalDotsPerInchChanged, this,
+            &MainWindow::recreateTray);
     m_thread->start();
     m_processMonitor->start();
 
@@ -37,19 +41,19 @@ void MainWindow::on_sliderCtrl_valueChanged(int value)
 
     if (value >= 1 && value < 5)
     {
-        speedFactor = value*0.25+1;
+        speedFactor = value * 0.25 + 1;
     }
     else if (value >= 5 && value < 7)
     {
         speedFactor = value * 0.5;
     }
-    else if (value >=7)
+    else if (value >= 7)
     {
-        speedFactor = 3*(value - 7)+4;
+        speedFactor = 3 * (value - 7) + 4;
     }
     else if (value < 0)
     {
-        speedFactor = (double)(10+value)/10;
+        speedFactor = (double)(10 + value) / 10;
     }
     else
     {
@@ -61,7 +65,6 @@ void MainWindow::on_sliderCtrl_valueChanged(int value)
     ui->sliderLabel->setText(QString("x%1倍").arg(speedFactor));
 }
 
-
 void MainWindow::on_processNameFilter_textChanged(const QString &text)
 {
     m_processMonitor->setFilter(text);
@@ -70,23 +73,25 @@ void MainWindow::on_processNameFilter_textChanged(const QString &text)
 void MainWindow::iconActivated(QSystemTrayIcon::ActivationReason reason)
 {
     {
-        switch (reason) {
-        case QSystemTrayIcon::Trigger: // 单击
-            if (isVisible())
-                hide();
-            else {
+        switch (reason)
+        {
+            case QSystemTrayIcon::Trigger:  // 单击
+                if (isVisible())
+                    hide();
+                else
+                {
+                    show();
+                    showNormal();
+                    activateWindow();
+                }
+                break;
+            case QSystemTrayIcon::DoubleClick:  // 双击
                 show();
                 showNormal();
                 activateWindow();
-            }
-            break;
-        case QSystemTrayIcon::DoubleClick: // 双击
-            show();
-            showNormal();
-            activateWindow();
-            break;
-        default:
-            break;
+                break;
+            default:
+                break;
         }
     }
 }
@@ -107,10 +112,12 @@ void MainWindow::createTray()
     quitAction = new QAction("退出", this);
 
     // 连接信号和槽
-    connect(showAction, &QAction::triggered, this, [&]{
-        showNormal();
-        activateWindow();
-    });
+    connect(showAction, &QAction::triggered, this,
+            [&]
+            {
+                showNormal();
+                activateWindow();
+            });
     connect(hideAction, &QAction::triggered, this, &MainWindow::hide);
     connect(quitAction, &QAction::triggered, qApp, &QApplication::quit);
 
@@ -124,7 +131,8 @@ void MainWindow::createTray()
     trayIcon->setContextMenu(trayMenu);
 
     // 处理托盘图标的点击事件
-    connect(trayIcon, &QSystemTrayIcon::activated, this, &MainWindow::iconActivated);
+    connect(trayIcon, &QSystemTrayIcon::activated, this,
+            &MainWindow::iconActivated);
 
     // 显示托盘图标
     trayIcon->show();
@@ -145,21 +153,21 @@ void MainWindow::recreateTray()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     // 如果托盘图标可见，则隐藏窗口而不是关闭
-    if (trayIcon->isVisible()) {
+    if (trayIcon->isVisible())
+    {
         hide();
 
         trayIcon->showMessage(
             "已最小化到托盘",
             "OpenSpeedy仍在后台运行。点击托盘图标可以重新打开窗口。",
-            QSystemTrayIcon::Information,
-            3000
-            );
+            QSystemTrayIcon::Information, 3000);
 
         // 阻止事件继续传播，防止应用关闭
         event->ignore();
-    } else {
+    }
+    else
+    {
         // 如果没有托盘图标，则正常关闭
         event->accept();
     }
 }
-
