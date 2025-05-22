@@ -1,0 +1,100 @@
+#ifndef WINDBG_H
+#define WINDBG_H
+#include <windows.h>
+#include <QDateTime>
+#include <QDir>
+#include <QMessageBox>
+#include <dbghelp.h>
+// 链接dbghelp库
+#pragma comment(lib, "dbghelp.lib")
+
+typedef BOOL(WINAPI *MINIDUMPWRITEDUMP)(
+    HANDLE hProcess,
+    DWORD ProcessId,
+    HANDLE hFile,
+    MINIDUMP_TYPE DumpType,
+    PMINIDUMP_EXCEPTION_INFORMATION ExceptionParam,
+    PMINIDUMP_USER_STREAM_INFORMATION UserStreamParam,
+    PMINIDUMP_CALLBACK_INFORMATION CallbackParam);
+
+// 自定义异常处理函数
+LONG WINAPI createMiniDump(EXCEPTION_POINTERS *exceptionPointers)
+{
+    // 创建dump文件目录
+    QDir dumpDir(QDir::currentPath() + "/dumps");
+    if (!dumpDir.exists())
+    {
+        dumpDir.mkpath(".");
+    }
+
+    // 生成带时间戳的文件名
+    QString dumpFileName =
+        QString("%1/crash_%2.dmp")
+            .arg(dumpDir.absolutePath())
+            .arg(QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss"));
+
+    // 创建文件
+    HANDLE hFile = CreateFile(dumpFileName.toStdWString().c_str(),
+                              GENERIC_WRITE, FILE_SHARE_READ, NULL,
+                              CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+
+    if (hFile == INVALID_HANDLE_VALUE)
+    {
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
+
+    // 加载dbghelp.dll
+    HMODULE dbgHelp = LoadLibrary(L"dbghelp.dll");
+    if (!dbgHelp)
+    {
+        CloseHandle(hFile);
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
+
+    // 获取MiniDumpWriteDump函数地址
+    MINIDUMPWRITEDUMP miniDumpWriteDump =
+        (MINIDUMPWRITEDUMP)GetProcAddress(dbgHelp, "MiniDumpWriteDump");
+
+    if (!miniDumpWriteDump)
+    {
+        FreeLibrary(dbgHelp);
+        CloseHandle(hFile);
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
+
+    // 配置异常信息
+    MINIDUMP_EXCEPTION_INFORMATION exInfo;
+    exInfo.ThreadId = GetCurrentThreadId();
+    exInfo.ExceptionPointers = exceptionPointers;
+    exInfo.ClientPointers = FALSE;
+
+    // 设置dump类型
+    MINIDUMP_TYPE dumpType =
+        (MINIDUMP_TYPE)(MiniDumpWithFullMemory |      // 包含完整内存
+                        MiniDumpWithFullMemoryInfo |  // 包含内存信息
+                        MiniDumpWithHandleData |      // 包含句柄数据
+                        MiniDumpWithThreadInfo |      // 包含线程信息
+                        MiniDumpWithUnloadedModules   // 包含卸载的模块
+        );
+
+    // 写入dump文件
+    BOOL success = miniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(),
+                                     hFile, dumpType, &exInfo, NULL, NULL);
+
+    // 清理资源
+    FreeLibrary(dbgHelp);
+    CloseHandle(hFile);
+
+    // 显示通知
+    if (success)
+    {
+        QMessageBox::critical(
+            nullptr, "程序崩溃",
+            QString("程序遇到错误已退出，崩溃转储文件已保存到：\n%1")
+                .arg(dumpFileName));
+    }
+
+    return EXCEPTION_EXECUTE_HANDLER;
+}
+
+#endif  // WINDBG_H

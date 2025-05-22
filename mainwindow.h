@@ -1,12 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "ProcessMonitor.h"
 #include <QMainWindow>
 #include <QSystemTrayIcon>
-#include "ProcessMonitor.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui {
+namespace Ui
+{
 class MainWindow;
 }
 QT_END_NAMESPACE
@@ -15,11 +16,11 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-public:
+   public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
+   private slots:
     void on_sliderCtrl_valueChanged(int value);
 
     void on_processNameFilter_textChanged(const QString &arg1);
@@ -28,7 +29,7 @@ private slots:
 
     void recreateTray();
 
-private:
+   private:
     Ui::MainWindow *ui;
     QThread *m_thread;
     ProcessMonitor *m_processMonitor;
@@ -41,9 +42,7 @@ private:
 
     void createTray();
 
-
-
-protected:
+   protected:
     void closeEvent(QCloseEvent *event) override;
 };
-#endif // MAINWINDOW_H
+#endif  // MAINWINDOW_H
