@@ -63,6 +63,7 @@ OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调
 
 |函数名	| 所属库 |	功能 |
 |--------|----------|------------------|
+|Sleep|user32.dll|进程睡眠|
 |SetTimer|user32.dll|创建基于消息的计时器|
 |timeGetTime | winmm.dll	| 获取系统启动后经过的毫秒数 |
 |GetTickCount | kernel32.dll	| 获取系统启动后经过的毫秒数 |
@@ -78,7 +79,7 @@ OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调
 - 不建议在竞技类在线游戏中使用
 
 # 🔄 反馈
-如果在使用过程中遇到任何问题，请通过以下方式反馈：
+如果在使用过程中遇到任何问题，欢迎通过以下方式反馈：
 - [GitHub Issues](https://github.com/game1024/OpenSpeedy/issues) - 提交问题报告
 
 
@@ -86,7 +87,7 @@ OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调
 OpenSpeedy 遵循 GNU v3 许可证。
 
 # 🙏 鸣谢
-OpenSpeedy使用到一下项目的源码，感谢开源社区的力量
+OpenSpeedy使用到以下项目的源码，感谢开源社区的力量
 - [minhook](https://github.com/TsudaKageyu/minhook): 用于API Hook
 - [Qt](https://www.qt.io/): GUI
 
