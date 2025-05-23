@@ -55,11 +55,14 @@
 # 📝 使用说明
 1. 启动 OpenSpeedy
 2. 运行需要变速的目标游戏
-![image](https://github.com/user-attachments/assets/648e721d-9c3a-4d82-954c-19b16355d084)
+<img src="https://github.com/user-attachments/assets/648e721d-9c3a-4d82-954c-19b16355d084" width="50%">
+
 3. 勾选游戏进程，在 OpenSpeedy 界面中调整速度倍率
-![image](https://github.com/user-attachments/assets/71033b7b-948b-45d0-8f8e-3890878007c0)
+<img src="https://github.com/user-attachments/assets/73ef1a95-64fb-4017-939c-a44405a6e742" width="50%">
+
 4. 即刻生效，对比效果如下
-<video src="https://github.com/user-attachments/assets/fcd55af9-633f-4808-a663-afd12a804a92"></video>
+
+<video src="https://github.com/user-attachments/assets/74471b1f-7f95-4de8-b5aa-7edc85c9d5f0" width="70%"></video>
 
 # 🔧 技术原理
 OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调整：
@@ -94,10 +97,8 @@ OpenSpeedy使用到以下项目的源码，感谢开源社区的力量
 - [minhook](https://github.com/TsudaKageyu/minhook): 用于API Hook
 - [Qt](https://www.qt.io/): GUI
 
-
+免责声明: OpenSpeedy 仅用于教育和研究目的。用户应自行承担使用本软件的所有风险和责任。作者不对因使用本软件导致的任何损失或法律责任负责。
 
 <p align="center">
   <img src="https://api.star-history.com/svg?repos=game1024/openspeedy&type=Date" Alt="Star History Chart">
 </p>
-
-免责声明: OpenSpeedy 仅用于教育和研究目的。用户应自行承担使用本软件的所有风险和责任。作者不对因使用本软件导致的任何损失或法律责任负责。
