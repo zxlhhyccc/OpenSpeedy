@@ -13,7 +13,7 @@
 
 <p align="center">
   <a href="https://github.com/game1024/OpenSpeedy/releases">
-    <img src="https://img.shields.io/github/v/release/game1024/OpenSpeedy" alt="Version">
+    <img src="https://img.shields.io/github/v/release/game1024/OpenSpeedy?color=brightgreen" alt="Version">
   </a>
   <a href="https://github.com/game1024/OpenSpeedy/releases">
     <img src="https://img.shields.io/github/downloads/game1024/OpenSpeedy/total" alt="Downloads">
@@ -24,6 +24,9 @@
   <a href="https://github.com/game1024/OpenSpeedy/commits">
     <img src="https://img.shields.io/github/commit-activity/m/game1024/OpenSpeedy" alt="提交活跃度">
   </a>
+
+  <img src="https://img.shields.io/badge/language-C/C++-blue">
+  <img src="https://img.shields.io/badge/License-GPLv3-green.svg">
   <a href="https://github.com/game1024/OpenSpeedy/stargazers">
     <img src="https://img.shields.io/github/stars/game1024/OpenSpeedy" alt="GitHub Stars">
   </a>
