@@ -1,10 +1,31 @@
 <h1 align="center"> OpenSpeedy </h1>
 
+
+
 <p align="center">
-  <img style="margin:0 auto" width=100 height=100 src="https://github.com/user-attachments/assets/bdbe4a60-7692-4e9c-9df4-ad1711337c57"></img>
+  <img style="margin:0 auto" width=100 height=100 src="https://github.com/user-attachments/assets/bdbe4a60-7692-4e9c-9df4-ad1711337c57">
+  </img>  
 </p>
 
-OpenSpeedy 是一款开源免费的游戏变速工具，让你的游戏突破帧率限制，提供更流畅丝滑的游戏加速体验。
+<p align="center">
+  OpenSpeedy 是一款开源免费的游戏变速工具，让你的游戏突破帧率限制，提供更流畅丝滑的游戏加速体验。
+</p>
+
+<p align="center">
+  <a href="https://github.com/game1024/OpenSpeedy/releases">
+    <img src="https://img.shields.io/github/v/release/game1024/OpenSpeedy" alt="Version">
+  </a>
+  <a href="https://github.com/game1024/OpenSpeedy/releases">
+    <img src="https://img.shields.io/github/downloads/game1024/OpenSpeedy/total" alt="Downloads">
+  </a>
+  <a href="https://github.com/game1024/OpenSpeedy">
+    <img src="https://img.shields.io/badge/Platform-Windows-lightblue" alt="Platform">
+  </a>
+  <a href="https://github.com/game1024/OpenSpeedy/commits">
+    <img src="https://img.shields.io/github/commit-activity/m/game1024/OpenSpeedy" alt="提交活跃度">
+  </a>
+</p>
+
 
 # 🚀 特性
 - 完全免费且开源
