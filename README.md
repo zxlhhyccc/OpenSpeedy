@@ -94,4 +94,10 @@ OpenSpeedy使用到以下项目的源码，感谢开源社区的力量
 - [minhook](https://github.com/TsudaKageyu/minhook): 用于API Hook
 - [Qt](https://www.qt.io/): GUI
 
+
+
+<p align="center">
+  <img src="https://api.star-history.com/svg?repos=game1024/openspeedy&type=Date" Alt="Star History Chart">
+</p>
+
 免责声明: OpenSpeedy 仅用于教育和研究目的。用户应自行承担使用本软件的所有风险和责任。作者不对因使用本软件导致的任何损失或法律责任负责。
