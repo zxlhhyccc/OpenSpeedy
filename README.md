@@ -63,7 +63,7 @@ OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调
 
 |函数名	| 所属库 |	功能 |
 |--------|----------|------------------|
-|Sleep|user32.dll|进程睡眠|
+|Sleep|user32.dll|线程休眠|
 |SetTimer|user32.dll|创建基于消息的计时器|
 |timeGetTime | winmm.dll	| 获取系统启动后经过的毫秒数 |
 |GetTickCount | kernel32.dll	| 获取系统启动后经过的毫秒数 |
