@@ -8,12 +8,14 @@
 #include <QList>
 #include <QStyle>
 #include <QtConcurrent/QtConcurrent>
+#include <QtWinExtras/QtWin>
 #include <psapi.h>
 ProcessMonitor::ProcessMonitor(QTreeWidget *treeWidget,
                                QLabel *label,
                                QObject *parent)
     : m_treeWidget(treeWidget), m_treeStatusLabel(label)
 {
+    winutils::enableDebugPrivilege();
     m_treeWidget->header()->setMinimumHeight(40);
     m_treeWidget->setColumnWidth(0, 250);
     m_treeWidget->setColumnWidth(5, 50);
@@ -432,21 +434,42 @@ QIcon ProcessMonitor::getProcessIconCached(DWORD processId)
 QIcon ProcessMonitor::getDefaultIcon(const QString &processName)
 {
     // 根据进程名称或类型提供更有针对性的默认图标
-    if (processName.endsWith(".dll", Qt::CaseInsensitive))
+    if (processName != "")
     {
-        return QApplication::style()->standardIcon(QStyle::SP_DriveCDIcon);
-    }
-    else if (processName.contains("service", Qt::CaseInsensitive))
-    {
-        return QApplication::style()->standardIcon(QStyle::SP_DriveNetIcon);
-    }
-    else if (processName.startsWith("sys", Qt::CaseInsensitive))
-    {
-        return QApplication::style()->standardIcon(QStyle::SP_DriveHDIcon);
-    }
+        // 使用SHGetFileInfo获取.exe文件的图标
+        SHFILEINFO sfi = {};
+        QIcon icon;
+        if (SHGetFileInfo(
+                reinterpret_cast<LPCWSTR>(processName.utf16()),
+                FILE_ATTRIBUTE_NORMAL, &sfi, sizeof(SHFILEINFO),
+                SHGFI_USEFILEATTRIBUTES | SHGFI_ICON | SHGFI_SMALLICON))
+        {
+            // 将HICON转换为QIcon
+            icon = QtWin::fromHICON(sfi.hIcon);
 
-    // 通用默认图标
-    return QApplication::windowIcon();
+            // 释放图标资源
+            DestroyIcon(sfi.hIcon);
+        }
+        return icon;
+    }
+    else
+    {
+        // 使用SHGetFileInfo获取.exe文件的图标
+        SHFILEINFO sfi = {};
+        QIcon icon;
+        if (SHGetFileInfo(
+                reinterpret_cast<LPCWSTR>(L".exe"), FILE_ATTRIBUTE_NORMAL, &sfi,
+                sizeof(SHFILEINFO),
+                SHGFI_USEFILEATTRIBUTES | SHGFI_ICON | SHGFI_SMALLICON))
+        {
+            // 将HICON转换为QIcon
+            icon = QtWin::fromHICON(sfi.hIcon);
+
+            // 释放图标资源
+            DestroyIcon(sfi.hIcon);
+        }
+        return icon;
+    }
 }
 
 QIcon ProcessMonitor::getProcessIcon(QString processPath)
@@ -462,7 +485,34 @@ QIcon ProcessMonitor::getProcessIcon(QString processPath)
 
     if (processPath.isEmpty())
     {
-        QApplication::windowIcon();
+        qDebug() << processPath << "无法获取进程完整路径";
+        return getDefaultIcon(processName);
+    }
+
+    SHFILEINFO sfi = {};
+    if (SHGetFileInfo(reinterpret_cast<LPCWSTR>(processPath.utf16()),
+                      FILE_ATTRIBUTE_NORMAL, &sfi, sizeof(SHFILEINFO),
+                      SHGFI_ICON | SHGFI_LARGEICON | SHGFI_USEFILEATTRIBUTES))
+    {
+        if (sfi.hIcon)
+        {
+            QIcon icon = QtWin::fromHICON(sfi.hIcon);
+            DestroyIcon(sfi.hIcon);
+            if (!icon.isNull())
+            {
+                qDebug() << processPath << "通过SHGetFileInfo获取图标成功";
+                return icon;
+            }
+        }
+    }
+
+    HICON hIcon = ExtractIconW(
+        nullptr, reinterpret_cast<LPCWSTR>(processPath.utf16()), 0);
+    if (hIcon)
+    {
+        QIcon icon = QtWin::fromHICON(hIcon);
+        DestroyIcon(hIcon);
+        if (!icon.isNull()) return icon;
     }
 
     QFileInfo fileInfo(processPath);
@@ -472,6 +522,7 @@ QIcon ProcessMonitor::getProcessIcon(QString processPath)
         QFileIconProvider iconProvider;
         return iconProvider.icon(fileInfo);
     }
+    qDebug() << processPath << "无法获取进程图标使用默认图标";
 
     return getDefaultIcon(processName);
 }

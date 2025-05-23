@@ -1,10 +1,8 @@
 #ifndef WINUTILS_H
 #define WINUTILS_H
 #include <windows.h>
-
 #include <QSet>
 #include <QString>
-
 #include <string>
 #include <tlhelp32.h>
 
@@ -38,6 +36,8 @@ class winutils
     static QList<ProcessInfo> getProcessList();
 
     static QString getProcessPath(DWORD processId);
+
+    static bool enableDebugPrivilege();
 
    private:
 };
