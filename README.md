@@ -24,6 +24,9 @@
   <a href="https://github.com/game1024/OpenSpeedy/commits">
     <img src="https://img.shields.io/github/commit-activity/m/game1024/OpenSpeedy" alt="提交活跃度">
   </a>
+  <a href="https://github.com/game1024/OpenSpeedy/stargazers">
+    <img src="https://img.shields.io/github/stars/game1024/OpenSpeedy" alt="GitHub Stars">
+  </a>
 </p>
 
 
