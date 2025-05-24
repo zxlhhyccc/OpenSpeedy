@@ -1,7 +1,6 @@
 #include "winutils.h"
 #include <QDebug>
 #include <QFileInfo>
-
 #include <psapi.h>
 #include <string>
 #include <tlhelp32.h>
@@ -273,4 +272,30 @@ QString winutils::getProcessPath(DWORD processId)
     }
 
     return processPath;
+}
+
+bool winutils::enableDebugPrivilege()
+{
+    HANDLE hToken;
+    TOKEN_PRIVILEGES tkp;
+
+    // 获取进程token
+    if (!OpenProcessToken(GetCurrentProcess(),
+                          TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken))
+        return false;
+
+    // 获取LUID
+    LookupPrivilegeValue(NULL, SE_DEBUG_NAME, &tkp.Privileges[0].Luid);
+
+    tkp.PrivilegeCount = 1;
+    tkp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+
+    // 启用权限
+    AdjustTokenPrivileges(hToken, false, &tkp, 0, NULL, 0);
+
+    // 检查是否成功
+    bool result = (GetLastError() == ERROR_SUCCESS);
+
+    CloseHandle(hToken);
+    return result;
 }
