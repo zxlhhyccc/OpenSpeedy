@@ -91,7 +91,7 @@
            </property>
            <layout class="QGridLayout" name="gridLayout">
             <property name="verticalSpacing">
-             <number>0</number>
+             <number>7</number>
             </property>
             <item row="0" column="2" rowspan="5">
              <layout class="QFormLayout" name="osLayout">
