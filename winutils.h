@@ -32,11 +32,19 @@ class winutils
     // APC DLL 注入
     static bool injectDllViaAPC(DWORD processId, const std::wstring& dllPath);
 
+    // 汇编注入
+    static bool injectDllViaASM(DWORD processId, const std::wstring& dllPath);
+
+    // Windows Hooks 注入
+    static bool injectDllViaWHK(DWORD processId, const std::wstring& dllPath);
+
     // DLL 卸载
     static bool unhookDll(DWORD processId, const std::wstring& dllPath);
 
     // 检查DLL是否已挂载
     static bool checkDllExist(DWORD processId, const std::wstring& dllPath);
+
+    static bool checkProcessProtection(DWORD processId);
 
     static BOOL getWindowsVersion(DWORD* majorVersion,
                                   DWORD* minorVersion,
@@ -50,7 +58,7 @@ class winutils
     // 获取进程路径
     static QString getProcessPath(DWORD processId);
 
-    // 获取进程中的所有线程
+    // 获取进程中的主线程
     static DWORD getProcessMainThread(DWORD processId);
 
     static bool enableAllPrivilege();

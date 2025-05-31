@@ -30,7 +30,8 @@ bool winutils::injectDll(DWORD processId, const std::wstring &dllPath)
         return true;
     }
 
-    if (injectDllViaCRT(processId, dllPath))
+    /*
+    else if (injectDllViaCRT(processId, dllPath))
     {
         return true;
     }
@@ -38,6 +39,11 @@ bool winutils::injectDll(DWORD processId, const std::wstring &dllPath)
     {
         return true;
     }
+    else if (injectDllViaWHK(processId, dllPath))
+    {
+        return true;
+    }
+    */
     else
     {
         return false;
@@ -239,6 +245,239 @@ bool winutils::injectDllViaAPC(DWORD processId, const std::wstring &dllPath)
     return true;
 }
 
+bool winutils::injectDllViaASM(DWORD processId, const std::wstring &dllPath)
+{
+    HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
+    if (!hProcess)
+    {
+        qDebug() << "Failed to open process:" << GetLastError();
+        return false;
+    }
+
+    bool success = false;
+    void *injectionLocation = nullptr;
+    HANDLE hThread = nullptr;
+
+    try
+    {
+        // 2. 分配内存（类似CE的4096字节）
+        injectionLocation =
+            VirtualAllocEx(hProcess, nullptr, 4096, MEM_RESERVE | MEM_COMMIT,
+                           PAGE_EXECUTE_READWRITE);
+
+        if (!injectionLocation)
+        {
+            throw std::runtime_error("Failed to allocate memory");
+        }
+
+        // 3. 构建注入代码（类似CE的方式）
+        std::vector<BYTE> injectCode;
+        size_t position = 0;
+
+        // 写入DLL路径（转换为ANSI）
+        std::string dllPathA =
+            QString::fromStdWString(dllPath).toLocal8Bit().toStdString();
+        injectCode.insert(injectCode.end(), dllPathA.begin(), dllPathA.end());
+        injectCode.push_back(0);  // null terminator
+
+        size_t startAddress = injectCode.size();
+
+        // 获取LoadLibraryA地址
+        HMODULE hKernel32 = GetModuleHandleA("kernel32.dll");
+        FARPROC pLoadLibraryA = GetProcAddress(hKernel32, "LoadLibraryA");
+
+        // 构建汇编代码
+#ifdef _WIN64
+        // 64位汇编代码
+        // SUB RSP, 28h (栈对齐)
+        injectCode.insert(injectCode.end(), {0x48, 0x83, 0xEC, 0x28});
+
+        // MOV RCX, dll_path_address
+        injectCode.push_back(0x48);
+        injectCode.push_back(0xB9);
+        uint64_t dllAddr = (uint64_t)injectionLocation;
+        injectCode.insert(injectCode.end(), (BYTE *)&dllAddr,
+                          (BYTE *)&dllAddr + 8);
+
+        // MOV RAX, LoadLibraryA_address
+        injectCode.push_back(0x48);
+        injectCode.push_back(0xB8);
+        uint64_t loadLibAddr = (uint64_t)pLoadLibraryA;
+        injectCode.insert(injectCode.end(), (BYTE *)&loadLibAddr,
+                          (BYTE *)&loadLibAddr + 8);
+
+        // CALL RAX
+        injectCode.insert(injectCode.end(), {0xFF, 0xD0});
+
+        // ADD RSP, 28h
+        injectCode.insert(injectCode.end(), {0x48, 0x83, 0xC4, 0x28});
+
+        // 安全检查（类似CE）
+        // TEST RAX, RAX
+        injectCode.insert(injectCode.end(), {0x48, 0x85, 0xC0});
+
+        // JNE success
+        injectCode.insert(injectCode.end(), {0x75, 0x05});
+
+        // MOV EAX, 2 (失败退出码)
+        injectCode.insert(injectCode.end(), {0xB8, 0x02, 0x00, 0x00, 0x00});
+
+        // RET
+        injectCode.push_back(0xC3);
+
+        // success:
+        // MOV EAX, 1 (成功退出码)
+        injectCode.insert(injectCode.end(), {0xB8, 0x01, 0x00, 0x00, 0x00});
+#else
+        // 32位汇编代码
+        // PUSH dll_path_address
+        injectCode.push_back(0x68);
+        uint32_t dllAddr = (uint32_t)injectionLocation;
+        injectCode.insert(injectCode.end(), (BYTE *)&dllAddr,
+                          (BYTE *)&dllAddr + 4);
+
+        // CALL LoadLibraryA_address
+        injectCode.push_back(0xE8);
+        uint32_t callOffset =
+            (uint32_t)pLoadLibraryA - ((uint32_t)injectionLocation +
+                                       startAddress + injectCode.size() + 4);
+        injectCode.insert(injectCode.end(), (BYTE *)&callOffset,
+                          (BYTE *)&callOffset + 4);
+
+        // TEST EAX, EAX
+        injectCode.insert(injectCode.end(), {0x85, 0xC0});
+
+        // JNE success
+        injectCode.insert(injectCode.end(), {0x75, 0x05});
+
+        // MOV EAX, 2
+        injectCode.insert(injectCode.end(), {0xB8, 0x02, 0x00, 0x00, 0x00});
+
+        // RET
+        injectCode.push_back(0xC3);
+
+        // success:
+        // MOV EAX, 1
+        injectCode.insert(injectCode.end(), {0xB8, 0x01, 0x00, 0x00, 0x00});
+#endif
+
+        // RET
+        injectCode.push_back(0xC3);
+
+        // 4. 写入注入代码
+        SIZE_T bytesWritten;
+        if (!WriteProcessMemory(hProcess, injectionLocation, injectCode.data(),
+                                injectCode.size(), &bytesWritten))
+        {
+            throw std::runtime_error("Failed to write injection code");
+        }
+
+        // 5. 创建远程线程执行注入代码
+        DWORD threadId;
+        hThread = CreateRemoteThread(
+            hProcess, nullptr, 0,
+            (LPTHREAD_START_ROUTINE)((BYTE *)injectionLocation + startAddress),
+            nullptr, 0, &threadId);
+
+        if (!hThread)
+        {
+            throw std::runtime_error("Failed to create remote thread");
+        }
+
+        // 6. 等待执行完成（参考CE的方式）
+        DWORD counter = 10000 / 10;  // 10秒超时
+        DWORD waitResult;
+
+        while ((waitResult = WaitForSingleObject(hThread, 10)) ==
+                   WAIT_TIMEOUT &&
+               counter > 0)
+        {
+            // 类似CE的CheckSynchronize处理
+            counter--;
+        }
+
+        if (counter == 0)
+        {
+            throw std::runtime_error("Injection thread timeout (10 seconds)");
+        }
+
+        // 7. 检查退出码
+        DWORD exitCode;
+        if (!GetExitCodeThread(hThread, &exitCode))
+        {
+            throw std::runtime_error("Failed to get thread exit code");
+        }
+
+        qDebug() << "Thread exit code:" << exitCode;
+
+        switch (exitCode)
+        {
+            case 1:
+                qDebug() << "Injection successful";
+                success = true;
+                break;
+            case 2:
+                qDebug() << "LoadLibrary failed - possible causes:";
+                qDebug() << "  - DLL file access denied";
+                qDebug() << "  - DLL dependencies missing";
+                qDebug() << "  - Architecture mismatch";
+                qDebug() << "  - DLL initialization failed";
+                break;
+            default:
+                qDebug() << "Unknown injection error, exit code:" << exitCode;
+                break;
+        }
+    }
+    catch (const std::exception &e)
+    {
+        qDebug() << "Injection exception:" << e.what();
+    }
+
+    // 8. 清理资源
+    if (hThread) CloseHandle(hThread);
+    if (injectionLocation)
+    {
+        VirtualFreeEx(hProcess, injectionLocation, 0, MEM_RELEASE);
+    }
+    CloseHandle(hProcess);
+
+    return success;
+}
+
+bool winutils::injectDllViaWHK(DWORD processId, const std::wstring &dllPath)
+{
+    if (checkProcessProtection(processId))
+    {
+        qDebug() << "进程被保护 进程ID: " << processId;
+        return false;
+    }
+
+    // 1. 加载DLL到当前进程
+    HMODULE hMod = LoadLibraryW(dllPath.c_str());
+    if (!hMod) return false;
+
+    // 2. 获取Hook过程的地址
+    HOOKPROC hookProc = (HOOKPROC)GetProcAddress(hMod, "HookProc");
+    if (!hookProc) return false;
+
+    // 3. 获取目标线程ID
+    DWORD threadId = getProcessMainThread(processId);
+    if (threadId == 0) return false;
+
+    // 4. 安装Hook
+    HHOOK hHook = SetWindowsHookExW(WH_GETMESSAGE,  // Hook类型
+                                    hookProc,       // Hook过程
+                                    hMod,           // DLL模块句柄
+                                    threadId        // 目标线程ID
+    );
+
+    if (!hHook) return false;
+    // 5. 触发Hook执行
+    PostThreadMessageW(threadId, WM_NULL, 0, 0);
+
+    return true;
+}
+
 bool winutils::unhookDll(DWORD processId, const std::wstring &dllPath)
 {
     HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
@@ -338,6 +577,31 @@ bool winutils::checkDllExist(DWORD processId, const std::wstring &dllPath)
 
     CloseHandle(hProcess);
     return dllFound;
+}
+
+bool winutils::checkProcessProtection(DWORD processId)
+{
+    HANDLE hProcess =
+        OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, processId);
+    if (!hProcess)
+    {
+        qDebug() << "Cannot open process - likely protected";
+        return true;  // 可能被保护
+    }
+
+    // 检查是否是受保护进程
+    PROCESS_PROTECTION_LEVEL_INFORMATION protectionInfo = {};
+    DWORD returnLength;
+
+    if (GetProcessInformation(hProcess, ProcessProtectionLevelInfo,
+                              &protectionInfo, sizeof(protectionInfo)))
+    {
+        CloseHandle(hProcess);
+        return protectionInfo.ProtectionLevel != PROTECTION_LEVEL_NONE;
+    }
+
+    CloseHandle(hProcess);
+    return false;
 }
 
 typedef struct _OSVERSIONINFOEXW RTL_OSVERSIONINFOEXW, *PRTL_OSVERSIONINFOEXW;

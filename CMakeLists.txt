@@ -66,8 +66,8 @@ else()
         winutils.h winutils.cpp
         cpuutils.h cpuutils.cpp
         memutils.h memutils.cpp
-
       )
+
       target_include_directories(winutils PUBLIC
           ${CMAKE_CURRENT_SOURCE_DIR}
       )
@@ -99,7 +99,6 @@ set_target_properties(OpenSpeedy PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
     LINK_FLAGS "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='false'\" /SUBSYSTEM:WINDOWS"
-
 )
 
 include(GNUInstallDirs)
@@ -114,3 +113,4 @@ if(QT_VERSION_MAJOR EQUAL 6)
 endif()
 add_subdirectory(speedpatch)
 add_subdirectory(bridge)
+
