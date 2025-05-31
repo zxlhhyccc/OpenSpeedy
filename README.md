@@ -75,7 +75,7 @@
 
 <img src="https://github.com/user-attachments/assets/cc435a02-d985-4803-9fe5-ec869b309aca" width="50%">
 
-5. 即刻生效，对比效果如下
+4. 即刻生效，对比效果如下
 
 <video src="https://github.com/user-attachments/assets/74471b1f-7f95-4de8-b5aa-7edc85c9d5f0" width="70%"></video>
 
