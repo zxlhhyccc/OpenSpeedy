@@ -79,10 +79,7 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">#sliderFrame {
-	border: 1px dotted grey;
-	border-radius: 2px;
-}</string>
+         <string notr="true"/>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -145,6 +142,7 @@
            </property>
            <property name="text">
             <string>原速</string>
+
            </property>
            <property name="alignment">
             <set>Qt::AlignHCenter|Qt::AlignTop</set>
@@ -447,6 +445,10 @@
             <family>Microsoft YaHei UI</family>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">padding: 2px;
+</string>
+          </property>
           <property name="placeholderText">
            <string>输入进程名搜索...</string>
           </property>
@@ -454,38 +456,6 @@
            <bool>true</bool>
           </property>
          </widget>
-        </item>
-        <item>
-         <spacer name="filterSpacer1">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Minimum</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <spacer name="filterSpacer2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Minimum</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>10</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item>
          <spacer name="filterSpacer3">
