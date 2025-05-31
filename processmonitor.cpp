@@ -104,12 +104,22 @@ void ProcessMonitor::onItemChanged(QTreeWidgetItem *item, int column)
         bool is64Bit = item->text(3) == "x64" ? true : false;
         if (checkState == Qt::Checked)
         {
+            for (int col = 0; col < item->columnCount(); ++col)
+            {
+                item->setBackground(col, QBrush(QColor("#f3e5f5")));
+                item->setForeground(col, QBrush(QColor("#7b1fa2")));
+            }
             qDebug() << processName << "勾选";
             m_speedupItems.insert(processName);
             dump();
         }
         else
         {
+            for (int col = 0; col < item->columnCount(); ++col)
+            {
+                item->setBackground(col, QBrush());
+                item->setForeground(col, QBrush());
+            }
             qDebug() << processName << "取消勾选";
             m_speedupItems.remove(processName);
             this->unhookDll(pid, is64Bit);
@@ -271,26 +281,12 @@ void ProcessMonitor::update(const QList<ProcessInfo> &processList)
             item->setText(4, priority);
             if (m_speedupItems.contains(info.name))
             {
-                for (int col = 0; col < item->columnCount(); ++col)
-                {
-                    // 为所有列设置相同样式 - 紫色系风格
-                    item->setBackground(
-                        col, QBrush(QColor("#f3e5f5")));  // 浅紫色背景
-                    item->setForeground(
-                        col, QBrush(QColor("#7b1fa2")));  // 深紫色文字
-                }
                 item->setCheckState(5, Qt::Checked);
                 this->injectDll(info.pid, info.is64Bit);
             }
-            else
+            else if (item->checkState(5) == Qt::Checked)
             {
-                for (int col = 0; col < item->columnCount(); ++col)
-                {
-                    item->setBackground(col, QBrush());
-                    item->setForeground(col, QBrush());
-                }
-                if (item->checkState(5) == Qt::Checked)
-                    item->setCheckState(5, Qt::Unchecked);
+                item->setCheckState(5, Qt::Unchecked);
             }
         }
         else
