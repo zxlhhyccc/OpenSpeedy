@@ -37,375 +37,463 @@
    <string>OpenSpeedy</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">QMainWindow {
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QLabel" name="speedLabel">
+       <widget class="QGroupBox" name="speedGroupBox">
         <property name="font">
          <font>
-          <family>Microsoft YaHei UI</family>
+          <family>Segoe UI Emoji</family>
           <pointsize>10</pointsize>
-          <bold>false</bold>
-          <kerning>true</kerning>
+          <italic>false</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
          </font>
-        </property>
-        <property name="text">
-         <string>变速速率</string>
-        </property>
-        <property name="scaledContents">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QFrame" name="sliderFrame">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
         </property>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+        <property name="title">
+         <string>⚡变速速率</string>
         </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="0" rowspan="2">
-          <widget class="QLabel" name="sliderLabel">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QFrame" name="sliderFrame">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="minimumSize">
             <size>
-             <width>120</width>
+             <width>0</width>
              <height>0</height>
             </size>
            </property>
-           <property name="font">
-            <font>
-             <family>LXGW WenKai</family>
-             <pointsize>20</pointsize>
-             <italic>false</italic>
-             <bold>false</bold>
-             <kerning>true</kerning>
-            </font>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
-           </property>
            <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true">        QFrame {
+            color: #333333;
+        }</string>
            </property>
-           <property name="text">
-            <string>x1.0倍</string>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
            </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="originSpeedLabel">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="font">
-            <font>
-             <family>MS PGothic</family>
-             <underline>false</underline>
-             <stylestrategy>NoAntialias</stylestrategy>
-            </font>
-           </property>
-           <property name="text">
-            <string>原速</string>
-
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignHCenter|Qt::AlignTop</set>
-           </property>
-           <property name="indent">
-            <number>0</number>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1" rowspan="4">
-          <widget class="Line" name="osSpliter">
            <property name="frameShadow">
-            <enum>QFrame::Sunken</enum>
+            <enum>QFrame::Raised</enum>
            </property>
-           <property name="lineWidth">
-            <number>1</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
+           <layout class="QGridLayout" name="gridLayout">
+            <property name="verticalSpacing">
+             <number>7</number>
+            </property>
+            <item row="0" column="2" rowspan="5">
+             <layout class="QFormLayout" name="osLayout">
+              <property name="sizeConstraint">
+               <enum>QLayout::SetMaximumSize</enum>
+              </property>
+              <property name="fieldGrowthPolicy">
+               <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+              </property>
+              <property name="rowWrapPolicy">
+               <enum>QFormLayout::DontWrapRows</enum>
+              </property>
+              <property name="verticalSpacing">
+               <number>12</number>
+              </property>
+              <item row="1" column="0">
+               <widget class="QLabel" name="osLabel">
+                <property name="font">
+                 <font>
+                  <family>Segoe UI Emoji</family>
+                  <bold>true</bold>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>🪟 操作系统</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLabel" name="osContent">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>微软雅黑</family>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>windows 11 24H2</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="cpuLabel">
+                <property name="font">
+                 <font>
+                  <family>Segoe UI Emoji</family>
+                  <bold>true</bold>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>🔥 CPU</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLabel" name="cpuContent">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>微软雅黑</family>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>10.0%</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="memLabel">
+                <property name="font">
+                 <font>
+                  <family>Segoe UI Emoji</family>
+                  <bold>true</bold>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>📊 内存</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLabel" name="memContent">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>微软雅黑</family>
+                 </font>
+                </property>
+                <property name="text">
+                 <string> ( 7.2G / 32.0G ) 12.3%</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="injector32Label">
+                <property name="font">
+                 <font>
+                  <family>Segoe UI Emoji</family>
+                  <bold>true</bold>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>♥️ 32bit 注入器</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QLabel" name="injector32Status">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>微软雅黑</family>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>正常</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="injector64Label">
+                <property name="font">
+                 <font>
+                  <family>Segoe UI Emoji</family>
+                  <bold>true</bold>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>♥️ 64bit 注入器</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QLabel" name="injector64Status">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>微软雅黑</family>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>正常</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="originSpeedLabel">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <family>微软雅黑</family>
+                <underline>false</underline>
+                <stylestrategy>PreferAntialias</stylestrategy>
+                <kerning>true</kerning>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:  #0078D4;</string>
+              </property>
+              <property name="text">
+               <string>▲
+原速</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignHCenter|Qt::AlignTop</set>
+              </property>
+              <property name="indent">
+               <number>0</number>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QSlider" name="sliderCtrl">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                <horstretch>2</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>300</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="mouseTracking">
+               <bool>true</bool>
+              </property>
+              <property name="tabletTracking">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QSlider::handle:horizontal {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                stop:0 rgba(255, 255, 255, 0.9), 
+                stop:0.2 rgba(255, 255, 255, 0.7),
+                stop:0.8 rgba(230, 230, 230, 0.8), 
+                stop:1 rgba(200, 200, 200, 0.9));
+    border: 1px solid rgba(150, 150, 150, 0.8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 
+                inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+QSlider::handle:horizontal:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                stop:0 rgba(255, 255, 255, 0.95), 
+                stop:0.2 rgba(227, 242, 253, 0.8),
+                stop:0.8 rgba(144, 202, 249, 0.8), 
+                stop:1 rgba(100, 181, 246, 0.9));
+    border: 1px solid rgba(25, 118, 210, 0.8);
+    box-shadow: 0 6px 16px rgba(25, 118, 210, 0.3),
+                inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+QSlider::handle:horizontal:pressed {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                stop:0 rgba(227, 242, 253, 0.9), 
+                stop:0.3 rgba(144, 202, 249, 0.8),
+                stop:0.7 rgba(66, 165, 245, 0.9), 
+                stop:1 rgba(25, 118, 210, 0.95));
+    border: 1px solid rgba(13, 71, 161, 0.9);
+    box-shadow: 0 2px 8px rgba(13, 71, 161, 0.4),
+                inset 0 1px 2px rgba(255, 255, 255, 0.6);
+}</string>
+              </property>
+              <property name="minimum">
+               <number>-27</number>
+              </property>
+              <property name="maximum">
+               <number>27</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="invertedControls">
+               <bool>false</bool>
+              </property>
+              <property name="tickPosition">
+               <enum>QSlider::TicksBothSides</enum>
+              </property>
+              <property name="tickInterval">
+               <number>1</number>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1" rowspan="5">
+             <widget class="Line" name="osSpliter">
+              <property name="frameShadow">
+               <enum>QFrame::Sunken</enum>
+              </property>
+              <property name="lineWidth">
+               <number>1</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <layout class="QHBoxLayout" name="sliderTitle">
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>100</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="sliderLabel">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>LXGW WenKai</family>
+                  <pointsize>14</pointsize>
+                  <italic>false</italic>
+                  <bold>false</bold>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
+                <property name="layoutDirection">
+                 <enum>Qt::LeftToRight</enum>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">    QLabel {
+        background-color: #0078D4;
+
+        color: white;
+        border-radius: 25px;
+		padding: 10;
+    }</string>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <property name="text">
+                 <string>x1.0倍</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Expanding</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>100</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QSlider" name="sliderCtrl">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-             <horstretch>2</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>300</width>
-             <height>40</height>
-            </size>
-           </property>
-           <property name="cursor">
-            <cursorShape>ArrowCursor</cursorShape>
-           </property>
-           <property name="mouseTracking">
-            <bool>true</bool>
-           </property>
-           <property name="tabletTracking">
-            <bool>false</bool>
-           </property>
-           <property name="minimum">
-            <number>-27</number>
-           </property>
-           <property name="maximum">
-            <number>27</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="invertedControls">
-            <bool>false</bool>
-           </property>
-           <property name="tickPosition">
-            <enum>QSlider::TicksBothSides</enum>
-           </property>
-           <property name="tickInterval">
-            <number>1</number>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2" rowspan="4">
-          <layout class="QFormLayout" name="osLayout">
-           <property name="sizeConstraint">
-            <enum>QLayout::SetMaximumSize</enum>
-           </property>
-           <property name="fieldGrowthPolicy">
-            <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-           </property>
-           <property name="rowWrapPolicy">
-            <enum>QFormLayout::DontWrapRows</enum>
-           </property>
-           <property name="verticalSpacing">
-            <number>12</number>
-           </property>
-           <item row="1" column="0">
-            <widget class="QLabel" name="osLabel">
-             <property name="font">
-              <font>
-               <family>MS PGothic</family>
-               <bold>true</bold>
-               <stylestrategy>PreferAntialias</stylestrategy>
-               <kerning>true</kerning>
-              </font>
-             </property>
-             <property name="text">
-              <string>操作系统</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="osContent">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>Courier New</family>
-              </font>
-             </property>
-             <property name="text">
-              <string>windows 11 24H2</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="cpuLabel">
-             <property name="font">
-              <font>
-               <family>MS PGothic</family>
-               <bold>true</bold>
-               <stylestrategy>PreferAntialias</stylestrategy>
-               <kerning>true</kerning>
-              </font>
-             </property>
-             <property name="text">
-              <string>CPU</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="cpuContent">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>Courier New</family>
-              </font>
-             </property>
-             <property name="text">
-              <string>10.0%</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="memLabel">
-             <property name="font">
-              <font>
-               <family>MS PGothic</family>
-               <bold>true</bold>
-               <stylestrategy>PreferAntialias</stylestrategy>
-               <kerning>true</kerning>
-              </font>
-             </property>
-             <property name="text">
-              <string>内存</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="memContent">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>Courier New</family>
-              </font>
-             </property>
-             <property name="text">
-              <string> ( 7.2G / 32.0G ) 12.3%</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="injector32Label">
-             <property name="font">
-              <font>
-               <family>MS PGothic</family>
-               <bold>true</bold>
-               <stylestrategy>PreferAntialias</stylestrategy>
-               <kerning>true</kerning>
-              </font>
-             </property>
-             <property name="text">
-              <string>32bit 注入器</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLabel" name="injector32Status">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>Courier New</family>
-              </font>
-             </property>
-             <property name="text">
-              <string>正常</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QLabel" name="injector64Label">
-             <property name="font">
-              <font>
-               <family>MS PGothic</family>
-               <bold>true</bold>
-               <stylestrategy>PreferAntialias</stylestrategy>
-               <kerning>true</kerning>
-              </font>
-             </property>
-             <property name="text">
-              <string>64bit 注入器</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="1">
-            <widget class="QLabel" name="injector64Status">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>Courier New</family>
-              </font>
-             </property>
-             <property name="text">
-              <string>正常</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
          </item>
         </layout>
        </widget>
@@ -418,149 +506,201 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="systempsLabel">
+       <widget class="QGroupBox" name="processGroupBox">
         <property name="font">
          <font>
-          <family>Microsoft YaHei UI</family>
+          <family>Segoe UI Emoji</family>
           <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>系统进程</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="filterLayout">
-        <item>
-         <widget class="QLineEdit" name="processNameFilter">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>24</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Microsoft YaHei UI</family>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">padding: 2px;
-</string>
-          </property>
-          <property name="placeholderText">
-           <string>输入进程名搜索...</string>
-          </property>
-          <property name="clearButtonEnabled">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="filterSpacer3">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QTreeWidget" name="processMonitorWidget">
-        <property name="font">
-         <font>
-          <family>Microsoft YaHei UI</family>
-          <pointsize>9</pointsize>
+          <italic>false</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">QTreeWidget::item { height: 30px; }</string>
+         <string notr="true"/>
         </property>
-        <property name="sortingEnabled">
-         <bool>true</bool>
+        <property name="title">
+         <string>💻系统进程</string>
         </property>
-        <property name="animated">
-         <bool>false</bool>
-        </property>
-        <property name="expandsOnDoubleClick">
-         <bool>true</bool>
-        </property>
-        <attribute name="headerCascadingSectionResizes">
-         <bool>true</bool>
-        </attribute>
-        <attribute name="headerDefaultSectionSize">
-         <number>80</number>
-        </attribute>
-        <attribute name="headerStretchLastSection">
-         <bool>true</bool>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>进程名称</string>
-         </property>
-         <property name="font">
-          <font>
-           <bold>true</bold>
-          </font>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>PID</string>
-         </property>
-         <property name="font">
-          <font>
-           <bold>true</bold>
-          </font>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>内存使用</string>
-         </property>
-         <property name="font">
-          <font>
-           <bold>true</bold>
-          </font>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>平台架构</string>
-         </property>
-         <property name="font">
-          <font>
-           <bold>true</bold>
-          </font>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>优先级</string>
-         </property>
-         <property name="font">
-          <font>
-           <bold>true</bold>
-          </font>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>是否加速</string>
-         </property>
-         <property name="font">
-          <font>
-           <bold>true</bold>
-          </font>
-         </property>
-        </column>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <layout class="QHBoxLayout" name="filterLayout">
+           <item>
+            <widget class="QLineEdit" name="processNameFilter">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>24</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Microsoft YaHei UI</family>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">height: 30px;
+border-radius: 15px;
+padding: 0px 8px;</string>
+             </property>
+             <property name="placeholderText">
+              <string>🔍输入进程名搜索...</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="filterSpacer1">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <spacer name="filterSpacer2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>10</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <spacer name="filterSpacer3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QTreeWidget" name="processMonitorWidget">
+           <property name="font">
+            <font>
+             <family>微软雅黑</family>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QTreeWidget::item { 
+	height: 30px; 
+}
+
+QTreeWidget {
+	border:none
+}</string>
+           </property>
+           <property name="sortingEnabled">
+            <bool>true</bool>
+           </property>
+           <property name="animated">
+            <bool>false</bool>
+           </property>
+           <property name="expandsOnDoubleClick">
+            <bool>true</bool>
+           </property>
+           <attribute name="headerCascadingSectionResizes">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="headerDefaultSectionSize">
+            <number>80</number>
+           </attribute>
+           <attribute name="headerStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>进程名称</string>
+            </property>
+            <property name="font">
+             <font>
+              <family>微软雅黑</family>
+              <bold>true</bold>
+             </font>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>PID</string>
+            </property>
+            <property name="font">
+             <font>
+              <family>微软雅黑</family>
+              <bold>true</bold>
+             </font>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>内存使用</string>
+            </property>
+            <property name="font">
+             <font>
+              <family>微软雅黑</family>
+              <bold>true</bold>
+             </font>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>平台架构</string>
+            </property>
+            <property name="font">
+             <font>
+              <family>微软雅黑</family>
+              <bold>true</bold>
+             </font>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>优先级</string>
+            </property>
+            <property name="font">
+             <font>
+              <family>微软雅黑</family>
+              <bold>true</bold>
+             </font>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>是否加速</string>
+            </property>
+            <property name="font">
+             <font>
+              <family>微软雅黑</family>
+              <bold>true</bold>
+             </font>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
@@ -569,7 +709,7 @@
      <widget class="QLabel" name="processMonitorLabel">
       <property name="font">
        <font>
-        <family>MS PGothic</family>
+        <family>微软雅黑</family>
        </font>
       </property>
       <property name="text">
@@ -585,14 +725,13 @@
      <x>0</x>
      <y>0</y>
      <width>960</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
  </widget>
  <tabstops>
   <tabstop>processNameFilter</tabstop>
-  <tabstop>processMonitorWidget</tabstop>
  </tabstops>
  <resources/>
  <connections/>

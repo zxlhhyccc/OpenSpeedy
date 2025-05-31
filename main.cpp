@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
         }
     }
     MainWindow w;
-    w.resize(960, 640);
+    w.resize(800, 640);
     w.show();
 
     // 创建并启动本地服务器

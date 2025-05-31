@@ -271,12 +271,26 @@ void ProcessMonitor::update(const QList<ProcessInfo> &processList)
             item->setText(4, priority);
             if (m_speedupItems.contains(info.name))
             {
+                for (int col = 0; col < item->columnCount(); ++col)
+                {
+                    // 为所有列设置相同样式 - 紫色系风格
+                    item->setBackground(
+                        col, QBrush(QColor("#f3e5f5")));  // 浅紫色背景
+                    item->setForeground(
+                        col, QBrush(QColor("#7b1fa2")));  // 深紫色文字
+                }
                 item->setCheckState(5, Qt::Checked);
                 this->injectDll(info.pid, info.is64Bit);
             }
             else
             {
-                item->setCheckState(5, Qt::Unchecked);
+                for (int col = 0; col < item->columnCount(); ++col)
+                {
+                    item->setBackground(col, QBrush());
+                    item->setForeground(col, QBrush());
+                }
+                if (item->checkState(5) == Qt::Checked)
+                    item->setCheckState(5, Qt::Unchecked);
             }
         }
         else

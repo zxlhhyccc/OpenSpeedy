@@ -59,9 +59,9 @@ bool winutils::injectDllViaCRT(DWORD processId, const std::wstring &dllPath)
         return true;
     }
 
-    void *pDllPath = VirtualAllocEx(hProcess, nullptr,
-                                    (dllPath.size() + 1) * sizeof(wchar_t),
-                                    MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+    void *pDllPath = VirtualAllocEx(
+        hProcess, nullptr, (dllPath.size() + 1) * sizeof(wchar_t),
+        MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
     if (!pDllPath)
     {
         qDebug() << "Failed to allocate memory in target process:"
