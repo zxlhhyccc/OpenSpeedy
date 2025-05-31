@@ -3,6 +3,7 @@
 #include <QCloseEvent>
 #include <QDebug>
 #include <QScreen>
+#include <QStyle>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -22,7 +23,6 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::recreateTray);
     m_thread->start();
     m_processMonitor->start();
-
     createTray();
     QApplication::setQuitOnLastWindowClosed(false);
 

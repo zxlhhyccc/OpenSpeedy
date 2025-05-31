@@ -30,6 +30,20 @@
   </a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/game1024/OpenSpeedy">
+    简体中文
+  </a>
+  ·
+  <a href="https://github.com/game1024/OpenSpeedy/blob/master/docs/README_ja.md">
+    日本語
+  </a>
+  ·
+  <a href="https://github.com/game1024/OpenSpeedy/blob/master/docs/README_en.md">
+    English
+  </a>
+</p>
+
 # 🚀 特徴
 - 完全無料でオープンソース
 - シンプルで使いやすいインターフェース
