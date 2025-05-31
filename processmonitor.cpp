@@ -11,13 +11,18 @@
 #include <QtWinExtras/QtWin>
 #include <psapi.h>
 ProcessMonitor::ProcessMonitor(QTreeWidget *treeWidget,
-                               QLabel *label,
+                               QLabel *treeStatusLabel,
+                               QLabel *injector32StatusLabel,
+                               QLabel *injector64StatusLabel,
                                QObject *parent)
-    : m_treeWidget(treeWidget), m_treeStatusLabel(label)
+    : m_treeWidget(treeWidget),
+      m_treeStatusLabel(treeStatusLabel),
+      m_injector32StatusLabel(injector32StatusLabel),
+      m_injector64StatusLabel(injector64StatusLabel)
 {
-    winutils::enableDebugPrivilege();
+    winutils::enableAllPrivilege();
     m_treeWidget->header()->setMinimumHeight(40);
-    m_treeWidget->setColumnWidth(0, 250);
+    m_treeWidget->setColumnWidth(0, 300);
     m_treeWidget->setColumnWidth(5, 50);
     m_treeWidget->setUniformRowHeights(true);
     m_treeWidget->sortByColumn(0, Qt::AscendingOrder);
@@ -26,6 +31,7 @@ ProcessMonitor::ProcessMonitor(QTreeWidget *treeWidget,
 
     this->startBridge32();
     this->startBridge64();
+
     init();
     refresh();
 }
@@ -58,6 +64,7 @@ void ProcessMonitor::setFilter(QString processName)
 
 void ProcessMonitor::refresh()
 {
+    healthcheckBridge();
     QList<ProcessInfo> processList = winutils::getProcessList();
     if (m_filter == "")
     {
@@ -398,6 +405,31 @@ void ProcessMonitor::startBridge64()
                 QByteArray data = m_bridge64->readAllStandardOutput();
                 qDebug() << "收到输出:" << QString(data).trimmed();
             });
+}
+
+void ProcessMonitor::healthcheckBridge()
+{
+    if (this->m_bridge32->state() == QProcess::Running)
+    {
+        m_injector32StatusLabel->setStyleSheet("color: green");
+        m_injector32StatusLabel->setText("正常");
+    }
+    else
+    {
+        m_injector32StatusLabel->setStyleSheet("color: red");
+        m_injector32StatusLabel->setText("异常退出");
+    }
+
+    if (this->m_bridge64->state() == QProcess::Running)
+    {
+        m_injector64StatusLabel->setStyleSheet("color: green");
+        m_injector64StatusLabel->setText("正常");
+    }
+    else
+    {
+        m_injector64StatusLabel->setStyleSheet("color:red");
+        m_injector64StatusLabel->setText("异常退出");
+    }
 }
 
 void ProcessMonitor::terminalBridge()
