@@ -365,6 +365,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
         case DLL_PROCESS_ATTACH:
             if (MH_Initialize() != MH_OK)
             {
+                MessageBoxW(NULL, L"MH装载失败", L"DLL", MB_OK);
                 return FALSE;
             }
 
@@ -434,7 +435,6 @@ BOOL APIENTRY DllMain(HMODULE hModule,
                     &DetourGetSystemTimePreciseAsFileTime,
                     reinterpret_cast<LPVOID *>(
                         &pfnKernelGetSystemTimePreciseAsFileTime));
-
             break;
         case DLL_THREAD_ATTACH:
             break;

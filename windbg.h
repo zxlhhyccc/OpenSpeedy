@@ -3,7 +3,6 @@
 #include <windows.h>
 #include <QDateTime>
 #include <QDir>
-#include <QMessageBox>
 #include <dbghelp.h>
 // 链接dbghelp库
 #pragma comment(lib, "dbghelp.lib")
@@ -88,10 +87,12 @@ LONG WINAPI createMiniDump(EXCEPTION_POINTERS *exceptionPointers)
     // 显示通知
     if (success)
     {
-        QMessageBox::critical(
-            nullptr, "程序崩溃",
+        std::wstring message =
             QString("程序遇到错误已退出，崩溃转储文件已保存到：\n%1")
-                .arg(dumpFileName));
+                .arg(dumpFileName)
+                .toStdWString();
+        MessageBoxW(nullptr, message.c_str(), L"程序崩溃",
+                    MB_OK | MB_ICONERROR);
     }
 
     return EXCEPTION_EXECUTE_HANDLER;

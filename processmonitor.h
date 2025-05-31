@@ -16,7 +16,9 @@ class ProcessMonitor : public QObject
     Q_OBJECT
    public:
     explicit ProcessMonitor(QTreeWidget *treeWidget,
-                            QLabel *label,
+                            QLabel *treeStatusLabel,
+                            QLabel *injector32StatusLabel,
+                            QLabel *injector64StatusLabel,
                             QObject *parent = nullptr);
     ~ProcessMonitor();
 
@@ -39,6 +41,8 @@ class ProcessMonitor : public QObject
    private:
     QTreeWidget *m_treeWidget;
     QLabel *m_treeStatusLabel;
+    QLabel *m_injector32StatusLabel;
+    QLabel *m_injector64StatusLabel;
     QString m_filter;
     QTimer *m_timer = nullptr;
     QString m_dllPath;
@@ -67,6 +71,8 @@ class ProcessMonitor : public QObject
     void startBridge32();
 
     void startBridge64();
+
+    void healthcheckBridge();
 
     void terminalBridge();
 

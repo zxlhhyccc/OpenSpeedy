@@ -58,14 +58,20 @@ else()
           icons.rc
           config.h
           windbg.h
+          docs/README_en.md
+          docs/README_ja.md
       )
 
       add_library(winutils
-        winutils.h winutils.cpp)
+        winutils.h winutils.cpp
+        cpuutils.h cpuutils.cpp
+        memutils.h memutils.cpp
+
+      )
       target_include_directories(winutils PUBLIC
           ${CMAKE_CURRENT_SOURCE_DIR}
       )
-    target_link_libraries(winutils PUBLIC Qt${QT_VERSION_MAJOR}::Core)
+    target_link_libraries(winutils PUBLIC Qt${QT_VERSION_MAJOR}::Core pdh)
     endif()
 
     #qt6_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})

@@ -1,5 +1,6 @@
 #include "../config.h"
 #include "../speedpatch/speedpatch.h"
+#include "../windbg.h"
 #include "../winutils.h"
 #include <QCoreApplication>
 #include <QDebug>
@@ -36,7 +37,13 @@ void handleChange(double factor)
 
 int main(int argc, char *argv[])
 {
+    SetUnhandledExceptionFilter(createMiniDump);
     QCoreApplication a(argc, argv);
+    if (winutils::enableAllPrivilege())
+    {
+        qDebug() << "权限提升成功";
+    }
+
     QString dllPath = QDir::toNativeSeparators(
         QCoreApplication::applicationDirPath() + "/" + SPEEDPATCH_DLL);
 
@@ -61,8 +68,7 @@ int main(int argc, char *argv[])
             break;
         }
         line = line.trimmed();
-        if (line.isEmpty())
-            continue;
+        if (line.isEmpty()) continue;
 
         QRegularExpressionMatch match;
         if ((match = injectRegex.match(line)).hasMatch())

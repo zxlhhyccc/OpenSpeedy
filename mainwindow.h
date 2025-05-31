@@ -1,7 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "ProcessMonitor.h"
+#include "cpuutils.h"
+#include "memutils.h"
+#include "processmonitor.h"
 #include <QMainWindow>
 #include <QSystemTrayIcon>
 
@@ -21,6 +23,8 @@ class MainWindow : public QMainWindow
     ~MainWindow();
 
    private slots:
+    void refresh();
+
     void on_sliderCtrl_valueChanged(int value);
 
     void on_processNameFilter_textChanged(const QString &arg1);
@@ -33,12 +37,16 @@ class MainWindow : public QMainWindow
     Ui::MainWindow *ui;
     QThread *m_thread;
     ProcessMonitor *m_processMonitor;
+    QTimer *m_timer;
 
     QSystemTrayIcon *trayIcon;
     QMenu *trayMenu;
     QAction *showAction;
     QAction *hideAction;
     QAction *quitAction;
+
+    CpuUtils *m_cpu;
+    MemUtils *m_mem;
 
     void createTray();
 
