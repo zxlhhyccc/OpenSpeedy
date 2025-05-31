@@ -73,8 +73,7 @@
 
 3. 勾选游戏进程，在 OpenSpeedy 界面中调整速度倍率
 
-
-<img src="https://github.com/user-attachments/assets/c42728b3-c6a0-44cb-b68e-42e490de6b53" width="50%">
+<img src="https://github.com/user-attachments/assets/cc435a02-d985-4803-9fe5-ec869b309aca" width="50%">
 
 5. 即刻生效，对比效果如下
 

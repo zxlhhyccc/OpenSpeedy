@@ -68,7 +68,8 @@
 <img src="https://github.com/user-attachments/assets/648e721d-9c3a-4d82-954c-19b16355d084" width="50%">
 
 3. Select the game process and adjust the speed multiplier in the OpenSpeedy interface
-<img src="https://github.com/user-attachments/assets/73ef1a95-64fb-4017-939c-a44405a6e742" width="50%">
+
+<img src="https://github.com/user-attachments/assets/cc435a02-d985-4803-9fe5-ec869b309aca" width="50%">
 
 4. Changes take effect immediately. Comparison shown below:
 
