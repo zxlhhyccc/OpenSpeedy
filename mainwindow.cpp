@@ -1,6 +1,7 @@
 #include "./ui_mainwindow.h"
 #include "mainwindow.h"
 #include <QCloseEvent>
+#include <QDateTime>
 #include <QDebug>
 #include <QScreen>
 #include <QStyle>
@@ -8,6 +9,13 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // 安装本地事件过滤器以处理全局快捷键
+    QApplication::instance()->installNativeEventFilter(this);
+
+    // 设置全局快捷键
+    setupGlobalHotkeys();
+
     m_processMonitor =
         new ProcessMonitor(ui->processMonitorWidget, ui->processMonitorLabel,
                            ui->injector32Status, ui->injector64Status, nullptr);
@@ -40,6 +48,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    unregisterGlobalHotkeys();
+    QApplication::instance()->removeNativeEventFilter(this);
     m_thread->quit();
     m_thread->wait();
     delete m_processMonitor;
@@ -64,36 +74,11 @@ void MainWindow::refresh()
 
 void MainWindow::on_sliderCtrl_valueChanged(int value)
 {
-    double speedFactor = 0.0;
+    double factor = speedFactor(value);
 
-    if (value >= 1 && value < 5)
-    {
-        speedFactor = value * 0.25 + 1;
-    }
-    else if (value >= 5 && value < 7)
-    {
-        speedFactor = value * 0.5;
-    }
-    else if (value >= 7 && value < 9)
-    {
-        speedFactor = 3 * (value - 7) + 4;
-    }
-    else if (value >= 9)
-    {
-        speedFactor = 5 * (value - 9) + 10;
-    }
-    else if (value < 0)
-    {
-        speedFactor = (double)(30 + value) / 30;
-    }
-    else
-    {
-        speedFactor = 1;
-    }
-
-    m_processMonitor->changeSpeed(speedFactor);
-    ui->sliderCtrl->setToolTip(QString("%1倍").arg(speedFactor, 4, 'f', 2));
-    ui->sliderLabel->setText(QString("x%1倍").arg(speedFactor, 4, 'f', 2));
+    m_processMonitor->changeSpeed(factor);
+    ui->sliderCtrl->setToolTip(QString("%1倍").arg(factor, 4, 'f', 2));
+    ui->sliderLabel->setText(QString("x%1倍").arg(factor, 4, 'f', 2));
 }
 
 void MainWindow::on_processNameFilter_textChanged(const QString &text)
@@ -169,6 +154,67 @@ void MainWindow::createTray()
     trayIcon->show();
 }
 
+double MainWindow::speedFactor(int sliderValue)
+{
+    double factor = 1.0;
+    if (sliderValue >= 1 && sliderValue < 5)
+    {
+        factor = sliderValue * 0.25 + 1;
+    }
+    else if (sliderValue >= 5 && sliderValue < 7)
+    {
+        factor = sliderValue * 0.5;
+    }
+    else if (sliderValue >= 7 && sliderValue < 9)
+    {
+        factor = 3 * (sliderValue - 7) + 4;
+    }
+    else if (sliderValue >= 9)
+    {
+        factor = 5 * (sliderValue - 9) + 10;
+    }
+    else if (sliderValue < 0)
+    {
+        factor = (double)(30 + sliderValue) / 30;
+    }
+    else
+    {
+        factor = 1.0;
+    }
+
+    return factor;
+}
+
+void MainWindow::setupGlobalHotkeys()
+{
+    HWND hwnd = (HWND)winId();
+
+    // Ctrl + Alt + ↑ - 增加速度
+    RegisterHotKey(hwnd, HOTKEY_INCREASE_SPEED, MOD_CONTROL | MOD_ALT, VK_UP);
+
+    // Ctrl + Alt + ↓ - 降低速度
+    RegisterHotKey(hwnd, HOTKEY_DECREASE_SPEED, MOD_CONTROL | MOD_ALT, VK_DOWN);
+
+    // Ctrl + Alt + 0 - 重置速度
+    RegisterHotKey(hwnd, HOTKEY_RESET_SPEED, MOD_CONTROL | MOD_ALT, '0');
+
+    qDebug() << "全局快捷键已注册:";
+    qDebug() << "Ctrl+Alt+↑ - 增加速度";
+    qDebug() << "Ctrl+Alt+↓ - 降低速度";
+    qDebug() << "Ctrl+Alt+0 - 重置速度";
+}
+
+void MainWindow::unregisterGlobalHotkeys()
+{
+    HWND hwnd = (HWND)winId();
+
+    UnregisterHotKey(hwnd, HOTKEY_INCREASE_SPEED);
+    UnregisterHotKey(hwnd, HOTKEY_DECREASE_SPEED);
+    UnregisterHotKey(hwnd, HOTKEY_RESET_SPEED);
+
+    qDebug() << "全局快捷键已注销";
+}
+
 void MainWindow::recreateTray()
 {
     qDebug() << "重绘托盘";
@@ -196,4 +242,76 @@ void MainWindow::closeEvent(QCloseEvent *event)
         // 如果没有托盘图标，则正常关闭
         event->accept();
     }
+}
+
+bool MainWindow::nativeEventFilter(const QByteArray &eventType,
+                                   void *message,
+                                   long *result)
+{
+    Q_UNUSED(result)
+
+    if (eventType == "windows_generic_MSG" ||
+        eventType == "windows_dispatcher_MSG")
+    {
+        MSG *msg = static_cast<MSG *>(message);
+
+        if (msg->message == WM_HOTKEY)
+        {
+            static qint64 lastSoundTime = 0;
+            qint64 currentTime = QDateTime::currentMSecsSinceEpoch();
+            bool canPlaySound = (currentTime - lastSoundTime > 150);
+            int hotkeyId = msg->wParam;
+
+            switch (hotkeyId)
+            {
+                case HOTKEY_INCREASE_SPEED:
+                {
+                    int currentValue = ui->sliderCtrl->value();
+                    if (currentValue < ui->sliderCtrl->maximum())
+                    {
+                        if (canPlaySound)
+                        {
+                            Beep(800, 5);
+                            lastSoundTime = currentTime;
+                        }
+                        ui->sliderCtrl->setValue(currentValue + 1);
+                        qDebug() << "全局快捷键: 增加速度到"
+                                 << speedFactor(currentValue + 1);
+                    }
+                }
+                break;
+
+                case HOTKEY_DECREASE_SPEED:
+                {
+                    int currentValue = ui->sliderCtrl->value();
+                    if (currentValue > ui->sliderCtrl->minimum())
+                    {
+                        if (canPlaySound)
+                        {
+                            Beep(400, 5);
+                            lastSoundTime = currentTime;
+                        }
+                        ui->sliderCtrl->setValue(currentValue - 1);
+                        qDebug() << "全局快捷键: 降低速度到"
+                                 << speedFactor(currentValue - 1);
+                    }
+                }
+                break;
+
+                case HOTKEY_RESET_SPEED:
+                    if (canPlaySound)
+                    {
+                        Beep(1600, 5);
+                        lastSoundTime = currentTime;
+                    }
+                    ui->sliderCtrl->setValue(0);
+                    qDebug() << "全局快捷键: 重置速度";
+                    break;
+            }
+
+            return true;  // 事件已处理
+        }
+    }
+
+    return false;  // 让其他过滤器处理
 }
