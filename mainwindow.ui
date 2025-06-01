@@ -489,6 +489,46 @@ QSlider::handle:horizontal:pressed {
            </layout>
           </widget>
          </item>
+         <item>
+          <layout class="QHBoxLayout" name="hotkeyLayout">
+           <item>
+            <widget class="QLabel" name="increaseSpeedLabel">
+             <property name="font">
+              <font>
+               <family>Segoe UI Emoji</family>
+              </font>
+             </property>
+             <property name="text">
+              <string>Ctrl + Alt + ⬆️ 增加速度</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="decreaseSpeedLabel">
+             <property name="font">
+              <font>
+               <family>Segoe UI Emoji</family>
+              </font>
+             </property>
+             <property name="text">
+              <string>Ctrl + Alt + ⬇️ 减少速度</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="resetSpeedLabel">
+             <property name="font">
+              <font>
+               <family>Segoe UI Emoji</family>
+              </font>
+             </property>
+             <property name="text">
+              <string>Ctrl + Alt + 0️⃣ 重置速度</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
         </layout>
        </widget>
       </item>

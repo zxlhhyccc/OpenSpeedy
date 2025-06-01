@@ -259,7 +259,7 @@ bool MainWindow::nativeEventFilter(const QByteArray &eventType,
         {
             static qint64 lastSoundTime = 0;
             qint64 currentTime = QDateTime::currentMSecsSinceEpoch();
-            bool canPlaySound = (currentTime - lastSoundTime > 150);
+            bool canPlaySound = (currentTime - lastSoundTime > 100);
             int hotkeyId = msg->wParam;
 
             switch (hotkeyId)
@@ -271,7 +271,7 @@ bool MainWindow::nativeEventFilter(const QByteArray &eventType,
                     {
                         if (canPlaySound)
                         {
-                            Beep(800, 5);
+                            Beep(400, 5);
                             lastSoundTime = currentTime;
                         }
                         ui->sliderCtrl->setValue(currentValue + 1);
