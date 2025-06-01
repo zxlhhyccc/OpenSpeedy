@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  OpenSpeedy is an open-source and free game speed modification tool that helps break frame rate limits, providing a smoother gaming experience.
+  OpenSpeedy is an open-source and free game speed modifier tool that breaks through frame rate limitations and provides a smoother gaming acceleration experience.
 </p>
 
 <p align="center">
@@ -21,7 +21,7 @@
   </a>
   <a href="https://github.com/game1024/OpenSpeedy/commits">
     <img src="https://img.shields.io/github/commit-activity/m/game1024/OpenSpeedy" alt="Commit Activity">
-  </a>
+  </a>  
 
   <img src="https://img.shields.io/badge/language-C/C++-blue">
   <img src="https://img.shields.io/badge/License-GPLv3-green.svg">
@@ -45,18 +45,18 @@
 </p>
 
 # 🚀 Features
-- Completely free and open-source
+- Completely free and open source
 - Simple and user-friendly interface
-- Customizable speed adjustment
-- Compatible with various game engines
+- Customizable speed multipliers
+- Good compatibility with various game engines
 - Low system resource usage
-- Can accelerate both x86 and x64 platform processes
-- No kernel intrusion, Ring3 layer Hook, doesn't compromise system kernel integrity
+- Supports acceleration for both x86 and x64 platform processes
+- Non-kernel invasive, Ring3 level Hook, does not compromise system kernel
 
 # 📥 Installation
 1. Visit the [release page](https://github.com/game1024/OpenSpeedy/releases) to download the latest version
-2. Extract the downloaded file to any location
-3. No installation required, simply run OpenSpeedy.exe to use
+2. Extract the downloaded package to any location
+3. No installation required, run OpenSpeedy.exe directly
 
 # 💻 System Requirements
 - OS: Windows 10 or higher
@@ -64,50 +64,50 @@
 
 # 📝 Usage Instructions
 1. Launch OpenSpeedy
-2. Run the target game you want to modify
+2. Run the target game you want to speed up
 <img src="https://github.com/user-attachments/assets/648e721d-9c3a-4d82-954c-19b16355d084" width="50%">
 
-3. Select the game process and adjust the speed multiplier in the OpenSpeedy interface
+3. Check the game process and adjust the speed multiplier in the OpenSpeedy interface
+<img src="https://github.com/user-attachments/assets/9469aae9-8be0-4e40-884d-1fbea3206e73" width="50%">
 
-<img src="https://github.com/user-attachments/assets/cc435a02-d985-4803-9fe5-ec869b309aca" width="50%">
-
-4. Changes take effect immediately. Comparison shown below:
+4. Takes effect immediately, comparison shown below
 
 <video src="https://github.com/user-attachments/assets/74471b1f-7f95-4de8-b5aa-7edc85c9d5f0" width="70%"></video>
 
-# 🔧 Technical Principles
-OpenSpeedy works by hooking the following Windows system time functions:
+# 🔧 Technical Principle
+OpenSpeedy achieves game speed adjustment by hooking the following Windows system time functions:
 
-|Function Name	| Library |	Purpose |
-|--------|----------|------------------|
-|Sleep|user32.dll|Thread sleep|
-|SetTimer|user32.dll|Creates a message-based timer|
-|timeGetTime | winmm.dll	| Retrieves milliseconds elapsed since system startup |
-|GetTickCount | kernel32.dll	| Retrieves milliseconds elapsed since system startup |
-|GetTickCount64	| kernel32.dll	| Retrieves milliseconds elapsed since system startup (64-bit) |
-|QueryPerformanceCounter |	kernel32.dll	| High-precision performance counter |
-|GetSystemTimeAsFileTime |	kernel32.dll	| Retrieves system time |
-|GetSystemTimePreciseAsFileTime |	kernel32.dll	| Retrieves high-precision system time |
+| Function Name | Library | Function |
+|---------------|---------|----------|
+| Sleep | user32.dll | Thread sleep |
+| SetTimer | user32.dll | Create message-based timer |
+| timeGetTime | winmm.dll | Get milliseconds elapsed since system startup |
+| GetTickCount | kernel32.dll | Get milliseconds elapsed since system startup |
+| GetTickCount64 | kernel32.dll | Get milliseconds elapsed since system startup (64-bit) |
+| QueryPerformanceCounter | kernel32.dll | High-precision performance counter |
+| GetSystemTimeAsFileTime | kernel32.dll | Get system time |
+| GetSystemTimePreciseAsFileTime | kernel32.dll | Get high-precision system time |
 
-# ⚠️ Precautions
-- This tool is for educational and research purposes only
-- Some online games may have anti-cheat systems, using this tool might result in account bans
+# ⚠️ Important Notes
+- This tool is for learning and research purposes only
+- Some online games may have anti-cheat systems, using this tool may result in account bans
 - Excessive acceleration may cause game physics engine anomalies or crashes
 - Not recommended for use in competitive online games
 
 # 🔄 Feedback
-If you encounter any issues while using OpenSpeedy, please provide feedback through:
-- [GitHub Issues](https://github.com/game1024/OpenSpeedy/issues) - Submit problem reports
+If you encounter any issues during use, please provide feedback through:
+- [GitHub Issues](https://github.com/game1024/OpenSpeedy/issues) - Submit bug reports
 
 # 📜 License
-OpenSpeedy is released under the GNU GPLv3 License.
+OpenSpeedy follows the GNU v3 license.
 
-# 🙏 Acknowledgements
-OpenSpeedy utilizes source code from the following projects. We thank the open-source community for their contributions:
-- [minhook](https://github.com/TsudaKageyu/minhook): Used for API Hooking
-- [Qt](https://www.qt.io/): GUI Framework
+# 🙏 Acknowledgments
+OpenSpeedy uses source code from the following projects, thanks to the power of the open source community:
+- [minhook](https://github.com/TsudaKageyu/minhook): For API hooking
+- [Qt](https://www.qt.io/): GUI framework
+- [Simple Manual Map Injector](https://github.com/TheCruZ/Simple-Manual-Map-Injector): Manual mapping injection
 
-Disclaimer: OpenSpeedy is for educational and research purposes only. Users assume all risks and responsibilities associated with using this software. The author is not responsible for any losses or legal liabilities arising from the use of this software.
+Disclaimer: OpenSpeedy is intended for educational and research purposes only. Users should assume all risks and responsibilities for using this software. The author is not responsible for any losses or legal liabilities resulting from the use of this software.
 
 <p align="center">
   <img src="https://api.star-history.com/svg?repos=game1024/openspeedy&type=Date" Alt="Star History Chart">
