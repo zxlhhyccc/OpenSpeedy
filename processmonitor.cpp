@@ -98,33 +98,40 @@ void ProcessMonitor::onItemChanged(QTreeWidgetItem *item, int column)
 {
     if (column == 5 && (item->flags() & Qt::ItemIsUserCheckable))
     {
+        bool state = m_treeWidget->blockSignals(true);
+
         Qt::CheckState checkState = item->checkState(column);
         QString processName = item->text(0);
         DWORD pid = item->text(1).toLong();
         bool is64Bit = item->text(3) == "x64" ? true : false;
         if (checkState == Qt::Checked)
         {
+            m_speedupItems.insert(processName);
+            this->injectDll(pid, is64Bit);
+            item->setText(5, "加速中");
             for (int col = 0; col < item->columnCount(); ++col)
             {
                 item->setBackground(col, QBrush(QColor("#f3e5f5")));
                 item->setForeground(col, QBrush(QColor("#7b1fa2")));
             }
             qDebug() << processName << "勾选";
-            m_speedupItems.insert(processName);
             dump();
         }
         else
         {
+            m_speedupItems.remove(processName);
+            this->unhookDll(pid, is64Bit);
+            item->setText(5, "");
             for (int col = 0; col < item->columnCount(); ++col)
             {
                 item->setBackground(col, QBrush());
                 item->setForeground(col, QBrush());
             }
             qDebug() << processName << "取消勾选";
-            m_speedupItems.remove(processName);
-            this->unhookDll(pid, is64Bit);
             dump();
         }
+
+        m_treeWidget->blockSignals(state);
     }
 }
 
@@ -281,12 +288,17 @@ void ProcessMonitor::update(const QList<ProcessInfo> &processList)
             item->setText(4, priority);
             if (m_speedupItems.contains(info.name))
             {
-                item->setCheckState(5, Qt::Checked);
-                this->injectDll(info.pid, info.is64Bit);
+                if (item->checkState(5) == Qt::Unchecked)
+                {
+                    item->setCheckState(5, Qt::Checked);
+                }
             }
-            else if (item->checkState(5) == Qt::Checked)
+            else
             {
-                item->setCheckState(5, Qt::Unchecked);
+                if (item->checkState(5) == Qt::Checked)
+                {
+                    item->setCheckState(5, Qt::Unchecked);
+                }
             }
         }
         else
@@ -324,9 +336,7 @@ void ProcessMonitor::update(const QList<ProcessInfo> &processList)
                     break;
             }
             item->setText(4, priority);
-            m_speedupItems.contains(info.name)
-                ? item->setCheckState(5, Qt::Checked)
-                : item->setCheckState(5, Qt::Unchecked);
+            item->setCheckState(5, Qt::Unchecked);
             m_treeWidget->addTopLevelItem(item);
             m_processItemMap[info.pid] = item;
         }

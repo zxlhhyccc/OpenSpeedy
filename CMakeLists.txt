@@ -66,11 +66,14 @@ else()
         winutils.h winutils.cpp
         cpuutils.h cpuutils.cpp
         memutils.h memutils.cpp
+        mml.h mml.cpp
+        shellcode_array32.h shellcode_array64.h
       )
 
       target_include_directories(winutils PUBLIC
           ${CMAKE_CURRENT_SOURCE_DIR}
       )
+
     target_link_libraries(winutils PUBLIC Qt${QT_VERSION_MAJOR}::Core pdh)
     endif()
 
@@ -111,6 +114,8 @@ install(TARGETS OpenSpeedy
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(OpenSpeedy)
 endif()
+
+add_subdirectory(third_party/minhook)
 add_subdirectory(speedpatch)
 add_subdirectory(bridge)
 

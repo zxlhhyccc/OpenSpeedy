@@ -355,7 +355,7 @@ VOID MH_UNHOOK(T *pTarget)
     MH_RemoveHook(reinterpret_cast<LPVOID>(pTarget));
 }
 
-LRESULT HookProc(int nCode, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
     if (nCode >= 0)
     {
@@ -379,6 +379,11 @@ BOOL APIENTRY DllMain(HMODULE hModule,
     switch (ul_reason_for_call)
     {
         case DLL_PROCESS_ATTACH:
+            if (lpReserved != NULL)
+            {
+                factor = 10.0;
+            }
+
             if (MH_Initialize() != MH_OK)
             {
                 MessageBoxW(NULL, L"MH装载失败", L"DLL", MB_OK);

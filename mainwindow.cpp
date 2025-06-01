@@ -27,10 +27,8 @@ MainWindow::MainWindow(QWidget *parent)
     QApplication::setQuitOnLastWindowClosed(false);
 
     ui->osContent->setText(winutils::getWindowsVersion());
-
     m_cpu = new CpuUtils();
     m_cpu->init();
-
     m_mem = new MemUtils();
     m_mem->init();
     m_timer = new QTimer();
