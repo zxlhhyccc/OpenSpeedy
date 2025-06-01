@@ -355,6 +355,22 @@ VOID MH_UNHOOK(T *pTarget)
     MH_RemoveHook(reinterpret_cast<LPVOID>(pTarget));
 }
 
+LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam)
+{
+    if (nCode >= 0)
+    {
+        // Hook被触发，DLL已经注入到目标进程
+        // 在这里执行需要的操作
+        // 只执行一次，然后移除Hook
+        static bool executed = false;
+        if (!executed)
+        {
+            executed = true;
+        }
+    }
+    return CallNextHookEx(NULL, nCode, wParam, lParam);
+}
+
 BOOL APIENTRY DllMain(HMODULE hModule,
                       DWORD ul_reason_for_call,
                       LPVOID lpReserved)
@@ -363,6 +379,11 @@ BOOL APIENTRY DllMain(HMODULE hModule,
     switch (ul_reason_for_call)
     {
         case DLL_PROCESS_ATTACH:
+            if (lpReserved != NULL)
+            {
+                factor = 10.0;
+            }
+
             if (MH_Initialize() != MH_OK)
             {
                 MessageBoxW(NULL, L"MH装载失败", L"DLL", MB_OK);

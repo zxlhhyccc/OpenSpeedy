@@ -1,6 +1,7 @@
 #include "winutils.h"
 #include <QDebug>
 #include <QFileInfo>
+#include <fstream>
 #include <psapi.h>
 #include <string>
 #include <tlhelp32.h>
@@ -34,13 +35,21 @@ bool winutils::injectDll(DWORD processId, const std::wstring &dllPath)
     {
         return true;
     }
-    else if (injectDllViaAPC(processId, dllPath))
+    else if (injectDllViaWHK(processId, dllPath))
     {
         return true;
     }
+    injectDllViaAPC(processId, dllPath);
+
+    if (checkDllExist(processId, dllPath))
+    {
+        qDebug() << "injected failed";
+        return false;
+    }
     else
     {
-        return false;
+        qDebug() << "injected success";
+        return true;
     }
 }
 
@@ -239,6 +248,416 @@ bool winutils::injectDllViaAPC(DWORD processId, const std::wstring &dllPath)
     return true;
 }
 
+bool winutils::injectDllViaASM(DWORD processId, const std::wstring &dllPath)
+{
+    HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
+    if (!hProcess)
+    {
+        qDebug() << "Failed to open process:" << GetLastError();
+        return false;
+    }
+
+    bool success = false;
+    void *injectionLocation = nullptr;
+    HANDLE hThread = nullptr;
+
+    try
+    {
+        // 2. 分配内存（类似CE的4096字节）
+        injectionLocation =
+            VirtualAllocEx(hProcess, nullptr, 4096, MEM_RESERVE | MEM_COMMIT,
+                           PAGE_EXECUTE_READWRITE);
+
+        if (!injectionLocation)
+        {
+            throw std::runtime_error("Failed to allocate memory");
+        }
+
+        // 3. 构建注入代码（类似CE的方式）
+        std::vector<BYTE> injectCode;
+        size_t position = 0;
+
+        // 写入DLL路径（转换为ANSI）
+        std::string dllPathA =
+            QString::fromStdWString(dllPath).toLocal8Bit().toStdString();
+        injectCode.insert(injectCode.end(), dllPathA.begin(), dllPathA.end());
+        injectCode.push_back(0);  // null terminator
+
+        size_t startAddress = injectCode.size();
+
+        // 获取LoadLibraryA地址
+        HMODULE hKernel32 = GetModuleHandleA("kernel32.dll");
+        FARPROC pLoadLibraryA = GetProcAddress(hKernel32, "LoadLibraryA");
+
+        // 构建汇编代码
+#ifdef _WIN64
+        // 64位汇编代码
+        // SUB RSP, 28h (栈对齐)
+        injectCode.insert(injectCode.end(), {0x48, 0x83, 0xEC, 0x28});
+
+        // MOV RCX, dll_path_address
+        injectCode.push_back(0x48);
+        injectCode.push_back(0xB9);
+        uint64_t dllAddr = (uint64_t)injectionLocation;
+        injectCode.insert(injectCode.end(), (BYTE *)&dllAddr,
+                          (BYTE *)&dllAddr + 8);
+
+        // MOV RAX, LoadLibraryA_address
+        injectCode.push_back(0x48);
+        injectCode.push_back(0xB8);
+        uint64_t loadLibAddr = (uint64_t)pLoadLibraryA;
+        injectCode.insert(injectCode.end(), (BYTE *)&loadLibAddr,
+                          (BYTE *)&loadLibAddr + 8);
+
+        // CALL RAX
+        injectCode.insert(injectCode.end(), {0xFF, 0xD0});
+
+        // ADD RSP, 28h
+        injectCode.insert(injectCode.end(), {0x48, 0x83, 0xC4, 0x28});
+
+        // 安全检查（类似CE）
+        // TEST RAX, RAX
+        injectCode.insert(injectCode.end(), {0x48, 0x85, 0xC0});
+
+        // JNE success
+        injectCode.insert(injectCode.end(), {0x75, 0x05});
+
+        // MOV EAX, 2 (失败退出码)
+        injectCode.insert(injectCode.end(), {0xB8, 0x02, 0x00, 0x00, 0x00});
+
+        // RET
+        injectCode.push_back(0xC3);
+
+        // success:
+        // MOV EAX, 1 (成功退出码)
+        injectCode.insert(injectCode.end(), {0xB8, 0x01, 0x00, 0x00, 0x00});
+#else
+        // 32位汇编代码
+        // PUSH dll_path_address
+        injectCode.push_back(0x68);
+        uint32_t dllAddr = (uint32_t)injectionLocation;
+        injectCode.insert(injectCode.end(), (BYTE *)&dllAddr,
+                          (BYTE *)&dllAddr + 4);
+
+        // CALL LoadLibraryA_address
+        injectCode.push_back(0xE8);
+        uint32_t callOffset =
+            (uint32_t)pLoadLibraryA - ((uint32_t)injectionLocation +
+                                       startAddress + injectCode.size() + 4);
+        injectCode.insert(injectCode.end(), (BYTE *)&callOffset,
+                          (BYTE *)&callOffset + 4);
+
+        // TEST EAX, EAX
+        injectCode.insert(injectCode.end(), {0x85, 0xC0});
+
+        // JNE success
+        injectCode.insert(injectCode.end(), {0x75, 0x05});
+
+        // MOV EAX, 2
+        injectCode.insert(injectCode.end(), {0xB8, 0x02, 0x00, 0x00, 0x00});
+
+        // RET
+        injectCode.push_back(0xC3);
+
+        // success:
+        // MOV EAX, 1
+        injectCode.insert(injectCode.end(), {0xB8, 0x01, 0x00, 0x00, 0x00});
+#endif
+
+        // RET
+        injectCode.push_back(0xC3);
+
+        // 4. 写入注入代码
+        SIZE_T bytesWritten;
+        if (!WriteProcessMemory(hProcess, injectionLocation, injectCode.data(),
+                                injectCode.size(), &bytesWritten))
+        {
+            throw std::runtime_error("Failed to write injection code");
+        }
+
+        // 5. 创建远程线程执行注入代码
+        DWORD threadId;
+        hThread = CreateRemoteThread(
+            hProcess, nullptr, 0,
+            (LPTHREAD_START_ROUTINE)((BYTE *)injectionLocation + startAddress),
+            nullptr, 0, &threadId);
+
+        if (!hThread)
+        {
+            throw std::runtime_error("Failed to create remote thread");
+        }
+
+        // 6. 等待执行完成（参考CE的方式）
+        DWORD counter = 10000 / 10;  // 10秒超时
+        DWORD waitResult;
+
+        while ((waitResult = WaitForSingleObject(hThread, 10)) ==
+                   WAIT_TIMEOUT &&
+               counter > 0)
+        {
+            // 类似CE的CheckSynchronize处理
+            counter--;
+        }
+
+        if (counter == 0)
+        {
+            throw std::runtime_error("Injection thread timeout (10 seconds)");
+        }
+
+        // 7. 检查退出码
+        DWORD exitCode;
+        if (!GetExitCodeThread(hThread, &exitCode))
+        {
+            throw std::runtime_error("Failed to get thread exit code");
+        }
+
+        qDebug() << "Thread exit code:" << exitCode;
+
+        switch (exitCode)
+        {
+            case 1:
+                qDebug() << "Injection successful";
+                success = true;
+                break;
+            case 2:
+                qDebug() << "LoadLibrary failed - possible causes:";
+                qDebug() << "  - DLL file access denied";
+                qDebug() << "  - DLL dependencies missing";
+                qDebug() << "  - Architecture mismatch";
+                qDebug() << "  - DLL initialization failed";
+                break;
+            default:
+                qDebug() << "Unknown injection error, exit code:" << exitCode;
+                break;
+        }
+    }
+    catch (const std::exception &e)
+    {
+        qDebug() << "Injection exception:" << e.what();
+    }
+
+    // 8. 清理资源
+    if (hThread) CloseHandle(hThread);
+    if (injectionLocation)
+    {
+        VirtualFreeEx(hProcess, injectionLocation, 0, MEM_RELEASE);
+    }
+    CloseHandle(hProcess);
+
+    return success;
+}
+
+bool winutils::injectDllViaWHK(DWORD processId, const std::wstring &dllPath)
+{
+    if (checkProcessProtection(processId))
+    {
+        qDebug() << "进程被保护 进程ID: " << processId;
+        return false;
+    }
+
+    // 1. 加载DLL到当前进程
+    HMODULE hMod = LoadLibraryW(dllPath.c_str());
+    if (!hMod) return false;
+
+    // 2. 获取Hook过程的地址
+    HOOKPROC hookProc = (HOOKPROC)GetProcAddress(hMod, "HookProc");
+    if (!hookProc) return false;
+
+    // 3. 获取目标线程ID
+    DWORD threadId = getProcessMainThread(processId);
+    if (threadId == 0) return false;
+
+    // 4. 安装Hook
+    HHOOK hHook = SetWindowsHookExW(WH_GETMESSAGE,  // Hook类型
+                                    hookProc,       // Hook过程
+                                    hMod,           // DLL模块句柄
+                                    threadId        // 目标线程ID
+    );
+
+    if (!hHook) return false;
+    // 5. 触发Hook执行
+    PostThreadMessageW(threadId, WM_NULL, 0, 0);
+
+    return true;
+}
+
+bool winutils::injectDllViaMML(DWORD processId, const std::wstring &dllPath)
+{
+    HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
+    if (!hProcess)
+    {
+        qDebug() << "Failed to open process:" << GetLastError();
+        return false;
+    }
+
+    std::ifstream dll(dllPath.c_str(), std::ios::binary | std::ios::ate);
+    if (dll.fail())
+    {
+        qDebug() << "Opening the file failed: " << (DWORD)dll.rdstate();
+    }
+    auto dllSize = dll.tellg();
+    BYTE *dllData = new BYTE[(UINT_PTR)dllSize];
+
+    dll.seekg(0, std::ios::beg);
+    dll.read((char *)(dllData), dllSize);
+    dll.close();
+
+    if (!mml::inject(hProcess, dllData, dllSize, true, true, true, false,
+                     DLL_PROCESS_ATTACH, (LPVOID)10))
+    {
+        delete[] dllData;
+        CloseHandle(hProcess);
+        return false;
+    }
+
+    delete[] dllData;
+    CloseHandle(hProcess);
+    return true;
+}
+
+PVOID winutils::getSymbolAddr(const std::wstring &moduleName,
+                              const std::string &symbol)
+{
+    HMODULE hModule = GetModuleHandle(moduleName.c_str());
+    if (!hModule)
+    {
+        qDebug() << "Failed to get handle for kernel32.dll:" << GetLastError();
+        return nullptr;
+    }
+
+    PVOID pSymbol =
+        reinterpret_cast<PVOID>(GetProcAddress(hModule, symbol.c_str()));
+    if (!pSymbol)
+    {
+        qDebug() << "Failed to get address of LoadLibraryW:" << GetLastError();
+        return nullptr;
+    }
+
+    return pSymbol;
+}
+
+bool winutils::restoreKernel(HANDLE hProcess)
+{
+    PVOID pKernelBase_LoadLibraryExW =
+        getSymbolAddr(L"kernelbase.dll", "LoadLibraryExW");
+    restoreBytecode(hProcess, pKernelBase_LoadLibraryExW, 5);
+
+    // 恢复 SetUnhandledExceptionFilter
+    PVOID pKernel32_SetUnhandledExceptionFilter =
+        getSymbolAddr(L"kernel32.dll", "SetUnhandledExceptionFilter");
+    restoreBytecode(hProcess, pKernel32_SetUnhandledExceptionFilter, 5);
+
+    PVOID pNtDll_NtMapViewOfSection =
+        getSymbolAddr(L"ntdll.dll", "NtMapViewOfSection");
+    restoreBytecode(hProcess, pNtDll_NtMapViewOfSection, 16);
+
+    PVOID pNtDll_NtUnmapViewOfSection =
+        getSymbolAddr(L"ntdll.dll", "NtUnmapViewOfSection");
+    restoreBytecode(hProcess, pNtDll_NtUnmapViewOfSection, 16);
+
+    // 恢复 NtSetInformationThread
+    PVOID pNtDll_NtSetInformationThread =
+        getSymbolAddr(L"ntdll.dll", "NtSetInformationThread");
+    restoreBytecode(hProcess, pNtDll_NtSetInformationThread, 16);
+
+    // 恢复 NtOpenThreadToken
+    PVOID pNtDll_NtOpenThreadToken =
+        getSymbolAddr(L"ntdll.dll", "NtOpenThreadToken");
+    restoreBytecode(hProcess, pNtDll_NtOpenThreadToken, 16);
+
+    // 恢复 NtOpenProcess
+    PVOID pNtDll_NtOpenProcess = getSymbolAddr(L"ntdll.dll", "NtOpenProcess");
+    restoreBytecode(hProcess, pNtDll_NtOpenProcess, 16);
+
+    // 恢复 NtOpenThreadTokenEx
+    PVOID pNtDll_NtOpenThreadTokenEx =
+        getSymbolAddr(L"ntdll.dll", "NtOpenThreadTokenEx");
+    restoreBytecode(hProcess, pNtDll_NtOpenThreadTokenEx, 16);
+
+    // 恢复 NtOpenProcessTokenEx
+    PVOID pNtDll_NtOpenProcessTokenEx =
+        getSymbolAddr(L"ntdll.dll", "NtOpenProcessTokenEx");
+    restoreBytecode(hProcess, pNtDll_NtOpenProcessTokenEx, 16);
+
+    // 恢复 NtOpenProcessToken
+    PVOID pNtDll_NtOpenProcessToken =
+        getSymbolAddr(L"ntdll.dll", "NtOpenProcessToken");
+    restoreBytecode(hProcess, pNtDll_NtOpenProcessToken, 16);
+
+    // 恢复 NtOpenThread
+    PVOID pNtDll_NtOpenThread = getSymbolAddr(L"ntdll.dll", "NtOpenThread");
+    restoreBytecode(hProcess, pNtDll_NtOpenThread, 16);
+
+    // 恢复 NtOpenFile
+    PVOID pNtDll_NtOpenFile = getSymbolAddr(L"ntdll.dll", "NtOpenFile");
+    restoreBytecode(hProcess, pNtDll_NtOpenFile, 16);
+
+    PVOID pNtDll_NtSetInformationFile =
+        getSymbolAddr(L"ntdll.dll", "NtSetInformationFile");
+    restoreBytecode(hProcess, pNtDll_NtSetInformationFile, 16);
+
+    PVOID pNtDll_NtQueryAttributesFile =
+        getSymbolAddr(L"ntdll.dll", "NtQueryAttributesFile");
+    restoreBytecode(hProcess, pNtDll_NtQueryAttributesFile, 16);
+
+    PVOID pNtDll_NtCreateFile = getSymbolAddr(L"ntdll.dll", "NtCreateFile");
+    restoreBytecode(hProcess, pNtDll_NtCreateFile, 16);
+
+    PVOID pNtDll_NtQueryFullAttributesFile =
+        getSymbolAddr(L"ntdll.dll", "NtQueryFullAttributesFile");
+    restoreBytecode(hProcess, pNtDll_NtQueryFullAttributesFile, 16);
+
+    return true;
+}
+
+bool winutils::restoreBytecode(HANDLE hProcess, PVOID addr, const SIZE_T nbytes)
+{
+    if (!hProcess || !addr)
+    {
+        return false;
+    }
+
+    BYTE bytecode[64] = {0};
+    memcpy(bytecode, addr, nbytes);
+
+    // 修改内存保护属性
+    DWORD flags;
+    if (!VirtualProtectEx(hProcess, addr, nbytes, PAGE_EXECUTE_READWRITE,
+                          &flags))
+    {
+        DWORD error = GetLastError();
+        qDebug() << "VirtualProtectEx failed. Error: " << error;
+        return false;
+    }
+
+    // 写入字节码
+    SIZE_T n;
+    bool success = WriteProcessMemory(hProcess, addr, bytecode, nbytes, &n);
+
+    if (!success)
+    {
+        DWORD error = GetLastError();
+        qDebug() << "WriteProcessMemory failed. Error: " << error;
+    }
+    else if (n != nbytes)
+    {
+        qDebug() << "Partial write: " << n << "/" << nbytes << " bytes";
+        success = false;
+    }
+
+    // 恢复原始内存保护属性
+    DWORD temp;
+    VirtualProtectEx(hProcess, addr, nbytes, flags, &temp);
+
+    // 刷新指令缓存（对于可执行代码很重要）
+    if (success)
+    {
+        FlushInstructionCache(hProcess, addr, nbytes);
+    }
+
+    return success;
+}
+
 bool winutils::unhookDll(DWORD processId, const std::wstring &dllPath)
 {
     HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
@@ -276,9 +695,9 @@ bool winutils::unhookDll(DWORD processId, const std::wstring &dllPath)
                                            hModules[i], 0, nullptr);
                     if (!hThread)
                     {
-                        qDebug()
-                            << "Failed to create remote thread for FreeLibrary:"
-                            << GetLastError();
+                        qDebug() << "Failed to create remote thread for "
+                                    "FreeLibrary:"
+                                 << GetLastError();
                         CloseHandle(hProcess);
                         return false;
                     }
@@ -338,6 +757,31 @@ bool winutils::checkDllExist(DWORD processId, const std::wstring &dllPath)
 
     CloseHandle(hProcess);
     return dllFound;
+}
+
+bool winutils::checkProcessProtection(DWORD processId)
+{
+    HANDLE hProcess =
+        OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, processId);
+    if (!hProcess)
+    {
+        qDebug() << "Cannot open process - likely protected";
+        return true;  // 可能被保护
+    }
+
+    // 检查是否是受保护进程
+    PROCESS_PROTECTION_LEVEL_INFORMATION protectionInfo = {};
+    DWORD returnLength;
+
+    if (GetProcessInformation(hProcess, ProcessProtectionLevelInfo,
+                              &protectionInfo, sizeof(protectionInfo)))
+    {
+        CloseHandle(hProcess);
+        return protectionInfo.ProtectionLevel != PROTECTION_LEVEL_NONE;
+    }
+
+    CloseHandle(hProcess);
+    return false;
 }
 
 typedef struct _OSVERSIONINFOEXW RTL_OSVERSIONINFOEXW, *PRTL_OSVERSIONINFOEXW;
@@ -578,9 +1022,7 @@ bool winutils::enableAllPrivilege()
         return false;
 
     const wchar_t *essentialPrivileges[] = {
-        SE_DEBUG_NAME,               // 最重要的调试权限
-        SE_INCREASE_QUOTA_NAME,      // 内存配额
-        SE_PROF_SINGLE_PROCESS_NAME  // 进程分析
+        SE_DEBUG_NAME,  // 最重要的调试权限
     };
 
     TOKEN_PRIVILEGES tkp;
@@ -588,10 +1030,10 @@ bool winutils::enableAllPrivilege()
 
     for (const auto &privilege : essentialPrivileges)
     {
+        tkp.PrivilegeCount = 1;
+        tkp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
         if (LookupPrivilegeValue(NULL, privilege, &tkp.Privileges[0].Luid))
         {
-            tkp.PrivilegeCount = 1;
-            tkp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
             AdjustTokenPrivileges(hToken, FALSE, &tkp, 0, NULL, NULL);
         }
     }

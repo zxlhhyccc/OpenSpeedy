@@ -354,8 +354,6 @@
                 stop:0.8 rgba(230, 230, 230, 0.8), 
                 stop:1 rgba(200, 200, 200, 0.9));
     border: 1px solid rgba(150, 150, 150, 0.8);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 
-                inset 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 QSlider::handle:horizontal:hover {
@@ -365,8 +363,6 @@ QSlider::handle:horizontal:hover {
                 stop:0.8 rgba(144, 202, 249, 0.8), 
                 stop:1 rgba(100, 181, 246, 0.9));
     border: 1px solid rgba(25, 118, 210, 0.8);
-    box-shadow: 0 6px 16px rgba(25, 118, 210, 0.3),
-                inset 0 1px 2px rgba(255, 255, 255, 0.9);
 }
 
 QSlider::handle:horizontal:pressed {
@@ -376,8 +372,6 @@ QSlider::handle:horizontal:pressed {
                 stop:0.7 rgba(66, 165, 245, 0.9), 
                 stop:1 rgba(25, 118, 210, 0.95));
     border: 1px solid rgba(13, 71, 161, 0.9);
-    box-shadow: 0 2px 8px rgba(13, 71, 161, 0.4),
-                inset 0 1px 2px rgba(255, 255, 255, 0.6);
 }</string>
               </property>
               <property name="minimum">
@@ -494,6 +488,46 @@ QSlider::handle:horizontal:pressed {
             </item>
            </layout>
           </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hotkeyLayout">
+           <item>
+            <widget class="QLabel" name="increaseSpeedLabel">
+             <property name="font">
+              <font>
+               <family>Segoe UI Emoji</family>
+              </font>
+             </property>
+             <property name="text">
+              <string>Ctrl + Alt + ⬆️ 增加速度</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="decreaseSpeedLabel">
+             <property name="font">
+              <font>
+               <family>Segoe UI Emoji</family>
+              </font>
+             </property>
+             <property name="text">
+              <string>Ctrl + Alt + ⬇️ 减少速度</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="resetSpeedLabel">
+             <property name="font">
+              <font>
+               <family>Segoe UI Emoji</family>
+              </font>
+             </property>
+             <property name="text">
+              <string>Ctrl + Alt + 0️⃣ 重置速度</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </widget>

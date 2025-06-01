@@ -1,6 +1,7 @@
 #ifndef WINUTILS_H
 #define WINUTILS_H
 #include <windows.h>
+#include "mml.h"
 #include <QSet>
 #include <QString>
 #include <string>
@@ -32,11 +33,31 @@ class winutils
     // APC DLL 注入
     static bool injectDllViaAPC(DWORD processId, const std::wstring& dllPath);
 
+    // 汇编注入
+    static bool injectDllViaASM(DWORD processId, const std::wstring& dllPath);
+
+    // Windows Hooks 注入
+    static bool injectDllViaWHK(DWORD processId, const std::wstring& dllPath);
+
+    // 手动映射导入
+    static bool injectDllViaMML(DWORD processId, const std::wstring& dllPath);
+
+    static PVOID getSymbolAddr(const std::wstring& moduleName,
+                               const std::string& symbol);
+
+    static bool restoreKernel(HANDLE hProcess);
+
+    static bool restoreBytecode(HANDLE hProcess,
+                                PVOID addr,
+                                const SIZE_T bytes);
+
     // DLL 卸载
     static bool unhookDll(DWORD processId, const std::wstring& dllPath);
 
     // 检查DLL是否已挂载
     static bool checkDllExist(DWORD processId, const std::wstring& dllPath);
+
+    static bool checkProcessProtection(DWORD processId);
 
     static BOOL getWindowsVersion(DWORD* majorVersion,
                                   DWORD* minorVersion,
@@ -50,7 +71,7 @@ class winutils
     // 获取进程路径
     static QString getProcessPath(DWORD processId);
 
-    // 获取进程中的所有线程
+    // 获取进程中的主线程
     static DWORD getProcessMainThread(DWORD processId);
 
     static bool enableAllPrivilege();
