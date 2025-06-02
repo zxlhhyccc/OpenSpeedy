@@ -26,6 +26,7 @@ add_library(${TARGET_NAME} SHARED
   speedpatch.cpp
   speedpatch.h
   vcpkg.json
+  shareddouble.h shareddouble.cpp
 )
 
 target_link_libraries(${TARGET_NAME} PRIVATE

@@ -1,10 +1,10 @@
 #include <windows.h>
 #include "Minhook.h"
+#include "shareddouble.h"
 #include "speedpatch.h"
 #include <atomic>
 #include <mmsystem.h>
 #include <shared_mutex>
-
 #pragma comment(lib, "winmm.lib")
 #pragma data_seg("shared")
 static std::atomic<double> factor = 1.0;
@@ -381,9 +381,8 @@ BOOL APIENTRY DllMain(HMODULE hModule,
         case DLL_PROCESS_ATTACH:
             if (lpReserved != NULL)
             {
-                factor = 10.0;
+                factor = *(DOUBLE *)lpReserved;
             }
-
             if (MH_Initialize() != MH_OK)
             {
                 MessageBoxW(NULL, L"MH装载失败", L"DLL", MB_OK);

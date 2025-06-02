@@ -118,7 +118,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>🪟 操作系统</string>
+                 <string>🖥️ 操作系统</string>
                 </property>
                </widget>
               </item>
@@ -384,7 +384,7 @@ QSlider::handle:horizontal:pressed {
                <enum>Qt::Horizontal</enum>
               </property>
               <property name="invertedControls">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="tickPosition">
                <enum>QSlider::TicksBothSides</enum>
@@ -523,7 +523,7 @@ QSlider::handle:horizontal:pressed {
               </font>
              </property>
              <property name="text">
-              <string>Ctrl + Alt + 0️⃣ 重置速度</string>
+              <string>Ctrl + Alt + 0 重置速度</string>
              </property>
             </widget>
            </item>

@@ -41,14 +41,12 @@ bool winutils::injectDll(DWORD processId, const std::wstring &dllPath)
     }
     injectDllViaAPC(processId, dllPath);
 
-    if (checkDllExist(processId, dllPath))
+    if (!checkDllExist(processId, dllPath))
     {
-        qDebug() << "injected failed";
         return false;
     }
     else
     {
-        qDebug() << "injected success";
         return true;
     }
 }
@@ -503,7 +501,7 @@ bool winutils::injectDllViaMML(DWORD processId, const std::wstring &dllPath)
     dll.close();
 
     if (!mml::inject(hProcess, dllData, dllSize, true, true, true, false,
-                     DLL_PROCESS_ATTACH, (LPVOID)10))
+                     DLL_PROCESS_ATTACH, (LPVOID)20))
     {
         delete[] dllData;
         CloseHandle(hProcess);
