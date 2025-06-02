@@ -378,10 +378,6 @@ BOOL APIENTRY DllMain(HMODULE hModule,
     switch (ul_reason_for_call)
     {
         case DLL_PROCESS_ATTACH:
-            if (lpReserved != NULL)
-            {
-                factor = *(DOUBLE *)lpReserved;
-            }
             if (MH_Initialize() != MH_OK)
             {
                 MessageBoxW(NULL, L"MH装载失败", L"DLL", MB_OK);
