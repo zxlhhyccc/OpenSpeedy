@@ -321,6 +321,8 @@ bool mml::inject(HANDLE hProc,
 #define RELOC_FLAG RELOC_FLAG32
 #endif
 
+typedef VOID (*CHANGESPEED)(DOUBLE);
+
 #pragma runtime_checks("", off)
 #pragma optimize("", off)
 void WINAPI Shellcode(MANUAL_MAPPING_DATA* pData)

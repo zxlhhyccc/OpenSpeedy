@@ -1,11 +1,11 @@
 #include "mainwindow.h"
+#include "mml.h"
 #include "windbg.h"
 #include <QApplication>
 #include <QLocalServer>
 #include <QLocalSocket>
 #include <QLocale>
 #include <QTranslator>
-
 int main(int argc, char *argv[])
 {
     SetUnhandledExceptionFilter(createMiniDump);
