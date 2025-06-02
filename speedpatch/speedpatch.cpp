@@ -1,6 +1,5 @@
 #include <windows.h>
 #include "Minhook.h"
-#include "shareddouble.h"
 #include "speedpatch.h"
 #include <atomic>
 #include <mmsystem.h>

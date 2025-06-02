@@ -475,6 +475,8 @@ bool winutils::injectDllViaWHK(DWORD processId, const std::wstring &dllPath)
     if (!hHook) return false;
     // 5. 触发Hook执行
     PostThreadMessageW(threadId, WM_NULL, 0, 0);
+    Sleep(500);
+    UnhookWindowsHookEx(hHook);
 
     return true;
 }
