@@ -9,41 +9,15 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    m_settings =
+        new QSettings(QCoreApplication::applicationDirPath() + "/config.ini",
+                      QSettings::IniFormat);
 
     // 安装本地事件过滤器以处理全局快捷键
     QApplication::instance()->installNativeEventFilter(this);
-
-    // 设置全局快捷键
     setupGlobalHotkeys();
 
-    m_processMonitor =
-        new ProcessMonitor(ui->processMonitorWidget, ui->processMonitorLabel,
-                           ui->injector32Status, ui->injector64Status, nullptr);
-    m_thread = new QThread(this);
-
-    connect(m_thread, &QThread::started, m_processMonitor,
-            &ProcessMonitor::start);
-    connect(m_thread, &QThread::finished, m_processMonitor,
-            &QObject::deleteLater);
-    connect(m_thread, &QThread::finished, m_thread, &QThread::deleteLater);
-    connect(QGuiApplication::primaryScreen(),
-            &QScreen::logicalDotsPerInchChanged, this,
-            &MainWindow::recreateTray);
-    m_thread->start();
-    m_processMonitor->start();
-    createTray();
-    QApplication::setQuitOnLastWindowClosed(false);
-
-    ui->osContent->setText(winutils::getWindowsVersion());
-    m_cpu = new CpuUtils();
-    m_cpu->init();
-    m_mem = new MemUtils();
-    m_mem->init();
-    m_timer = new QTimer();
-
-    refresh();
-    connect(m_timer, &QTimer::timeout, this, &MainWindow::refresh);
-    m_timer->start(1000);
+    init();
 }
 
 MainWindow::~MainWindow()
@@ -52,6 +26,7 @@ MainWindow::~MainWindow()
     QApplication::instance()->removeNativeEventFilter(this);
     m_thread->quit();
     m_thread->wait();
+    delete m_settings;
     delete m_processMonitor;
     delete m_cpu;
     delete m_mem;
@@ -79,6 +54,8 @@ void MainWindow::on_sliderCtrl_valueChanged(int value)
     m_processMonitor->changeSpeed(factor);
     ui->sliderCtrl->setToolTip(QString("%1倍").arg(factor, 4, 'f', 2));
     ui->sliderLabel->setText(QString("x%1倍").arg(factor, 4, 'f', 2));
+    m_settings->setValue(CONFIG_SLIDERVALUE_KEY, value);
+    m_settings->sync();
 }
 
 void MainWindow::on_processNameFilter_textChanged(const QString &text)
@@ -225,6 +202,44 @@ void MainWindow::recreateTray()
     delete hideAction;
     delete quitAction;
     createTray();
+}
+
+void MainWindow::init()
+{
+    m_processMonitor = new ProcessMonitor(
+        ui->processMonitorWidget, ui->processMonitorLabel, ui->injector32Status,
+        ui->injector64Status, m_settings, nullptr);
+    m_thread = new QThread(this);
+
+    connect(m_thread, &QThread::started, m_processMonitor,
+            &ProcessMonitor::start);
+    connect(m_thread, &QThread::finished, m_processMonitor,
+            &QObject::deleteLater);
+    connect(m_thread, &QThread::finished, m_thread, &QThread::deleteLater);
+    connect(QGuiApplication::primaryScreen(),
+            &QScreen::logicalDotsPerInchChanged, this,
+            &MainWindow::recreateTray);
+    m_thread->start();
+    m_processMonitor->start();
+
+    createTray();
+    QApplication::setQuitOnLastWindowClosed(false);
+
+    ui->osContent->setText(winutils::getWindowsVersion());
+    m_cpu = new CpuUtils();
+    m_cpu->init();
+    m_mem = new MemUtils();
+    m_mem->init();
+    m_timer = new QTimer();
+
+    refresh();
+    connect(m_timer, &QTimer::timeout, this, &MainWindow::refresh);
+    m_timer->start(1000);
+
+    int value = qBound(ui->sliderCtrl->minimum(),
+                       m_settings->value(CONFIG_SLIDERVALUE_KEY, 1).toInt(),
+                       ui->sliderCtrl->maximum());
+    ui->sliderCtrl->setValue(value);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)

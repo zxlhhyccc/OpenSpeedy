@@ -14,11 +14,13 @@ ProcessMonitor::ProcessMonitor(QTreeWidget *treeWidget,
                                QLabel *treeStatusLabel,
                                QLabel *injector32StatusLabel,
                                QLabel *injector64StatusLabel,
+                               QSettings *settings,
                                QObject *parent)
     : m_treeWidget(treeWidget),
       m_treeStatusLabel(treeStatusLabel),
       m_injector32StatusLabel(injector32StatusLabel),
-      m_injector64StatusLabel(injector64StatusLabel)
+      m_injector64StatusLabel(injector64StatusLabel),
+      m_settings(settings)
 {
     winutils::enableAllPrivilege();
     m_treeWidget->header()->setMinimumHeight(40);
@@ -106,7 +108,7 @@ void ProcessMonitor::onItemChanged(QTreeWidgetItem *item, int column)
         bool is64Bit = item->text(3) == "x64" ? true : false;
         if (checkState == Qt::Checked)
         {
-            m_speedupItems.insert(processName);
+            m_targetNames.insert(processName);
             this->injectDll(pid, is64Bit);
             item->setText(5, "加速中");
             for (int col = 0; col < item->columnCount(); ++col)
@@ -119,7 +121,7 @@ void ProcessMonitor::onItemChanged(QTreeWidgetItem *item, int column)
         }
         else
         {
-            m_speedupItems.remove(processName);
+            m_targetNames.remove(processName);
             this->unhookDll(pid, is64Bit);
             item->setText(5, "");
             for (int col = 0; col < item->columnCount(); ++col)
@@ -137,70 +139,23 @@ void ProcessMonitor::onItemChanged(QTreeWidgetItem *item, int column)
 
 void ProcessMonitor::init()
 {
-    QString txtPath = QCoreApplication::applicationDirPath() + "/target.txt";
-    QFile file(txtPath);
-
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        // 创建文本流
-        QTextStream in(&file);
-
-        // 逐行读取文件内容
-        while (!in.atEnd())
-        {
-            // 读取一行（一个进程名称）
-            QString processName = in.readLine().trimmed();
-
-            if (!processName.isEmpty())
-            {
-                m_speedupItems.insert(processName);
-                qDebug() << "读取到进程：" << processName;
-            }
-        }
-        // 关闭文件
-        file.close();
-    }
-    else
-    {
-        // 打开文件失败
-        qDebug() << "无法打开文件：" << txtPath;
-        qDebug() << "错误：" << file.errorString();
-    }
+    QStringList targetNames =
+        m_settings->value(CONFIG_TARGETNAMES_KEY).toStringList();
+    m_targetNames = QSet<QString>(targetNames.begin(), targetNames.end());
 }
 
 void ProcessMonitor::dump()
 {
-    QString txtPath = QCoreApplication::applicationDirPath() + "/target.txt";
-
-    // 创建文件对象
-    QFile file(txtPath);
-
-    // 以写入模式打开文件
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        qWarning() << "无法打开文件进行写入:" << file.errorString();
-        return;
-    }
-
-    // 创建文本流
-    QTextStream out(&file);
-
-    // 逐行写入每个字符串项
-    for (const QString &item : m_speedupItems)
-    {
-        out << item << "\n";
-    }
-
-    // 关闭文件
-    file.close();
+    m_settings->setValue(CONFIG_TARGETNAMES_KEY,
+                         QStringList(m_targetNames.values()));
 }
 
 void ProcessMonitor::update(const QList<ProcessInfo> &processList)
 {
     // 保存当前展开状态
     QMap<DWORD, bool> expandStates;
-    for (auto it = m_processItemMap.constBegin();
-         it != m_processItemMap.constEnd(); ++it)
+    for (auto it = m_processItems.constBegin(); it != m_processItems.constEnd();
+         ++it)
     {
         expandStates[it.key()] = it.value()->isExpanded();
     }
@@ -213,7 +168,7 @@ void ProcessMonitor::update(const QList<ProcessInfo> &processList)
     }
 
     // 移除已终止的进程
-    QMutableMapIterator<DWORD, QTreeWidgetItem *> i(m_processItemMap);
+    QMutableMapIterator<DWORD, QTreeWidgetItem *> i(m_processItems);
     while (i.hasNext())
     {
         i.next();
@@ -256,10 +211,10 @@ void ProcessMonitor::update(const QList<ProcessInfo> &processList)
     // 添加或更新进程信息
     for (const ProcessInfo &info : processList)
     {
-        if (m_processItemMap.contains(info.pid))
+        if (m_processItems.contains(info.pid))
         {
             // 更新已存在的进程信息
-            QTreeWidgetItem *item = m_processItemMap[info.pid];
+            QTreeWidgetItem *item = m_processItems[info.pid];
             item->setText(1, QString::number(info.pid));
             item->setText(2,
                           QString("%1 MB").arg(info.memoryUsage / 1024 / 1024));
@@ -286,7 +241,7 @@ void ProcessMonitor::update(const QList<ProcessInfo> &processList)
                     break;
             }
             item->setText(4, priority);
-            if (m_speedupItems.contains(info.name))
+            if (m_targetNames.contains(info.name))
             {
                 if (item->checkState(5) == Qt::Unchecked)
                 {
@@ -338,13 +293,13 @@ void ProcessMonitor::update(const QList<ProcessInfo> &processList)
             item->setText(4, priority);
             item->setCheckState(5, Qt::Unchecked);
             m_treeWidget->addTopLevelItem(item);
-            m_processItemMap[info.pid] = item;
+            m_processItems[info.pid] = item;
         }
     }
 
     // 恢复展开状态
-    for (auto it = m_processItemMap.constBegin();
-         it != m_processItemMap.constEnd(); ++it)
+    for (auto it = m_processItems.constBegin(); it != m_processItems.constEnd();
+         ++it)
     {
         if (expandStates.contains(it.key()))
         {
@@ -469,6 +424,8 @@ void ProcessMonitor::changeSpeed(double factor)
     m_bridge64->write(cmd.toUtf8(), cmd.size());
     m_bridge64->waitForBytesWritten();
 }
+
+void ProcessMonitor::setTargetNames(QStringList targetNames) {}
 
 QIcon ProcessMonitor::getProcessIconCached(DWORD processId)
 {

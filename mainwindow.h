@@ -1,12 +1,15 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
 #include "cpuutils.h"
 #include "memutils.h"
 #include "processmonitor.h"
 #include <QAbstractNativeEventFilter>
 #include <QMainWindow>
+#include <QSettings>
 #include <QSystemTrayIcon>
+
+#define CONFIG_SLIDERVALUE_KEY "MainWindow/SliderValue"
+
 QT_BEGIN_NAMESPACE
 namespace Ui
 {
@@ -45,8 +48,12 @@ class MainWindow : public QMainWindow, public QAbstractNativeEventFilter
     QAction *hideAction;
     QAction *quitAction;
 
+    QSettings *m_settings;
+
     CpuUtils *m_cpu;
     MemUtils *m_mem;
+
+    void init();
 
     void createTray();
 
