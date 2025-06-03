@@ -1,7 +1,6 @@
 #include "winutils.h"
 #include <QDebug>
 #include <QFileInfo>
-#include <fstream>
 #include <psapi.h>
 #include <string>
 #include <tlhelp32.h>
@@ -39,15 +38,15 @@ bool winutils::injectDll(DWORD processId, const std::wstring &dllPath)
     {
         return true;
     }
-    injectDllViaAPC(processId, dllPath);
 
-    if (!checkDllExist(processId, dllPath))
+    injectDllViaAPC(processId, dllPath);
+    if (checkDllExist(processId, dllPath))
     {
-        return false;
+        return true;
     }
     else
     {
-        return true;
+        return false;
     }
 }
 
@@ -466,196 +465,19 @@ bool winutils::injectDllViaWHK(DWORD processId, const std::wstring &dllPath)
     if (threadId == 0) return false;
 
     // 4. 安装Hook
-    HHOOK hHook = SetWindowsHookExW(WH_GETMESSAGE,  // Hook类型
-                                    hookProc,       // Hook过程
-                                    hMod,           // DLL模块句柄
-                                    threadId        // 目标线程ID
+    HHOOK hHook = SetWindowsHookExW(WH_CBT,    // Hook类型
+                                    hookProc,  // Hook过程
+                                    hMod,      // DLL模块句柄
+                                    threadId   // 目标线程ID
     );
 
     if (!hHook) return false;
     // 5. 触发Hook执行
     PostThreadMessageW(threadId, WM_NULL, 0, 0);
-    Sleep(500);
+    Sleep(5000);
     UnhookWindowsHookEx(hHook);
 
     return true;
-}
-
-bool winutils::injectDllViaMML(DWORD processId, const std::wstring &dllPath)
-{
-    HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
-    if (!hProcess)
-    {
-        qDebug() << "Failed to open process:" << GetLastError();
-        return false;
-    }
-
-    std::ifstream dll(dllPath.c_str(), std::ios::binary | std::ios::ate);
-    if (dll.fail())
-    {
-        qDebug() << "Opening the file failed: " << (DWORD)dll.rdstate();
-    }
-    auto dllSize = dll.tellg();
-    BYTE *dllData = new BYTE[(UINT_PTR)dllSize];
-
-    dll.seekg(0, std::ios::beg);
-    dll.read((char *)(dllData), dllSize);
-    dll.close();
-
-    if (!mml::inject(hProcess, dllData, dllSize, true, true, true, false,
-                     DLL_PROCESS_ATTACH, (LPVOID)20))
-    {
-        delete[] dllData;
-        CloseHandle(hProcess);
-        return false;
-    }
-
-    delete[] dllData;
-    CloseHandle(hProcess);
-    return true;
-}
-
-PVOID winutils::getSymbolAddr(const std::wstring &moduleName,
-                              const std::string &symbol)
-{
-    HMODULE hModule = GetModuleHandle(moduleName.c_str());
-    if (!hModule)
-    {
-        qDebug() << "Failed to get handle for kernel32.dll:" << GetLastError();
-        return nullptr;
-    }
-
-    PVOID pSymbol =
-        reinterpret_cast<PVOID>(GetProcAddress(hModule, symbol.c_str()));
-    if (!pSymbol)
-    {
-        qDebug() << "Failed to get address of LoadLibraryW:" << GetLastError();
-        return nullptr;
-    }
-
-    return pSymbol;
-}
-
-bool winutils::restoreKernel(HANDLE hProcess)
-{
-    PVOID pKernelBase_LoadLibraryExW =
-        getSymbolAddr(L"kernelbase.dll", "LoadLibraryExW");
-    restoreBytecode(hProcess, pKernelBase_LoadLibraryExW, 5);
-
-    // 恢复 SetUnhandledExceptionFilter
-    PVOID pKernel32_SetUnhandledExceptionFilter =
-        getSymbolAddr(L"kernel32.dll", "SetUnhandledExceptionFilter");
-    restoreBytecode(hProcess, pKernel32_SetUnhandledExceptionFilter, 5);
-
-    PVOID pNtDll_NtMapViewOfSection =
-        getSymbolAddr(L"ntdll.dll", "NtMapViewOfSection");
-    restoreBytecode(hProcess, pNtDll_NtMapViewOfSection, 16);
-
-    PVOID pNtDll_NtUnmapViewOfSection =
-        getSymbolAddr(L"ntdll.dll", "NtUnmapViewOfSection");
-    restoreBytecode(hProcess, pNtDll_NtUnmapViewOfSection, 16);
-
-    // 恢复 NtSetInformationThread
-    PVOID pNtDll_NtSetInformationThread =
-        getSymbolAddr(L"ntdll.dll", "NtSetInformationThread");
-    restoreBytecode(hProcess, pNtDll_NtSetInformationThread, 16);
-
-    // 恢复 NtOpenThreadToken
-    PVOID pNtDll_NtOpenThreadToken =
-        getSymbolAddr(L"ntdll.dll", "NtOpenThreadToken");
-    restoreBytecode(hProcess, pNtDll_NtOpenThreadToken, 16);
-
-    // 恢复 NtOpenProcess
-    PVOID pNtDll_NtOpenProcess = getSymbolAddr(L"ntdll.dll", "NtOpenProcess");
-    restoreBytecode(hProcess, pNtDll_NtOpenProcess, 16);
-
-    // 恢复 NtOpenThreadTokenEx
-    PVOID pNtDll_NtOpenThreadTokenEx =
-        getSymbolAddr(L"ntdll.dll", "NtOpenThreadTokenEx");
-    restoreBytecode(hProcess, pNtDll_NtOpenThreadTokenEx, 16);
-
-    // 恢复 NtOpenProcessTokenEx
-    PVOID pNtDll_NtOpenProcessTokenEx =
-        getSymbolAddr(L"ntdll.dll", "NtOpenProcessTokenEx");
-    restoreBytecode(hProcess, pNtDll_NtOpenProcessTokenEx, 16);
-
-    // 恢复 NtOpenProcessToken
-    PVOID pNtDll_NtOpenProcessToken =
-        getSymbolAddr(L"ntdll.dll", "NtOpenProcessToken");
-    restoreBytecode(hProcess, pNtDll_NtOpenProcessToken, 16);
-
-    // 恢复 NtOpenThread
-    PVOID pNtDll_NtOpenThread = getSymbolAddr(L"ntdll.dll", "NtOpenThread");
-    restoreBytecode(hProcess, pNtDll_NtOpenThread, 16);
-
-    // 恢复 NtOpenFile
-    PVOID pNtDll_NtOpenFile = getSymbolAddr(L"ntdll.dll", "NtOpenFile");
-    restoreBytecode(hProcess, pNtDll_NtOpenFile, 16);
-
-    PVOID pNtDll_NtSetInformationFile =
-        getSymbolAddr(L"ntdll.dll", "NtSetInformationFile");
-    restoreBytecode(hProcess, pNtDll_NtSetInformationFile, 16);
-
-    PVOID pNtDll_NtQueryAttributesFile =
-        getSymbolAddr(L"ntdll.dll", "NtQueryAttributesFile");
-    restoreBytecode(hProcess, pNtDll_NtQueryAttributesFile, 16);
-
-    PVOID pNtDll_NtCreateFile = getSymbolAddr(L"ntdll.dll", "NtCreateFile");
-    restoreBytecode(hProcess, pNtDll_NtCreateFile, 16);
-
-    PVOID pNtDll_NtQueryFullAttributesFile =
-        getSymbolAddr(L"ntdll.dll", "NtQueryFullAttributesFile");
-    restoreBytecode(hProcess, pNtDll_NtQueryFullAttributesFile, 16);
-
-    return true;
-}
-
-bool winutils::restoreBytecode(HANDLE hProcess, PVOID addr, const SIZE_T nbytes)
-{
-    if (!hProcess || !addr)
-    {
-        return false;
-    }
-
-    BYTE bytecode[64] = {0};
-    memcpy(bytecode, addr, nbytes);
-
-    // 修改内存保护属性
-    DWORD flags;
-    if (!VirtualProtectEx(hProcess, addr, nbytes, PAGE_EXECUTE_READWRITE,
-                          &flags))
-    {
-        DWORD error = GetLastError();
-        qDebug() << "VirtualProtectEx failed. Error: " << error;
-        return false;
-    }
-
-    // 写入字节码
-    SIZE_T n;
-    bool success = WriteProcessMemory(hProcess, addr, bytecode, nbytes, &n);
-
-    if (!success)
-    {
-        DWORD error = GetLastError();
-        qDebug() << "WriteProcessMemory failed. Error: " << error;
-    }
-    else if (n != nbytes)
-    {
-        qDebug() << "Partial write: " << n << "/" << nbytes << " bytes";
-        success = false;
-    }
-
-    // 恢复原始内存保护属性
-    DWORD temp;
-    VirtualProtectEx(hProcess, addr, nbytes, flags, &temp);
-
-    // 刷新指令缓存（对于可执行代码很重要）
-    if (success)
-    {
-        FlushInstructionCache(hProcess, addr, nbytes);
-    }
-
-    return success;
 }
 
 bool winutils::unhookDll(DWORD processId, const std::wstring &dllPath)
