@@ -105,7 +105,6 @@ OpenSpeedy follows the GNU v3 license.
 OpenSpeedy uses source code from the following projects, thanks to the power of the open source community:
 - [minhook](https://github.com/TsudaKageyu/minhook): For API hooking
 - [Qt](https://www.qt.io/): GUI framework
-- [Simple Manual Map Injector](https://github.com/TheCruZ/Simple-Manual-Map-Injector): Manual mapping injection
 
 Disclaimer: OpenSpeedy is intended for educational and research purposes only. Users should assume all risks and responsibilities for using this software. The author is not responsible for any losses or legal liabilities resulting from the use of this software.
 
