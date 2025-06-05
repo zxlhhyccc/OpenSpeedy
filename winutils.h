@@ -1,7 +1,6 @@
 #ifndef WINUTILS_H
 #define WINUTILS_H
 #include <windows.h>
-#include "mml.h"
 #include <QSet>
 #include <QString>
 #include <string>
@@ -38,18 +37,6 @@ class winutils
 
     // Windows Hooks 注入
     static bool injectDllViaWHK(DWORD processId, const std::wstring& dllPath);
-
-    // 手动映射导入
-    static bool injectDllViaMML(DWORD processId, const std::wstring& dllPath);
-
-    static PVOID getSymbolAddr(const std::wstring& moduleName,
-                               const std::string& symbol);
-
-    static bool restoreKernel(HANDLE hProcess);
-
-    static bool restoreBytecode(HANDLE hProcess,
-                                PVOID addr,
-                                const SIZE_T bytes);
 
     // DLL 卸载
     static bool unhookDll(DWORD processId, const std::wstring& dllPath);

@@ -3,6 +3,7 @@
 #include <QCloseEvent>
 #include <QDateTime>
 #include <QDebug>
+#include <QMessageBox>
 #include <QScreen>
 #include <QStyle>
 MainWindow::MainWindow(QWidget *parent)
@@ -134,6 +135,7 @@ void MainWindow::createTray()
 double MainWindow::speedFactor(int sliderValue)
 {
     double factor = 1.0;
+
     if (sliderValue >= 1 && sliderValue < 5)
     {
         factor = sliderValue * 0.25 + 1;
@@ -240,6 +242,22 @@ void MainWindow::init()
                        m_settings->value(CONFIG_SLIDERVALUE_KEY, 1).toInt(),
                        ui->sliderCtrl->maximum());
     ui->sliderCtrl->setValue(value);
+
+    connect(ui->menuAbout, &QMenu::aboutToShow,
+            [this]
+            {
+                ui->menuAbout->hide();
+                QTimer::singleShot(
+                    50,
+                    [this]()
+                    {
+                        m_aboutDlg.setModal(true);
+                        m_aboutDlg.show();
+                        m_aboutDlg.activateWindow();
+                        m_aboutDlg.raise();
+                        m_aboutDlg.setFocus(Qt::ActiveWindowFocusReason);
+                    });
+            });
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)

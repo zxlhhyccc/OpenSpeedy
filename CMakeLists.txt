@@ -60,14 +60,14 @@ else()
           windbg.h
           docs/README_en.md
           docs/README_ja.md
+          aboutdialog.ui
+          aboutdialog.h aboutdialog.cpp aboutdialog.ui
       )
 
       add_library(winutils
         winutils.h winutils.cpp
         cpuutils.h cpuutils.cpp
         memutils.h memutils.cpp
-        mml.h mml.cpp
-        shellcode_array32.h shellcode_array64.h
       )
 
       target_include_directories(winutils PUBLIC

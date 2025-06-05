@@ -19,13 +19,13 @@
   <property name="minimumSize">
    <size>
     <width>800</width>
-    <height>500</height>
+    <height>640</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1280</width>
-    <height>640</height>
+    <width>1024</width>
+    <height>768</height>
    </size>
   </property>
   <property name="font">
@@ -380,6 +380,9 @@ QSlider::handle:horizontal:pressed {
               <property name="maximum">
                <number>27</number>
               </property>
+              <property name="tracking">
+               <bool>true</bool>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -410,7 +413,7 @@ QSlider::handle:horizontal:pressed {
             <item row="2" column="0">
              <layout class="QHBoxLayout" name="sliderTitle">
               <item>
-               <spacer name="horizontalSpacer_2">
+               <spacer name="horizontalSpacer_1">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -469,7 +472,7 @@ QSlider::handle:horizontal:pressed {
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer">
+               <spacer name="horizontalSpacer_2">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -759,10 +762,27 @@ QTreeWidget {
      <x>0</x>
      <y>0</y>
      <width>960</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuAbout">
+    <property name="tearOffEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>📖关于</string>
+    </property>
+    <property name="separatorsCollapsible">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <addaction name="menuAbout"/>
   </widget>
+  <action name="action">
+   <property name="text">
+    <string>test</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>processNameFilter</tabstop>
