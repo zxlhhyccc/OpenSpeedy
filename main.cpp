@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "mml.h"
 #include "windbg.h"
 #include <QApplication>
 #include <QLocalServer>
@@ -41,7 +40,7 @@ int main(int argc, char *argv[])
         }
     }
     MainWindow w;
-    w.resize(800, 640);
+    w.resize(800, 768);
     w.show();
 
     // 创建并启动本地服务器

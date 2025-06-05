@@ -425,8 +425,6 @@ void ProcessMonitor::changeSpeed(double factor)
     m_bridge64->waitForBytesWritten();
 }
 
-void ProcessMonitor::setTargetNames(QStringList targetNames) {}
-
 QIcon ProcessMonitor::getProcessIconCached(DWORD processId)
 {
     QString processPath = winutils::getProcessPath(processId);

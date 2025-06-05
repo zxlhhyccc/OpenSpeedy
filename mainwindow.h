@@ -1,5 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+#include "aboutdialog.h"
 #include "cpuutils.h"
 #include "memutils.h"
 #include "processmonitor.h"
@@ -7,7 +8,6 @@
 #include <QMainWindow>
 #include <QSettings>
 #include <QSystemTrayIcon>
-
 #define CONFIG_SLIDERVALUE_KEY "MainWindow/SliderValue"
 
 QT_BEGIN_NAMESPACE
@@ -38,6 +38,8 @@ class MainWindow : public QMainWindow, public QAbstractNativeEventFilter
 
    private:
     Ui::MainWindow *ui;
+    AboutDialog m_aboutDlg;
+
     QThread *m_thread;
     ProcessMonitor *m_processMonitor;
     QTimer *m_timer;

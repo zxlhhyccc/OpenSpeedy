@@ -7,4 +7,4 @@
 #define SPEEDPATCH32_DLL "speedpatch32.dll"
 #define SPEEDPATCH64_DLL "speedpatch64.dll"
 
-#endif // CONFIG_H
+#endif  // CONFIG_H
