@@ -3,6 +3,7 @@
 #include "aboutdialog.h"
 #include "cpuutils.h"
 #include "memutils.h"
+#include "preferencedialog.h"
 #include "processmonitor.h"
 #include <QAbstractNativeEventFilter>
 #include <QMainWindow>
@@ -21,39 +22,40 @@ class MainWindow : public QMainWindow, public QAbstractNativeEventFilter
 {
     Q_OBJECT
 
-   public:
-    MainWindow(QWidget *parent = nullptr);
+public:
+    MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
-   private slots:
+private slots:
     void refresh();
 
     void on_sliderCtrl_valueChanged(int value);
 
-    void on_processNameFilter_textChanged(const QString &arg1);
+    void on_processNameFilter_textChanged(const QString& arg1);
 
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
 
     void recreateTray();
 
-   private:
-    Ui::MainWindow *ui;
+private:
+    Ui::MainWindow* ui;
     AboutDialog m_aboutDlg;
+    PreferenceDialog m_preferenceDialog;
 
-    QThread *m_thread;
-    ProcessMonitor *m_processMonitor;
-    QTimer *m_timer;
+    QThread* m_thread;
+    ProcessMonitor* m_processMonitor;
+    QTimer* m_timer;
 
-    QSystemTrayIcon *trayIcon;
-    QMenu *trayMenu;
-    QAction *showAction;
-    QAction *hideAction;
-    QAction *quitAction;
+    QSystemTrayIcon* trayIcon;
+    QMenu* trayMenu;
+    QAction* showAction;
+    QAction* hideAction;
+    QAction* quitAction;
 
-    QSettings *m_settings;
+    CpuUtils* m_cpu;
+    MemUtils* m_mem;
 
-    CpuUtils *m_cpu;
-    MemUtils *m_mem;
+    QSettings* m_settings;
 
     void init();
 
@@ -73,11 +75,11 @@ class MainWindow : public QMainWindow, public QAbstractNativeEventFilter
 
     void unregisterGlobalHotkeys();
 
-   protected:
-    void closeEvent(QCloseEvent *event) override;
+protected:
+    void closeEvent(QCloseEvent* event) override;
 
-    bool nativeEventFilter(const QByteArray &eventType,
-                           void *message,
-                           long *result) override;
+    bool nativeEventFilter(const QByteArray& eventType,
+        void* message,
+        long* result) override;
 };
-#endif  // MAINWINDOW_H
+#endif // MAINWINDOW_H
