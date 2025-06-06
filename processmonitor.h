@@ -1,24 +1,29 @@
 #ifndef PROCESSMONITOR_H
 #define PROCESSMONITOR_H
-
 #include <windows.h>
 #include "winutils.h"
 #include <QLabel>
 #include <QMap>
 #include <QObject>
 #include <QProcess>
+#include <QSettings>
 #include <QThread>
 #include <QTimer>
 #include <QTreeWidget>
 #include <tlhelp32.h>
+
+#define CONFIG_TARGETNAMES_KEY "ProcessMonitor/TargetNames"
+
 class ProcessMonitor : public QObject
 {
     Q_OBJECT
    public:
-    explicit ProcessMonitor(QTreeWidget *treeWidget,
+    explicit ProcessMonitor(QSettings *settings,
+                            QTreeWidget *treeWidget,
                             QLabel *treeStatusLabel,
                             QLabel *injector32StatusLabel,
                             QLabel *injector64StatusLabel,
+
                             QObject *parent = nullptr);
     ~ProcessMonitor();
 
@@ -50,13 +55,16 @@ class ProcessMonitor : public QObject
     QProcess *m_bridge32;
     QProcess *m_bridge64;
 
+    QSettings *m_settings;
+
     // 图标缓存
     QHash<QString, QIcon> m_iconCache;
 
     // 存储进程ID到TreeWidgetItem的映射
-    QMap<DWORD, QTreeWidgetItem *> m_processItemMap;
+    QMap<DWORD, QTreeWidgetItem *> m_processItems;
+
     // 存储需要加速的进程
-    QSet<QString> m_speedupItems;
+    QSet<QString> m_targetNames;
 
     void init();
 

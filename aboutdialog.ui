@@ -2,27 +2,54 @@
 <ui version="4.0">
  <class>AboutDialog</class>
  <widget class="QDialog" name="AboutDialog">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>440</width>
-    <height>161</height>
+    <height>180</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>关于</string>
   </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
   <property name="modal">
-   <bool>true</bool>
+   <bool>false</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>7</number>
+   </property>
    <item>
     <widget class="QLabel" name="appTitle">
      <property name="font">
       <font>
-       <family>MS UI Gothic</family>
-       <pointsize>14</pointsize>
+       <family>微软雅黑</family>
+       <pointsize>12</pointsize>
       </font>
      </property>
      <property name="text">
@@ -35,12 +62,15 @@
    </item>
    <item>
     <layout class="QFormLayout" name="formLayout">
+     <property name="verticalSpacing">
+      <number>4</number>
+     </property>
      <item row="0" column="0">
       <widget class="QLabel" name="authorIcon">
        <property name="font">
         <font>
          <family>Segoe UI Emoji</family>
-         <pointsize>9</pointsize>
+         <pointsize>12</pointsize>
         </font>
        </property>
        <property name="text">
@@ -48,12 +78,55 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="authorContent">
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+        </font>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;作者：&lt;a href=&quot;https://github.com/game1024&quot;&gt;&lt;span style=&quot; text-decoration: none; color:#003e92;&quot;&gt;game1024&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="openExternalLinks">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
      <item row="1" column="0">
+      <widget class="QLabel" name="homeIcon">
+       <property name="font">
+        <font>
+         <family>Segoe UI Emoji</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>🚀</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="homeContent">
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+        </font>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;主页：&lt;a href=&quot;https://github.com/game1024/OpenSpeedy&quot;&gt;&lt;span style=&quot; text-decoration: none; color:#003e92;&quot;&gt;https://github.com/game1024/OpenSpeedy&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="openExternalLinks">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
       <widget class="QLabel" name="versionIcon">
        <property name="font">
         <font>
          <family>Segoe UI Emoji</family>
-         <pointsize>9</pointsize>
+         <pointsize>12</pointsize>
         </font>
        </property>
        <property name="text">
@@ -61,16 +134,15 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="homeIcon">
+     <item row="2" column="1">
+      <widget class="QLabel" name="versionContent">
        <property name="font">
         <font>
-         <family>Segoe UI Emoji</family>
-         <pointsize>9</pointsize>
+         <family>微软雅黑</family>
         </font>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Consolas','Courier New','monospace'; font-size:14px; color:#2aa198;&quot;&gt;🏠&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>版本：v0.0.0</string>
        </property>
       </widget>
      </item>
@@ -79,7 +151,7 @@
        <property name="font">
         <font>
          <family>Segoe UI Emoji</family>
-         <pointsize>9</pointsize>
+         <pointsize>12</pointsize>
         </font>
        </property>
        <property name="text">
@@ -87,57 +159,19 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="authorContent">
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;作者：&lt;a href=&quot;https://github.com/game1024&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#003e92;&quot;&gt;game1024&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="openExternalLinks">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="versionContent">
-       <property name="text">
-        <string>版本：v1.6.6</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLabel" name="homeContent">
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;主页：&lt;a href=&quot;https://github.com/game1024/OpenSpeedy&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#003e92;&quot;&gt;https://github.com/game1024/OpenSpeedy&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="openExternalLinks">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="3" column="1">
       <widget class="QLabel" name="licenseContent">
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+        </font>
+       </property>
        <property name="text">
-        <string>协议：GPL v3</string>
+        <string>协议：General Public License v3</string>
        </property>
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <spacer name="bottomSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Expanding</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>

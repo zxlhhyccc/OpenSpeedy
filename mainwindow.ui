@@ -375,10 +375,13 @@ QSlider::handle:horizontal:pressed {
 }</string>
               </property>
               <property name="minimum">
-               <number>-27</number>
+               <number>-9900</number>
               </property>
               <property name="maximum">
-               <number>27</number>
+               <number>9900</number>
+              </property>
+              <property name="sliderPosition">
+               <number>0</number>
               </property>
               <property name="tracking">
                <bool>true</bool>
@@ -393,7 +396,7 @@ QSlider::handle:horizontal:pressed {
                <enum>QSlider::TicksBothSides</enum>
               </property>
               <property name="tickInterval">
-               <number>1</number>
+               <number>990</number>
               </property>
              </widget>
             </item>
@@ -776,6 +779,12 @@ QTreeWidget {
      <bool>false</bool>
     </property>
    </widget>
+   <widget class="QMenu" name="menuPreference">
+    <property name="title">
+     <string>快捷键</string>
+    </property>
+   </widget>
+   <addaction name="menuPreference"/>
    <addaction name="menuAbout"/>
   </widget>
   <action name="action">

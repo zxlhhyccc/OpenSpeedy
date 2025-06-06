@@ -62,6 +62,7 @@ else()
           docs/README_ja.md
           aboutdialog.ui
           aboutdialog.h aboutdialog.cpp aboutdialog.ui
+          preferencedialog.h preferencedialog.cpp preferencedialog.ui
       )
 
       add_library(winutils
