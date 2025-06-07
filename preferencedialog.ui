@@ -7,11 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>320</width>
-    <height>343</height>
+    <height>371</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>快捷键</string>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="8" column="0">
@@ -42,7 +45,7 @@
     </widget>
    </item>
    <item row="6" column="1">
-    <widget class="QKeySequenceEdit" name="shift1KeySequenceEdit">
+    <widget class="QSingleKeySequenceEdit" name="shift1KeySequenceEdit">
      <property name="keySequence">
       <string>Ctrl+Alt+1</string>
      </property>
@@ -83,10 +86,20 @@
     </widget>
    </item>
    <item row="10" column="2">
-    <widget class="QDoubleSpinBox" name="shift5DoubleSpinBox"/>
+    <widget class="QDoubleSpinBox" name="shift5DoubleSpinBox">
+     <property name="minimum">
+      <double>0.010000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>50.000000000000000</double>
+     </property>
+    </widget>
    </item>
    <item row="10" column="1">
-    <widget class="QKeySequenceEdit" name="shift5KeySequenceEdit">
+    <widget class="QSingleKeySequenceEdit" name="shift5KeySequenceEdit">
      <property name="keySequence">
       <string>Ctrl+Alt+5</string>
      </property>
@@ -105,7 +118,7 @@
     </widget>
    </item>
    <item row="8" column="1">
-    <widget class="QKeySequenceEdit" name="shift3KeySequenceEdit">
+    <widget class="QSingleKeySequenceEdit" name="shift3KeySequenceEdit">
      <property name="keySequence">
       <string>Ctrl+Alt+3</string>
      </property>
@@ -142,7 +155,7 @@
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="QKeySequenceEdit" name="resetSpeedKeySequenceEdit">
+    <widget class="QSingleKeySequenceEdit" name="resetSpeedKeySequenceEdit">
      <property name="keySequence">
       <string>Ctrl+Alt+0</string>
      </property>
@@ -161,21 +174,31 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QKeySequenceEdit" name="speedUpKeySequenceEdit">
+    <widget class="QSingleKeySequenceEdit" name="speedUpKeySequenceEdit">
      <property name="keySequence">
       <string>Ctrl+Alt+Up</string>
      </property>
     </widget>
    </item>
    <item row="9" column="1">
-    <widget class="QKeySequenceEdit" name="shift4KeySequenceEdit">
+    <widget class="QSingleKeySequenceEdit" name="shift4KeySequenceEdit">
      <property name="keySequence">
       <string>Ctrl+Alt+4</string>
      </property>
     </widget>
    </item>
    <item row="8" column="2">
-    <widget class="QDoubleSpinBox" name="shift3DoubleSpinBox"/>
+    <widget class="QDoubleSpinBox" name="shift3DoubleSpinBox">
+     <property name="minimum">
+      <double>0.010000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>30.000000000000000</double>
+     </property>
+    </widget>
    </item>
    <item row="7" column="0">
     <widget class="QLabel" name="shift2Label">
@@ -190,21 +213,31 @@
     </widget>
    </item>
    <item row="7" column="1">
-    <widget class="QKeySequenceEdit" name="shift2KeySequenceEdit">
+    <widget class="QSingleKeySequenceEdit" name="shift2KeySequenceEdit">
      <property name="keySequence">
       <string>Ctrl+Alt+2</string>
      </property>
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QKeySequenceEdit" name="speedDownKeySequenceEdit">
+    <widget class="QSingleKeySequenceEdit" name="speedDownKeySequenceEdit">
      <property name="keySequence">
       <string>Ctrl+Alt+Down</string>
      </property>
     </widget>
    </item>
    <item row="7" column="2">
-    <widget class="QDoubleSpinBox" name="shift2DoubleSpinBox"/>
+    <widget class="QDoubleSpinBox" name="shift2DoubleSpinBox">
+     <property name="minimum">
+      <double>0.010000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>20.000000000000000</double>
+     </property>
+    </widget>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="speedUpLabel">
@@ -219,7 +252,20 @@
     </widget>
    </item>
    <item row="6" column="2">
-    <widget class="QDoubleSpinBox" name="shift1DoubleSpinBox"/>
+    <widget class="QDoubleSpinBox" name="shift1DoubleSpinBox">
+     <property name="minimum">
+      <double>0.010000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="stepType">
+      <enum>QAbstractSpinBox::DefaultStepType</enum>
+     </property>
+     <property name="value">
+      <double>10.000000000000000</double>
+     </property>
+    </widget>
    </item>
    <item row="9" column="0">
     <widget class="QLabel" name="shift4Label">
@@ -234,7 +280,17 @@
     </widget>
    </item>
    <item row="9" column="2">
-    <widget class="QDoubleSpinBox" name="shift4DoubleSpinBox"/>
+    <widget class="QDoubleSpinBox" name="shift4DoubleSpinBox">
+     <property name="minimum">
+      <double>0.010000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>40.000000000000000</double>
+     </property>
+    </widget>
    </item>
    <item row="0" column="1">
     <widget class="QLabel" name="pressLabel_1">
@@ -253,6 +309,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QSingleKeySequenceEdit</class>
+   <extends>QKeySequenceEdit</extends>
+   <header>qsinglekeysequenceedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

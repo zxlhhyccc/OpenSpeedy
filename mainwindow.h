@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include "aboutdialog.h"
+#include "config.h"
 #include "cpuutils.h"
 #include "memutils.h"
 #include "preferencedialog.h"
@@ -18,29 +19,31 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow, public QAbstractNativeEventFilter
+class MainWindow
+  : public QMainWindow
+  , public QAbstractNativeEventFilter
 {
     Q_OBJECT
 
-public:
+  public:
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
-private slots:
+  private slots:
     void refresh();
 
     void on_sliderCtrl_valueChanged(int value);
 
-    void on_processNameFilter_textChanged(const QString& arg1);
+    void on_processNameFilter_textChanged(const QString& text);
 
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
 
     void recreateTray();
 
-private:
+  private:
     Ui::MainWindow* ui;
-    AboutDialog m_aboutDlg;
-    PreferenceDialog m_preferenceDialog;
+    AboutDialog* m_aboutDlg;
+    PreferenceDialog* m_preferenceDlg;
 
     QThread* m_thread;
     ProcessMonitor* m_processMonitor;
@@ -63,23 +66,13 @@ private:
 
     double speedFactor(int sliderValue);
 
-    // 热键ID定义
-    enum HotkeyIds
-    {
-        HOTKEY_INCREASE_SPEED = 1001,
-        HOTKEY_DECREASE_SPEED = 1002,
-        HOTKEY_RESET_SPEED = 1003,
-    };
+    int sliderValue(double speedFactor);
 
-    void setupGlobalHotkeys();
-
-    void unregisterGlobalHotkeys();
-
-protected:
+  protected:
     void closeEvent(QCloseEvent* event) override;
 
     bool nativeEventFilter(const QByteArray& eventType,
-        void* message,
-        long* result) override;
+                           void* message,
+                           long* result) override;
 };
 #endif // MAINWINDOW_H
