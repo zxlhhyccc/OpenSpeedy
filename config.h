@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define OPENSPEEDY_VERSION "v1.6.7"
+#define OPENSPEEDY_VERSION "v1.7.0"
 
 #define BRIDGE32_EXE "bridge32.exe"
 #define BRIDGE64_EXE "bridge64.exe"
@@ -22,4 +22,4 @@ enum HotkeyIds
     HOTKEY_SHIFT5 = 1015
 };
 
-#endif  // CONFIG_H
+#endif // CONFIG_H
