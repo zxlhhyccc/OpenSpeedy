@@ -12,15 +12,15 @@ class AboutDialog : public QDialog
 {
     Q_OBJECT
 
-   public:
-    explicit AboutDialog(QWidget *parent = nullptr);
+  public:
+    explicit AboutDialog(QWidget* parent = nullptr);
     ~AboutDialog();
 
-   private slots:
+  private slots:
     void recreate();
 
-   private:
-    Ui::AboutDialog *ui;
+  private:
+    Ui::AboutDialog* ui;
 };
 
-#endif  // ABOUTDIALOG_H
+#endif // ABOUTDIALOG_H

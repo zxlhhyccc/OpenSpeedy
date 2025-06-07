@@ -14,7 +14,9 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network WinExtras LinguistTools)
-set(TS_FILES OpenSpeedy_zh_CN.ts)
+set(TS_FILES OpenSpeedy_zh_CN.ts
+  OpenSpeedy_zh_CN.ts
+  OpenSpeedy_zh_CN.ts)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -63,6 +65,7 @@ else()
           aboutdialog.ui
           aboutdialog.h aboutdialog.cpp aboutdialog.ui
           preferencedialog.h preferencedialog.cpp preferencedialog.ui
+          qsinglekeysequenceedit.h qsinglekeysequenceedit.cpp
       )
 
       add_library(winutils

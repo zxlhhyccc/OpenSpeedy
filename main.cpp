@@ -5,7 +5,8 @@
 #include <QLocalSocket>
 #include <QLocale>
 #include <QTranslator>
-int main(int argc, char *argv[])
+int
+main(int argc, char* argv[])
 {
     SetUnhandledExceptionFilter(createMiniDump);
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -30,7 +31,7 @@ int main(int argc, char *argv[])
     a.setWindowIcon(appIcon);
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
-    for (const QString &locale : uiLanguages)
+    for (const QString& locale : uiLanguages)
     {
         const QString baseName = "OpenSpeedy_" + QLocale(locale).name();
         if (translator.load(":/i18n/" + baseName))
@@ -48,7 +49,8 @@ int main(int argc, char *argv[])
     QLocalServer::removeServer(unique);
     server.listen(unique);
     // 当用户尝试再运行一个进程时，将窗口显示到最前台
-    QObject::connect(&server, &QLocalServer::newConnection,
+    QObject::connect(&server,
+                     &QLocalServer::newConnection,
                      [&]
                      {
                          w.show();
