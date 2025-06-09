@@ -45,6 +45,11 @@ PreferenceDialog::PreferenceDialog(HWND hMainWindow,
     m_shift5Value =
       m_settings->value(CONFIG_SHIFT5_VALUE, DEFAULT_SHIFT5_VALUE).toDouble();
 
+    m_increaseStep =
+      m_settings->value(CONFIG_INCREASE_STEP, DEFAULT_INCREASE_STEP).toInt();
+    m_decreaseStep =
+      m_settings->value(CONFIG_DECREASE_STEP, DEFAULT_DECREASE_STEP).toInt();
+
     redraw();
     setupGlobalHotkeys();
 }
@@ -53,6 +58,18 @@ PreferenceDialog::~PreferenceDialog()
 {
     unregisterGlobalHotkeys();
     delete ui;
+}
+
+int
+PreferenceDialog::getIncreaseStep()
+{
+    return m_increaseStep;
+}
+
+int
+PreferenceDialog::getDecreaseStep()
+{
+    return m_decreaseStep;
 }
 
 double
@@ -144,7 +161,10 @@ PreferenceDialog::dump()
     dumpShortcut(CONFIG_HOTKEY_SHIFT3, ui->shift3KeySequenceEdit->getKeyText());
     dumpShortcut(CONFIG_HOTKEY_SHIFT4, ui->shift4KeySequenceEdit->getKeyText());
     dumpShortcut(CONFIG_HOTKEY_SHIFT5, ui->shift5KeySequenceEdit->getKeyText());
-
+    m_settings->setValue(CONFIG_INCREASE_STEP,
+                         ui->increaseStepSpinBox->value());
+    m_settings->setValue(CONFIG_DECREASE_STEP,
+                         ui->decreaseStepSpinBox->value());
     m_settings->setValue(CONFIG_SHIFT1_VALUE, ui->shift1DoubleSpinBox->value());
     m_settings->setValue(CONFIG_SHIFT2_VALUE, ui->shift2DoubleSpinBox->value());
     m_settings->setValue(CONFIG_SHIFT3_VALUE, ui->shift3DoubleSpinBox->value());
@@ -177,11 +197,19 @@ PreferenceDialog::update()
     updateShortcut(HOTKEY_SHIFT4, ui->shift4KeySequenceEdit);
     updateShortcut(HOTKEY_SHIFT5, ui->shift5KeySequenceEdit);
 
+    m_increaseStep = ui->increaseStepSpinBox->value();
+    m_decreaseStep = ui->decreaseStepSpinBox->value();
     m_shift1Value = ui->shift1DoubleSpinBox->value();
     m_shift2Value = ui->shift2DoubleSpinBox->value();
     m_shift3Value = ui->shift3DoubleSpinBox->value();
     m_shift4Value = ui->shift4DoubleSpinBox->value();
     m_shift5Value = ui->shift5DoubleSpinBox->value();
+}
+
+void
+PreferenceDialog::redrawSpinBox(QSpinBox* spinbox, int value)
+{
+    spinbox->setValue(value);
 }
 
 void
@@ -209,6 +237,8 @@ PreferenceDialog::redraw()
     redrawKeyEdit(ui->shift4KeySequenceEdit, HOTKEY_SHIFT4);
     redrawKeyEdit(ui->shift5KeySequenceEdit, HOTKEY_SHIFT5);
 
+    redrawSpinBox(ui->increaseStepSpinBox, m_increaseStep);
+    redrawSpinBox(ui->decreaseStepSpinBox, m_decreaseStep);
     redrawSpinBox(ui->shift1DoubleSpinBox, m_shift1Value);
     redrawSpinBox(ui->shift2DoubleSpinBox, m_shift2Value);
     redrawSpinBox(ui->shift3DoubleSpinBox, m_shift3Value);

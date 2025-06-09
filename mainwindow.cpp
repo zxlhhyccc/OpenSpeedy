@@ -360,9 +360,12 @@ MainWindow::nativeEventFilter(const QByteArray& eventType,
                             Beep(400, 5);
                             lastSoundTime = currentTime;
                         }
-                        ui->sliderCtrl->setValue(currentValue + 1);
-                        qDebug() << "全局快捷键: 增加速度到"
-                                 << speedFactor(currentValue + 1);
+                        ui->sliderCtrl->setValue(
+                          currentValue + m_preferenceDlg->getIncreaseStep());
+                        qDebug()
+                          << "全局快捷键: 增加速度到"
+                          << speedFactor(currentValue +
+                                         m_preferenceDlg->getIncreaseStep());
                     }
                 }
                 break;
@@ -377,9 +380,12 @@ MainWindow::nativeEventFilter(const QByteArray& eventType,
                             Beep(400, 5);
                             lastSoundTime = currentTime;
                         }
-                        ui->sliderCtrl->setValue(currentValue - 1);
-                        qDebug() << "全局快捷键: 降低速度到"
-                                 << speedFactor(currentValue - 1);
+                        ui->sliderCtrl->setValue(
+                          currentValue - m_preferenceDlg->getDecreaseStep());
+                        qDebug()
+                          << "全局快捷键: 降低速度到"
+                          << speedFactor(currentValue -
+                                         m_preferenceDlg->getDecreaseStep());
                     }
                 }
                 break;

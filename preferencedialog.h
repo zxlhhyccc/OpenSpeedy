@@ -9,6 +9,7 @@
 #include <QLabel>
 #include <QMap>
 #include <QSettings>
+#include <QSpinBox>
 
 namespace Ui
 {
@@ -29,12 +30,16 @@ class PreferenceDialog;
 #define CONFIG_SHIFT3_VALUE "Shift/Shift3Value"
 #define CONFIG_SHIFT4_VALUE "Shift/Shift4Value"
 #define CONFIG_SHIFT5_VALUE "Shift/Shift5Value"
+#define CONFIG_INCREASE_STEP "Shift/IncreaseStep"
+#define CONFIG_DECREASE_STEP "Shift/DecreaseStep"
 
 #define DEFAULT_SHIFT1_VALUE 10.0
 #define DEFAULT_SHIFT2_VALUE 20.0
 #define DEFAULT_SHIFT3_VALUE 30.0
 #define DEFAULT_SHIFT4_VALUE 40.0
 #define DEFAULT_SHIFT5_VALUE 50.0
+#define DEFAULT_INCREASE_STEP 1
+#define DEFAULT_DECREASE_STEP 1
 
 #define DEFAULT_HOTKEY_SPEEDUP "Ctrl+Alt+Up"
 #define DEFAULT_HOTKEY_SPEEDDOWN "Ctrl+Alt+Down"
@@ -57,6 +62,10 @@ class PreferenceDialog : public QDialog
                               QLabel* resetSpeedLabel,
                               QWidget* parent = nullptr);
     ~PreferenceDialog();
+
+    int getIncreaseStep();
+
+    int getDecreaseStep();
 
     double getShift1();
 
@@ -91,6 +100,7 @@ class PreferenceDialog : public QDialog
     void updateShortcut(int id, QSingleKeySequenceEdit* keyEdit);
     void update();
 
+    void redrawSpinBox(QSpinBox* spinbox, int value);
     void redrawSpinBox(QDoubleSpinBox* spinbox, double value);
     void redrawKeyEdit(QSingleKeySequenceEdit* keyEdit, int id);
     void redraw();
@@ -110,6 +120,9 @@ class PreferenceDialog : public QDialog
     double m_shift3Value;
     double m_shift4Value;
     double m_shift5Value;
+
+    int m_increaseStep;
+    int m_decreaseStep;
 
     HWND m_mainwindow;
 };
