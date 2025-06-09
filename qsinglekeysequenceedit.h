@@ -20,7 +20,7 @@ class QSingleKeySequenceEdit : public QKeySequenceEdit
   public:
     explicit QSingleKeySequenceEdit(QWidget* parent = nullptr);
 
-    static UINT toVK(int qtKey);
+    static UINT toVK(int qtKey, Qt::KeyboardModifiers qtMod);
 
     static UINT toModifier(Qt::KeyboardModifiers qtMod);
 

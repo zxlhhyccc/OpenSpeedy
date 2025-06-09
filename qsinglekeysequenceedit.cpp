@@ -20,7 +20,7 @@ QSingleKeySequenceEdit::QSingleKeySequenceEdit(QWidget* parent)
 UINT
 QSingleKeySequenceEdit::getVK()
 {
-    return toVK(m_key);
+    return toVK(m_key, m_modifier);
 }
 
 UINT
@@ -92,12 +92,41 @@ QSingleKeySequenceEdit::isModifierKey(int key) const
 }
 
 UINT
-QSingleKeySequenceEdit::toVK(int qtKey)
+QSingleKeySequenceEdit::toVK(int qtKey, Qt::KeyboardModifiers qtMod)
 {
     // 🔤 字母键 A-Z
     if (qtKey >= Qt::Key_A && qtKey <= Qt::Key_Z)
     {
         return qtKey; // Qt 和 Windows 的 A-Z 键码相同
+    }
+
+    // 🔢 小键盘 0-9
+    if (qtMod & Qt::KeypadModifier)
+    {
+        switch (qtKey)
+        {
+                // 数字键盘
+            case Qt::Key_0:
+                return VK_NUMPAD0;
+            case Qt::Key_1:
+                return VK_NUMPAD1;
+            case Qt::Key_2:
+                return VK_NUMPAD2;
+            case Qt::Key_3:
+                return VK_NUMPAD3;
+            case Qt::Key_4:
+                return VK_NUMPAD4;
+            case Qt::Key_5:
+                return VK_NUMPAD5;
+            case Qt::Key_6:
+                return VK_NUMPAD6;
+            case Qt::Key_7:
+                return VK_NUMPAD7;
+            case Qt::Key_8:
+                return VK_NUMPAD8;
+            case Qt::Key_9:
+                return VK_NUMPAD9;
+        }
     }
 
     // 🔢 数字键 0-9
@@ -169,28 +198,6 @@ QSingleKeySequenceEdit::toVK(int qtKey)
             return VK_NEXT;
         case Qt::Key_Space:
             return VK_SPACE;
-
-        // 数字键盘
-        case Qt::Key_0 + Qt::KeypadModifier:
-            return VK_NUMPAD0;
-        case Qt::Key_1 + Qt::KeypadModifier:
-            return VK_NUMPAD1;
-        case Qt::Key_2 + Qt::KeypadModifier:
-            return VK_NUMPAD2;
-        case Qt::Key_3 + Qt::KeypadModifier:
-            return VK_NUMPAD3;
-        case Qt::Key_4 + Qt::KeypadModifier:
-            return VK_NUMPAD4;
-        case Qt::Key_5 + Qt::KeypadModifier:
-            return VK_NUMPAD5;
-        case Qt::Key_6 + Qt::KeypadModifier:
-            return VK_NUMPAD6;
-        case Qt::Key_7 + Qt::KeypadModifier:
-            return VK_NUMPAD7;
-        case Qt::Key_8 + Qt::KeypadModifier:
-            return VK_NUMPAD8;
-        case Qt::Key_9 + Qt::KeypadModifier:
-            return VK_NUMPAD9;
 
         // 符号键
         case Qt::Key_Semicolon:
