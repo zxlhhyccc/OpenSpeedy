@@ -28,7 +28,7 @@
   <img src="https://img.shields.io/badge/language-C/C++-blue?style=flat-square">
   <img src="https://img.shields.io/badge/License-GPLv3-green.svg?style=flat-square">
   <a href="https://github.com/game1024/OpenSpeedy/stargazers">
-    <img src="https://img.shields.io/github/stars/game1024/OpenSpeedy?style=flat-square" alt="GitHub Stars">
+    <img src="https://img.shields.io/github/stars/game1024/OpenSpeedy" alt="GitHub Stars">
   </a>
 </p>
 
