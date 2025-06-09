@@ -463,7 +463,7 @@
     <message>
         <location filename="preferencedialog.ui" line="14"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="241"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="258"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="264"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="241"/>
         <source>快捷键</source>
         <translation type="unfinished"></translation>
@@ -471,7 +471,7 @@
     <message>
         <location filename="preferencedialog.ui" line="28"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="242"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="259"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="265"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="242"/>
         <source>档位3</source>
         <translation type="unfinished"></translation>
@@ -479,7 +479,7 @@
     <message>
         <location filename="preferencedialog.ui" line="40"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="243"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="260"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="266"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="243"/>
         <source>速度</source>
         <translation type="unfinished"></translation>
@@ -487,7 +487,7 @@
     <message>
         <location filename="preferencedialog.ui" line="50"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="244"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="261"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="267"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="244"/>
         <source>Ctrl+Alt+1</source>
         <translation type="unfinished"></translation>
@@ -495,7 +495,7 @@
     <message>
         <location filename="preferencedialog.ui" line="62"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="245"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="262"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="268"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="245"/>
         <source>减少速度</source>
         <translation type="unfinished"></translation>
@@ -505,8 +505,8 @@
         <location filename="preferencedialog.ui" line="303"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="246"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="260"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="263"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="277"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="269"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="283"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="246"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="260"/>
         <source>按键</source>
@@ -515,7 +515,7 @@
     <message>
         <location filename="preferencedialog.ui" line="104"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="247"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="264"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="270"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="247"/>
         <source>Ctrl+Alt+5</source>
         <translation type="unfinished"></translation>
@@ -523,7 +523,7 @@
     <message>
         <location filename="preferencedialog.ui" line="116"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="248"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="265"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="271"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="248"/>
         <source>档位5</source>
         <translation type="unfinished"></translation>
@@ -531,7 +531,7 @@
     <message>
         <location filename="preferencedialog.ui" line="123"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="249"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="266"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="272"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="249"/>
         <source>Ctrl+Alt+3</source>
         <translation type="unfinished"></translation>
@@ -539,7 +539,7 @@
     <message>
         <location filename="preferencedialog.ui" line="153"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="250"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="267"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="273"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="250"/>
         <source>档位1</source>
         <translation type="unfinished"></translation>
@@ -547,7 +547,7 @@
     <message>
         <location filename="preferencedialog.ui" line="160"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="251"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="268"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="274"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="251"/>
         <source>Ctrl+Alt+0</source>
         <translation type="unfinished"></translation>
@@ -555,7 +555,7 @@
     <message>
         <location filename="preferencedialog.ui" line="172"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="252"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="269"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="275"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="252"/>
         <source>重置速度</source>
         <translation type="unfinished"></translation>
@@ -563,7 +563,7 @@
     <message>
         <location filename="preferencedialog.ui" line="179"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="253"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="270"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="276"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="253"/>
         <source>Ctrl+Alt+Up</source>
         <translation type="unfinished"></translation>
@@ -571,7 +571,7 @@
     <message>
         <location filename="preferencedialog.ui" line="186"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="254"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="271"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="277"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="254"/>
         <source>Ctrl+Alt+4</source>
         <translation type="unfinished"></translation>
@@ -579,7 +579,7 @@
     <message>
         <location filename="preferencedialog.ui" line="211"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="255"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="272"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="278"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="255"/>
         <source>档位2</source>
         <translation type="unfinished"></translation>
@@ -587,7 +587,7 @@
     <message>
         <location filename="preferencedialog.ui" line="218"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="256"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="273"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="279"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="256"/>
         <source>Ctrl+Alt+2</source>
         <translation type="unfinished"></translation>
@@ -595,7 +595,7 @@
     <message>
         <location filename="preferencedialog.ui" line="225"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="257"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="274"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="280"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="257"/>
         <source>Ctrl+Alt+Down</source>
         <translation type="unfinished"></translation>
@@ -603,7 +603,7 @@
     <message>
         <location filename="preferencedialog.ui" line="250"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="258"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="275"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="281"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="258"/>
         <source>增加速度</source>
         <translation type="unfinished"></translation>
@@ -611,9 +611,15 @@
     <message>
         <location filename="preferencedialog.ui" line="278"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="259"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="276"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="282"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="259"/>
         <source>档位4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="preferencedialog.ui" line="333"/>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="284"/>
+        <source>步幅</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
