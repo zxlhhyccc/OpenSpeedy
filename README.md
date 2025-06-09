@@ -1,7 +1,6 @@
 <h1 align="center"> OpenSpeedy </h1>
 
 
-
 <p align="center">
   <img style="margin:0 auto" width=100 height=100 src="https://github.com/user-attachments/assets/bdbe4a60-7692-4e9c-9df4-ad1711337c57">
   </img>  
@@ -12,24 +11,27 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/game1024/OpenSpeedy/releases">
-    <img src="https://img.shields.io/github/v/release/game1024/OpenSpeedy?style=flat-square&color=brightgreen" alt="Version">
+  <a href="https://github.com/game1024/OpenSpeedy/stargazers">
+    <img src="https://img.shields.io/github/stars/game1024/OpenSpeedy?style=for-the-badge&color=yellow" alt="GitHub Stars">
   </a>
   <a href="https://github.com/game1024/OpenSpeedy/releases">
-    <img src="https://img.shields.io/github/downloads/game1024/OpenSpeedy/total?style=flat-square" alt="Downloads">
+    <img src="https://img.shields.io/github/downloads/game1024/OpenSpeedy/total?style=for-the-badge" alt="Downloads">
+  </a>
+  <a href="https://github.com/game1024/OpenSpeedy/releases">
+    <img src="https://img.shields.io/github/v/release/game1024/OpenSpeedy?style=for-the-badge&color=brightgreen" alt="Version">
   </a>
   <a href="https://github.com/game1024/OpenSpeedy">
-    <img src="https://img.shields.io/badge/Platform-Windows-lightblue?style=flat-square" alt="Platform">
+    <img src="https://img.shields.io/badge/Platform-Windows-lightblue?style=for-the-badge" alt="Platform">
   </a>
+  <br/>
+  
   <a href="https://github.com/game1024/OpenSpeedy/commits">
-    <img src="https://img.shields.io/github/commit-activity/m/game1024/OpenSpeedy?style=flat-square" alt="提交活跃度">
+    <img src="https://img.shields.io/github/commit-activity/m/game1024/OpenSpeedy?style=for-the-badge" alt="提交活跃度">
   </a>
+  <img src="https://img.shields.io/badge/language-C/C++-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/License-GPLv3-green.svg?style=for-the-badge">
+  <br/>
 
-  <img src="https://img.shields.io/badge/language-C/C++-blue?style=flat-square">
-  <img src="https://img.shields.io/badge/License-GPLv3-green.svg?style=flat-square">
-  <a href="https://github.com/game1024/OpenSpeedy/stargazers">
-    <img src="https://img.shields.io/github/stars/game1024/OpenSpeedy" alt="GitHub Stars">
-  </a>
 </p>
 
 <p align="center">
