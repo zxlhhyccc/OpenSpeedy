@@ -459,7 +459,7 @@ QSlider::handle:horizontal:pressed {
         background-color: #0078D4;
 
         color: white;
-        border-radius: 25px;
+        border-radius: 20px;
 		padding: 10;
     }</string>
                 </property>

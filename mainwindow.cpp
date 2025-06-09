@@ -54,12 +54,12 @@ MainWindow::on_sliderCtrl_valueChanged(int value)
     if (factor >= 1.0)
     {
         ui->sliderCtrl->setToolTip(QString("%1倍").arg(factor, 0, 'f', 2));
-        ui->sliderLabel->setText(QString("x %1倍").arg(factor, 0, 'f', 2));
+        ui->sliderLabel->setText(QString("✖️%1倍").arg(factor, 0, 'f', 2));
     }
     else
     {
         ui->sliderCtrl->setToolTip(QString("%1倍").arg(factor, 0, 'f', 4));
-        ui->sliderLabel->setText(QString("x %1倍").arg(factor, 0, 'f', 4));
+        ui->sliderLabel->setText(QString("✖️%1倍").arg(factor, 0, 'f', 4));
     }
     m_settings->setValue(CONFIG_SLIDERVALUE_KEY, value);
     m_settings->sync();
@@ -159,31 +159,6 @@ MainWindow::speedFactor(int sliderValue)
     {
         factor = 1.0;
     }
-
-    // if (sliderValue >= 1 && sliderValue < 5)
-    // {
-    //     factor = sliderValue * 0.25 + 1;
-    // }
-    // else if (sliderValue >= 5 && sliderValue < 7)
-    // {
-    //     factor = sliderValue * 0.5;
-    // }
-    // else if (sliderValue >= 7 && sliderValue < 9)
-    // {
-    //     factor = 3 * (sliderValue - 7) + 4;
-    // }
-    // else if (sliderValue >= 9)
-    // {
-    //     factor = 5 * (sliderValue - 9) + 10;
-    // }
-    // else if (sliderValue < 0)
-    // {
-    //     factor = (double)(30 + sliderValue) / 30;
-    // }
-    // else
-    // {
-    //     factor = 1.0;
-    // }
 
     return factor;
 }

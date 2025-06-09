@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define OPENSPEEDY_VERSION "v1.7.0"
+#define OPENSPEEDY_VERSION "v1.7.1"
 
 #define BRIDGE32_EXE "bridge32.exe"
 #define BRIDGE64_EXE "bridge64.exe"
