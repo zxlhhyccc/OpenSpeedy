@@ -31,7 +31,6 @@
   <img src="https://img.shields.io/badge/language-C/C++-blue?style=for-the-badge">
   <img src="https://img.shields.io/badge/License-GPLv3-green.svg?style=for-the-badge">
   <br/>
-
 </p>
 
 <p align="center">
