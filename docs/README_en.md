@@ -10,9 +10,15 @@
 </p>
 
 <p align="center">
+  <img src="https://api.visitorbadge.io/api/visitors?path=game1024.openspeedy&countColor=%234ecdc4">
+  
   <a href="https://github.com/game1024/OpenSpeedy/stargazers">
     <img src="https://img.shields.io/github/stars/game1024/OpenSpeedy?style=for-the-badge&color=yellow" alt="GitHub Stars">
   </a>
+
+  <img src="https://img.shields.io/github/forks/game1024/OpenSpeedy?style=for-the-badge&color=8a2be2" alt="GitHub Forks">
+  <br/>  
+  
   <a href="https://github.com/game1024/OpenSpeedy/releases">
     <img src="https://img.shields.io/github/downloads/game1024/OpenSpeedy/total?style=for-the-badge" alt="Downloads">
   </a>
@@ -31,7 +37,6 @@
   <img src="https://img.shields.io/badge/License-GPLv3-green.svg?style=for-the-badge">
   <br/>
 </p>
-
 
 <p align="center">
   <a href="https://github.com/game1024/OpenSpeedy">
