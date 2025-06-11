@@ -298,6 +298,50 @@ MainWindow::init()
                                        m_aboutDlg->raise();
                                    });
             });
+
+    m_languageGroup = new QActionGroup(this);
+    m_languageGroup->setExclusive(true);
+    m_languageGroup->setEnabled(true);
+    m_languageGroup->addAction(ui->actionCN);
+    m_languageGroup->addAction(ui->actionEN);
+    QString language =
+      m_settings->value(CONFIG_LANGUAGE, QLocale().system().name()).toString();
+    if (language == "zh_CN")
+    {
+        ui->actionCN->setChecked(true);
+    }
+    else if (language == "en_US")
+    {
+        ui->actionEN->setChecked(true);
+    }
+
+    connect(ui->actionCN,
+            &QAction::triggered,
+            [this]
+            {
+                m_settings->setValue(CONFIG_LANGUAGE, "zh_CN");
+                QMessageBox msgBox(this);
+                msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint |
+                                      Qt::CustomizeWindowHint);
+                msgBox.setIcon(QMessageBox::Information);
+                msgBox.setWindowTitle(tr("提示"));
+                msgBox.setText(tr("直到重启应用后，界面的语言才会生效"));
+                msgBox.exec();
+            });
+
+    connect(ui->actionEN,
+            &QAction::triggered,
+            [this]
+            {
+                m_settings->setValue(CONFIG_LANGUAGE, "en_US");
+                QMessageBox msgBox(this);
+                msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint |
+                                      Qt::CustomizeWindowHint);
+                msgBox.setIcon(QMessageBox::Information);
+                msgBox.setWindowTitle(tr("提示"));
+                msgBox.setText(tr("直到重启应用后，界面的语言才会生效"));
+                msgBox.exec();
+            });
 }
 
 void

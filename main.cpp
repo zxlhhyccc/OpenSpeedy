@@ -29,20 +29,21 @@ main(int argc, char* argv[])
     appIcon.addFile(":/icons/images/icon_32.ico", QSize(32, 32));
     appIcon.addFile(":/icons/images/icon_64.ico", QSize(64, 64));
     a.setWindowIcon(appIcon);
+
+    QSettings settings =
+      QSettings(QCoreApplication::applicationDirPath() + "/config.ini",
+                QSettings::IniFormat);
+
     QTranslator translator;
-    const QStringList uiLanguages = QLocale::system().uiLanguages();
-    for (const QString& locale : uiLanguages)
+    const QString baseName =
+      "OpenSpeedy_" +
+      settings.value(CONFIG_LANGUAGE, QLocale().system().name()).toString();
+
+    if (translator.load(":/i18n/translations/" + baseName))
     {
-        // const QString baseName = "OpenSpeedy_" + QLocale(locale).name();
-        const QString baseName = "OpenSpeedy_" + QString("en_US");
-        if (translator.load(":/i18n/translations/" + baseName))
-        {
-            a.installTranslator(&translator);
-            break;
-        }
+        a.installTranslator(&translator);
     }
-    QString translated = QCoreApplication::translate("MainWindow", "正常");
-    qDebug() << "Translated:" << translated;
+
     MainWindow w;
     w.resize(800, 768);
     w.show();

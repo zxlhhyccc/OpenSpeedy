@@ -762,6 +762,9 @@ QTreeWidget {
      <height>26</height>
     </rect>
    </property>
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
    <widget class="QMenu" name="menuAbout">
     <property name="tearOffEnabled">
      <bool>false</bool>
@@ -778,12 +781,42 @@ QTreeWidget {
      <string>⌨️快捷键</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuLanguage">
+    <property name="title">
+     <string>🌐语言</string>
+    </property>
+    <addaction name="actionCN"/>
+    <addaction name="actionEN"/>
+   </widget>
    <addaction name="menuPreference"/>
+   <addaction name="menuLanguage"/>
    <addaction name="menuAbout"/>
   </widget>
   <action name="action">
    <property name="text">
     <string>test</string>
+   </property>
+  </action>
+  <action name="actionCN">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>中文</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
+   </property>
+  </action>
+  <action name="actionEN">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>English</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
    </property>
   </action>
  </widget>

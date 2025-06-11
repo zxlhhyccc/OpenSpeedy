@@ -9,6 +9,8 @@
 #define SPEEDPATCH32_DLL "speedpatch32.dll"
 #define SPEEDPATCH64_DLL "speedpatch64.dll"
 
+#define CONFIG_LANGUAGE "General/Language"
+
 // 热键ID
 enum HotkeyIds
 {
