@@ -33,13 +33,16 @@ main(int argc, char* argv[])
     const QStringList uiLanguages = QLocale::system().uiLanguages();
     for (const QString& locale : uiLanguages)
     {
-        const QString baseName = "OpenSpeedy_" + QLocale(locale).name();
-        if (translator.load(":/i18n/" + baseName))
+        // const QString baseName = "OpenSpeedy_" + QLocale(locale).name();
+        const QString baseName = "OpenSpeedy_" + QString("en_US");
+        if (translator.load(":/i18n/translations/" + baseName))
         {
             a.installTranslator(&translator);
             break;
         }
     }
+    QString translated = QCoreApplication::translate("MainWindow", "正常");
+    qDebug() << "Translated:" << translated;
     MainWindow w;
     w.resize(800, 768);
     w.show();

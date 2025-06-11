@@ -40,6 +40,8 @@ class MainWindow
 
     void recreateTray();
 
+    void on_sliderLabel_clicked();
+
   private:
     Ui::MainWindow* ui;
     AboutDialog* m_aboutDlg;
@@ -59,6 +61,8 @@ class MainWindow
     MemUtils* m_mem;
 
     QSettings* m_settings;
+
+    int m_back;
 
     void init();
 

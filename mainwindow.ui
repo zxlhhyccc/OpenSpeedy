@@ -380,6 +380,9 @@ QSlider::handle:horizontal:pressed {
               <property name="maximum">
                <number>9900</number>
               </property>
+              <property name="pageStep">
+               <number>100</number>
+              </property>
               <property name="sliderPosition">
                <number>0</number>
               </property>
@@ -429,7 +432,7 @@ QSlider::handle:horizontal:pressed {
                </spacer>
               </item>
               <item>
-               <widget class="QLabel" name="sliderLabel">
+               <widget class="QPushButton" name="sliderLabel">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Maximum">
                   <horstretch>0</horstretch>
@@ -444,18 +447,15 @@ QSlider::handle:horizontal:pressed {
                 </property>
                 <property name="font">
                  <font>
-                  <family>LXGW WenKai</family>
+                  <family>微软雅黑</family>
                   <pointsize>14</pointsize>
-                  <italic>false</italic>
-                  <bold>false</bold>
-                  <kerning>true</kerning>
                  </font>
                 </property>
-                <property name="layoutDirection">
-                 <enum>Qt::LeftToRight</enum>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">    QLabel {
+                 <string notr="true">    QPushButton {
         background-color: #0078D4;
 
         color: white;
@@ -463,14 +463,8 @@ QSlider::handle:horizontal:pressed {
 		padding: 10;
     }</string>
                 </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
                 <property name="text">
-                 <string>x1.0倍</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                 <string>✖️1.0倍</string>
                 </property>
                </widget>
               </item>

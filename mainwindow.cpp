@@ -11,7 +11,6 @@ MainWindow::MainWindow(QWidget* parent)
   , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     init();
 }
 
@@ -69,6 +68,20 @@ void
 MainWindow::on_processNameFilter_textChanged(const QString& text)
 {
     m_processMonitor->setFilter(text);
+}
+
+void
+MainWindow::on_sliderLabel_clicked()
+{
+    if (ui->sliderCtrl->value() != 0)
+    {
+        m_back = ui->sliderCtrl->value();
+        ui->sliderCtrl->setValue(0);
+    }
+    else
+    {
+        ui->sliderCtrl->setValue(m_back);
+    }
 }
 
 void
@@ -199,17 +212,18 @@ MainWindow::recreateTray()
 void
 MainWindow::init()
 {
+    m_back = 0;
     m_settings =
       new QSettings(QCoreApplication::applicationDirPath() + "/config.ini",
                     QSettings::IniFormat);
 
-    m_aboutDlg = new AboutDialog();
+    m_aboutDlg = new AboutDialog(this);
     m_preferenceDlg = new PreferenceDialog((HWND)winId(),
                                            m_settings,
                                            ui->increaseSpeedLabel,
                                            ui->decreaseSpeedLabel,
                                            ui->resetSpeedLabel,
-                                           nullptr);
+                                           this);
 
     // 安装本地事件过滤器以处理全局快捷键
     QApplication::instance()->installNativeEventFilter(this);

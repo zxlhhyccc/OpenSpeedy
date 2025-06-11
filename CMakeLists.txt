@@ -14,7 +14,10 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network WinExtras LinguistTools)
-set(TS_FILES OpenSpeedy_zh_CN.ts)
+set(TS_FILES
+  OpenSpeedy_zh_CN.ts
+  OpenSpeedy_en_US.ts
+)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -42,18 +45,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 
     qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 else()
-    if(ANDROID)
-        add_library(OpenSpeedy SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-      qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+      qt5_create_translation(QM_FILES
+        ${CMAKE_SOURCE_DIR}
+        ${TS_FILES})
+
       add_definitions("-DUNICODE -DNOMINMAX")
       add_executable(OpenSpeedy
           ${PROJECT_SOURCES}
-          ${QM_FILES}
           processmonitor.h processmonitor.cpp
           resources.qrc
           images/icon.ico images/logo.png
@@ -66,6 +64,7 @@ else()
           aboutdialog.h aboutdialog.cpp aboutdialog.ui
           preferencedialog.h preferencedialog.cpp preferencedialog.ui
           qsinglekeysequenceedit.h qsinglekeysequenceedit.cpp
+          ${QM_FILES}
       )
 
       add_library(winutils
@@ -79,9 +78,6 @@ else()
       )
 
     target_link_libraries(winutils PUBLIC Qt${QT_VERSION_MAJOR}::Core pdh)
-    endif()
-
-    #qt6_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
 

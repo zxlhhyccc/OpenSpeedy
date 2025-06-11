@@ -10,18 +10,17 @@
 #include <QtConcurrent/QtConcurrent>
 #include <QtWinExtras/QtWin>
 #include <psapi.h>
-ProcessMonitor::ProcessMonitor(
-    QSettings* settings,
-    QTreeWidget* treeWidget,
-    QLabel* treeStatusLabel,
-    QLabel* injector32StatusLabel,
-    QLabel* injector64StatusLabel,
-    QObject* parent)
-    : m_treeWidget(treeWidget)
-    , m_treeStatusLabel(treeStatusLabel)
-    , m_injector32StatusLabel(injector32StatusLabel)
-    , m_injector64StatusLabel(injector64StatusLabel)
-    , m_settings(settings)
+ProcessMonitor::ProcessMonitor(QSettings* settings,
+                               QTreeWidget* treeWidget,
+                               QLabel* treeStatusLabel,
+                               QLabel* injector32StatusLabel,
+                               QLabel* injector64StatusLabel,
+                               QObject* parent)
+  : m_treeWidget(treeWidget)
+  , m_treeStatusLabel(treeStatusLabel)
+  , m_injector32StatusLabel(injector32StatusLabel)
+  , m_injector64StatusLabel(injector64StatusLabel)
+  , m_settings(settings)
 {
     winutils::enableAllPrivilege();
     m_treeWidget->header()->setMinimumHeight(40);
@@ -29,8 +28,14 @@ ProcessMonitor::ProcessMonitor(
     m_treeWidget->setColumnWidth(5, 50);
     m_treeWidget->setUniformRowHeights(true);
     m_treeWidget->sortByColumn(0, Qt::AscendingOrder);
-    connect(m_treeWidget, &QTreeWidget::itemChanged, this,
-        &ProcessMonitor::onItemChanged);
+    for (int i = 2; i < m_treeWidget->columnCount(); ++i)
+    {
+        m_treeWidget->resizeColumnToContents(i);
+    }
+    connect(m_treeWidget,
+            &QTreeWidget::itemChanged,
+            this,
+            &ProcessMonitor::onItemChanged);
 
     this->startBridge32();
     this->startBridge64();
@@ -60,21 +65,23 @@ ProcessMonitor::~ProcessMonitor()
     */
 }
 
-void ProcessMonitor::setFilter(QString processName)
+void
+ProcessMonitor::setFilter(QString processName)
 {
     m_filter = processName.toLower();
 }
 
-void ProcessMonitor::refresh()
+void
+ProcessMonitor::refresh()
 {
     healthcheckBridge();
     QList<ProcessInfo> processList = winutils::getProcessList();
     if (m_filter == "")
     {
         update(processList);
-        m_treeStatusLabel->setText(QString("搜索到%1个进程, 已过滤展示%2个")
-                .arg(processList.size())
-                .arg(processList.size()));
+        m_treeStatusLabel->setText(QString(tr("搜索到%1个进程, 已过滤展示%2个"))
+                                     .arg(processList.size())
+                                     .arg(processList.size()));
     }
     else
     {
@@ -85,20 +92,22 @@ void ProcessMonitor::refresh()
                 filtered.append(info);
         }
         update(filtered);
-        m_treeStatusLabel->setText(QString("搜索到%1个进程, 已过滤展示%2个")
-                .arg(processList.size())
-                .arg(filtered.size()));
+        m_treeStatusLabel->setText(QString(tr("搜索到%1个进程, 已过滤展示%2个"))
+                                     .arg(processList.size())
+                                     .arg(filtered.size()));
     }
 }
 
-void ProcessMonitor::start()
+void
+ProcessMonitor::start()
 {
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, this, &ProcessMonitor::refresh);
     m_timer->start(1000);
 }
 
-void ProcessMonitor::onItemChanged(QTreeWidgetItem* item, int column)
+void
+ProcessMonitor::onItemChanged(QTreeWidgetItem* item, int column)
 {
     if (column == 5 && (item->flags() & Qt::ItemIsUserCheckable))
     {
@@ -112,7 +121,7 @@ void ProcessMonitor::onItemChanged(QTreeWidgetItem* item, int column)
         {
             m_targetNames.insert(processName);
             this->injectDll(pid, is64Bit);
-            item->setText(5, "加速中");
+            item->setText(5, tr("加速中"));
             for (int col = 0; col < item->columnCount(); ++col)
             {
                 item->setBackground(col, QBrush(QColor("#f3e5f5")));
@@ -139,24 +148,28 @@ void ProcessMonitor::onItemChanged(QTreeWidgetItem* item, int column)
     }
 }
 
-void ProcessMonitor::init()
+void
+ProcessMonitor::init()
 {
-    QStringList targetNames = m_settings->value(CONFIG_TARGETNAMES_KEY).toStringList();
+    QStringList targetNames =
+      m_settings->value(CONFIG_TARGETNAMES_KEY).toStringList();
     m_targetNames = QSet<QString>(targetNames.begin(), targetNames.end());
 }
 
-void ProcessMonitor::dump()
+void
+ProcessMonitor::dump()
 {
     m_settings->setValue(CONFIG_TARGETNAMES_KEY,
-        QStringList(m_targetNames.values()));
+                         QStringList(m_targetNames.values()));
 }
 
-void ProcessMonitor::update(const QList<ProcessInfo>& processList)
+void
+ProcessMonitor::update(const QList<ProcessInfo>& processList)
 {
     // 保存当前展开状态
     QMap<DWORD, bool> expandStates;
     for (auto it = m_processItems.constBegin(); it != m_processItems.constEnd();
-        ++it)
+         ++it)
     {
         expandStates[it.key()] = it.value()->isExpanded();
     }
@@ -218,28 +231,28 @@ void ProcessMonitor::update(const QList<ProcessInfo>& processList)
             QTreeWidgetItem* item = m_processItems[info.pid];
             item->setText(1, QString::number(info.pid));
             item->setText(2,
-                QString("%1 MB").arg(info.memoryUsage / 1024 / 1024));
+                          QString("%1 MB").arg(info.memoryUsage / 1024 / 1024));
             QString arch = info.is64Bit ? "x64" : "x86";
             item->setText(3, arch);
 
             QString priority;
             switch (info.priorityClass)
             {
-            case HIGH_PRIORITY_CLASS:
-                priority = "高";
-                break;
-            case NORMAL_PRIORITY_CLASS:
-                priority = "中";
-                break;
-            case IDLE_PRIORITY_CLASS:
-                priority = "低";
-                break;
-            case REALTIME_PRIORITY_CLASS:
-                priority = "实时";
-                break;
-            default:
-                priority = "未知";
-                break;
+                case HIGH_PRIORITY_CLASS:
+                    priority = tr("高");
+                    break;
+                case NORMAL_PRIORITY_CLASS:
+                    priority = tr("中");
+                    break;
+                case IDLE_PRIORITY_CLASS:
+                    priority = tr("低");
+                    break;
+                case REALTIME_PRIORITY_CLASS:
+                    priority = tr("实时");
+                    break;
+                default:
+                    priority = tr("未知");
+                    break;
             }
             item->setText(4, priority);
             if (m_targetNames.contains(info.name))
@@ -265,7 +278,7 @@ void ProcessMonitor::update(const QList<ProcessInfo>& processList)
             item->setText(0, info.name);
             item->setText(1, QString::number(info.pid));
             item->setText(2,
-                QString("%1 MB").arg(info.memoryUsage / 1024 / 1024));
+                          QString("%1 MB").arg(info.memoryUsage / 1024 / 1024));
             QString arch = info.is64Bit ? "x64" : "x86";
             item->setText(3, arch);
 
@@ -275,21 +288,21 @@ void ProcessMonitor::update(const QList<ProcessInfo>& processList)
             QString priority;
             switch (info.priorityClass)
             {
-            case HIGH_PRIORITY_CLASS:
-                priority = "高";
-                break;
-            case NORMAL_PRIORITY_CLASS:
-                priority = "中";
-                break;
-            case IDLE_PRIORITY_CLASS:
-                priority = "低";
-                break;
-            case REALTIME_PRIORITY_CLASS:
-                priority = "实时";
-                break;
-            default:
-                priority = "未知";
-                break;
+                case HIGH_PRIORITY_CLASS:
+                    priority = tr("高");
+                    break;
+                case NORMAL_PRIORITY_CLASS:
+                    priority = tr("中");
+                    break;
+                case IDLE_PRIORITY_CLASS:
+                    priority = tr("低");
+                    break;
+                case REALTIME_PRIORITY_CLASS:
+                    priority = tr("实时");
+                    break;
+                default:
+                    priority = tr("未知");
+                    break;
             }
             item->setText(4, priority);
             item->setCheckState(5, Qt::Unchecked);
@@ -300,7 +313,7 @@ void ProcessMonitor::update(const QList<ProcessInfo>& processList)
 
     // 恢复展开状态
     for (auto it = m_processItems.constBegin(); it != m_processItems.constEnd();
-        ++it)
+         ++it)
     {
         if (expandStates.contains(it.key()))
         {
@@ -309,7 +322,8 @@ void ProcessMonitor::update(const QList<ProcessInfo>& processList)
     }
 }
 
-void ProcessMonitor::injectDll(DWORD processId, bool is64Bit)
+void
+ProcessMonitor::injectDll(DWORD processId, bool is64Bit)
 {
     QString cmd = QString("inject %1\n").arg(processId);
     if (!is64Bit)
@@ -324,7 +338,8 @@ void ProcessMonitor::injectDll(DWORD processId, bool is64Bit)
     }
 }
 
-void ProcessMonitor::unhookDll(DWORD processId, bool is64Bit)
+void
+ProcessMonitor::unhookDll(DWORD processId, bool is64Bit)
 {
     QString cmd = QString("unhook %1\n").arg(processId);
     if (!is64Bit)
@@ -339,7 +354,8 @@ void ProcessMonitor::unhookDll(DWORD processId, bool is64Bit)
     }
 }
 
-void ProcessMonitor::startBridge32()
+void
+ProcessMonitor::startBridge32()
 {
     m_bridge32 = new QProcess();
     QStringList params32;
@@ -353,15 +369,17 @@ void ProcessMonitor::startBridge32()
         qDebug() << "32位桥接子进程已启动";
     }
     m_bridge32->setProcessChannelMode(QProcess::MergedChannels);
-    connect(m_bridge32, &QProcess::readyReadStandardOutput,
-        [&]()
-        {
-            QByteArray data = m_bridge32->readAllStandardOutput();
-            qDebug() << "收到输出:" << QString(data).trimmed();
-        });
+    connect(m_bridge32,
+            &QProcess::readyReadStandardOutput,
+            [&]()
+            {
+                QByteArray data = m_bridge32->readAllStandardOutput();
+                qDebug() << "收到输出:" << QString(data).trimmed();
+            });
 }
 
-void ProcessMonitor::startBridge64()
+void
+ProcessMonitor::startBridge64()
 {
     m_bridge64 = new QProcess();
     QStringList params64;
@@ -375,40 +393,43 @@ void ProcessMonitor::startBridge64()
         qDebug() << "64位桥接子进程已启动";
     }
     m_bridge64->setProcessChannelMode(QProcess::MergedChannels);
-    connect(m_bridge64, &QProcess::readyReadStandardOutput,
-        [&]()
-        {
-            QByteArray data = m_bridge64->readAllStandardOutput();
-            qDebug() << "收到输出:" << QString(data).trimmed();
-        });
+    connect(m_bridge64,
+            &QProcess::readyReadStandardOutput,
+            [&]()
+            {
+                QByteArray data = m_bridge64->readAllStandardOutput();
+                qDebug() << "收到输出:" << QString(data).trimmed();
+            });
 }
 
-void ProcessMonitor::healthcheckBridge()
+void
+ProcessMonitor::healthcheckBridge()
 {
     if (this->m_bridge32->state() == QProcess::Running)
     {
         m_injector32StatusLabel->setStyleSheet("color: green");
-        m_injector32StatusLabel->setText("正常");
+        m_injector32StatusLabel->setText(tr("正常"));
     }
     else
     {
         m_injector32StatusLabel->setStyleSheet("color: red");
-        m_injector32StatusLabel->setText("异常退出");
+        m_injector32StatusLabel->setText(tr("异常退出"));
     }
 
     if (this->m_bridge64->state() == QProcess::Running)
     {
         m_injector64StatusLabel->setStyleSheet("color: green");
-        m_injector64StatusLabel->setText("正常");
+        m_injector64StatusLabel->setText(tr("正常"));
     }
     else
     {
         m_injector64StatusLabel->setStyleSheet("color:red");
-        m_injector64StatusLabel->setText("异常退出");
+        m_injector64StatusLabel->setText(tr("异常退出"));
     }
 }
 
-void ProcessMonitor::terminalBridge()
+void
+ProcessMonitor::terminalBridge()
 {
     QString cmd = QString("exit\n");
     m_bridge32->write(cmd.toUtf8(), cmd.size());
@@ -417,7 +438,8 @@ void ProcessMonitor::terminalBridge()
     m_bridge64->waitForBytesWritten();
 }
 
-void ProcessMonitor::changeSpeed(double factor)
+void
+ProcessMonitor::changeSpeed(double factor)
 {
     QString cmd = QString("change %1\n").arg(factor);
     m_bridge32->write(cmd.toUtf8(), cmd.size());
@@ -426,7 +448,8 @@ void ProcessMonitor::changeSpeed(double factor)
     m_bridge64->waitForBytesWritten();
 }
 
-QIcon ProcessMonitor::getProcessIconCached(DWORD processId)
+QIcon
+ProcessMonitor::getProcessIconCached(DWORD processId)
 {
     QString processPath = winutils::getProcessPath(processId);
     if (m_iconCache.contains(processPath))
@@ -439,7 +462,8 @@ QIcon ProcessMonitor::getProcessIconCached(DWORD processId)
     return icon;
 }
 
-QIcon ProcessMonitor::getDefaultIcon(const QString& processName)
+QIcon
+ProcessMonitor::getDefaultIcon(const QString& processName)
 {
     // 根据进程名称或类型提供更有针对性的默认图标
     if (processName != "")
@@ -447,10 +471,12 @@ QIcon ProcessMonitor::getDefaultIcon(const QString& processName)
         // 使用SHGetFileInfo获取.exe文件的图标
         SHFILEINFO sfi = {};
         QIcon icon;
-        if (SHGetFileInfo(
-                reinterpret_cast<LPCWSTR>(processName.utf16()),
-                FILE_ATTRIBUTE_NORMAL, &sfi, sizeof(SHFILEINFO),
-                SHGFI_USEFILEATTRIBUTES | SHGFI_ICON | SHGFI_SMALLICON))
+        if (SHGetFileInfo(reinterpret_cast<LPCWSTR>(processName.utf16()),
+                          FILE_ATTRIBUTE_NORMAL,
+                          &sfi,
+                          sizeof(SHFILEINFO),
+                          SHGFI_USEFILEATTRIBUTES | SHGFI_ICON |
+                            SHGFI_SMALLICON))
         {
             // 将HICON转换为QIcon
             icon = QtWin::fromHICON(sfi.hIcon);
@@ -465,10 +491,12 @@ QIcon ProcessMonitor::getDefaultIcon(const QString& processName)
         // 使用SHGetFileInfo获取.exe文件的图标
         SHFILEINFO sfi = {};
         QIcon icon;
-        if (SHGetFileInfo(
-                reinterpret_cast<LPCWSTR>(L".exe"), FILE_ATTRIBUTE_NORMAL, &sfi,
-                sizeof(SHFILEINFO),
-                SHGFI_USEFILEATTRIBUTES | SHGFI_ICON | SHGFI_SMALLICON))
+        if (SHGetFileInfo(reinterpret_cast<LPCWSTR>(L".exe"),
+                          FILE_ATTRIBUTE_NORMAL,
+                          &sfi,
+                          sizeof(SHFILEINFO),
+                          SHGFI_USEFILEATTRIBUTES | SHGFI_ICON |
+                            SHGFI_SMALLICON))
         {
             // 将HICON转换为QIcon
             icon = QtWin::fromHICON(sfi.hIcon);
@@ -480,9 +508,11 @@ QIcon ProcessMonitor::getDefaultIcon(const QString& processName)
     }
 }
 
-QIcon ProcessMonitor::getProcessIcon(QString processPath)
+QIcon
+ProcessMonitor::getProcessIcon(QString processPath)
 {
-    int lastSlashPos = std::max(processPath.lastIndexOf('/'), processPath.lastIndexOf('\\'));
+    int lastSlashPos =
+      std::max(processPath.lastIndexOf('/'), processPath.lastIndexOf('\\'));
     QString processName;
     if (lastSlashPos == -1)
     {
@@ -498,8 +528,10 @@ QIcon ProcessMonitor::getProcessIcon(QString processPath)
 
     SHFILEINFO sfi = {};
     if (SHGetFileInfo(reinterpret_cast<LPCWSTR>(processPath.utf16()),
-            FILE_ATTRIBUTE_NORMAL, &sfi, sizeof(SHFILEINFO),
-            SHGFI_ICON | SHGFI_LARGEICON | SHGFI_USEFILEATTRIBUTES))
+                      FILE_ATTRIBUTE_NORMAL,
+                      &sfi,
+                      sizeof(SHFILEINFO),
+                      SHGFI_ICON | SHGFI_LARGEICON | SHGFI_USEFILEATTRIBUTES))
     {
         if (sfi.hIcon)
         {
@@ -513,8 +545,8 @@ QIcon ProcessMonitor::getProcessIcon(QString processPath)
         }
     }
 
-    HICON hIcon = ExtractIconW(
-        nullptr, reinterpret_cast<LPCWSTR>(processPath.utf16()), 0);
+    HICON hIcon =
+      ExtractIconW(nullptr, reinterpret_cast<LPCWSTR>(processPath.utf16()), 0);
     if (hIcon)
     {
         QIcon icon = QtWin::fromHICON(hIcon);
