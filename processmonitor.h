@@ -17,14 +17,14 @@
 class ProcessMonitor : public QObject
 {
     Q_OBJECT
-   public:
-    explicit ProcessMonitor(QSettings *settings,
-                            QTreeWidget *treeWidget,
-                            QLabel *treeStatusLabel,
-                            QLabel *injector32StatusLabel,
-                            QLabel *injector64StatusLabel,
+  public:
+    explicit ProcessMonitor(QSettings* settings,
+                            QTreeWidget* treeWidget,
+                            QLabel* treeStatusLabel,
+                            QLabel* injector32StatusLabel,
+                            QLabel* injector64StatusLabel,
 
-                            QObject *parent = nullptr);
+                            QObject* parent = nullptr);
     ~ProcessMonitor();
 
     // 设置刷新间隔（毫秒）
@@ -34,34 +34,34 @@ class ProcessMonitor : public QObject
 
     void changeSpeed(double factor);
 
-   public slots:
+  public slots:
     // 定时刷新槽函数
     void refresh();
 
     void start();
 
-   private slots:
-    void onItemChanged(QTreeWidgetItem *item, int column);
+  private slots:
+    void onItemChanged(QTreeWidgetItem* item, int column);
 
-   private:
-    QTreeWidget *m_treeWidget;
-    QLabel *m_treeStatusLabel;
-    QLabel *m_injector32StatusLabel;
-    QLabel *m_injector64StatusLabel;
+  private:
+    QTreeWidget* m_treeWidget;
+    QLabel* m_treeStatusLabel;
+    QLabel* m_injector32StatusLabel;
+    QLabel* m_injector64StatusLabel;
     QString m_filter;
-    QTimer *m_timer = nullptr;
+    QTimer* m_timer = nullptr;
     QString m_dllPath;
 
-    QProcess *m_bridge32;
-    QProcess *m_bridge64;
+    QProcess* m_bridge32;
+    QProcess* m_bridge64;
 
-    QSettings *m_settings;
+    QSettings* m_settings;
 
     // 图标缓存
     QHash<QString, QIcon> m_iconCache;
 
     // 存储进程ID到TreeWidgetItem的映射
-    QMap<DWORD, QTreeWidgetItem *> m_processItems;
+    QMap<DWORD, QTreeWidgetItem*> m_processItems;
 
     // 存储需要加速的进程
     QSet<QString> m_targetNames;
@@ -70,7 +70,7 @@ class ProcessMonitor : public QObject
 
     void dump();
 
-    void update(const QList<ProcessInfo> &processList);
+    void update(const QList<ProcessInfo>& processList);
 
     void injectDll(DWORD processId, bool is64Bit);
 
@@ -87,9 +87,8 @@ class ProcessMonitor : public QObject
     // 获取进程图标
     static QIcon getProcessIcon(QString processPath);
 
-    static QIcon getDefaultIcon(const QString &processName);
+    static QIcon getDefaultIcon(const QString& processName);
 
     QIcon getProcessIconCached(DWORD proccessId);
 };
-
-#endif  // PROCESSMONITOR_H
+#endif // PROCESSMONITOR_H

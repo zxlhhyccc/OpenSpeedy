@@ -7,8 +7,8 @@ AboutDialog::AboutDialog(QWidget* parent)
   , ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setText("确认");
-    ui->versionContent->setText(QString("版本：%1").arg(OPENSPEEDY_VERSION));
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setText(tr("确认"));
+    ui->versionContent->setText(QString("%1").arg(OPENSPEEDY_VERSION));
     connect(QGuiApplication::primaryScreen(),
             &QScreen::logicalDotsPerInchChanged,
             this,

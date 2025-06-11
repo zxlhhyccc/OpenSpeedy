@@ -19,8 +19,8 @@ PreferenceDialog::PreferenceDialog(HWND hMainWindow,
     ui->setupUi(this);
     setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
 
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setText("确认");
-    ui->buttonBox->button(QDialogButtonBox::Cancel)->setText("取消");
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setText(tr("确认"));
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setText(tr("取消"));
 
     loadShortcut(
       HOTKEY_INCREASE_SPEED, CONFIG_HOTKEY_SPEEDUP, DEFAULT_HOTKEY_SPEEDUP);
@@ -246,17 +246,17 @@ PreferenceDialog::redraw()
     redrawSpinBox(ui->shift5DoubleSpinBox, m_shift5Value);
 
     m_increaseSpeedLabel->setText(
-      QString("%1 增加速度")
+      QString(tr("%1 增加速度"))
         .arg(QSingleKeySequenceEdit::wrapText(
           ui->speedUpKeySequenceEdit->getKeyText())));
 
     m_decreaseSpeedLabel->setText(
-      QString("%1 减少速度")
+      QString(tr("%1 减少速度"))
         .arg(QSingleKeySequenceEdit::wrapText(
           ui->speedDownKeySequenceEdit->getKeyText())));
 
     m_resetSpeedLabel->setText(
-      QString("%1 重置速度")
+      QString(tr("%1 重置速度"))
         .arg(QSingleKeySequenceEdit::wrapText(
           ui->resetSpeedKeySequenceEdit->getKeyText())));
 }

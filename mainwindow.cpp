@@ -11,7 +11,6 @@ MainWindow::MainWindow(QWidget* parent)
   , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     init();
 }
 
@@ -54,12 +53,12 @@ MainWindow::on_sliderCtrl_valueChanged(int value)
     if (factor >= 1.0)
     {
         ui->sliderCtrl->setToolTip(QString("%1倍").arg(factor, 0, 'f', 2));
-        ui->sliderLabel->setText(QString("x %1倍").arg(factor, 0, 'f', 2));
+        ui->sliderLabel->setText(QString("✖️%1倍").arg(factor, 0, 'f', 2));
     }
     else
     {
         ui->sliderCtrl->setToolTip(QString("%1倍").arg(factor, 0, 'f', 4));
-        ui->sliderLabel->setText(QString("x %1倍").arg(factor, 0, 'f', 4));
+        ui->sliderLabel->setText(QString("✖️%1倍").arg(factor, 0, 'f', 4));
     }
     m_settings->setValue(CONFIG_SLIDERVALUE_KEY, value);
     m_settings->sync();
@@ -69,6 +68,20 @@ void
 MainWindow::on_processNameFilter_textChanged(const QString& text)
 {
     m_processMonitor->setFilter(text);
+}
+
+void
+MainWindow::on_sliderLabel_clicked()
+{
+    if (ui->sliderCtrl->value() != 0)
+    {
+        m_back = ui->sliderCtrl->value();
+        ui->sliderCtrl->setValue(0);
+    }
+    else
+    {
+        ui->sliderCtrl->setValue(m_back);
+    }
 }
 
 void
@@ -160,31 +173,6 @@ MainWindow::speedFactor(int sliderValue)
         factor = 1.0;
     }
 
-    // if (sliderValue >= 1 && sliderValue < 5)
-    // {
-    //     factor = sliderValue * 0.25 + 1;
-    // }
-    // else if (sliderValue >= 5 && sliderValue < 7)
-    // {
-    //     factor = sliderValue * 0.5;
-    // }
-    // else if (sliderValue >= 7 && sliderValue < 9)
-    // {
-    //     factor = 3 * (sliderValue - 7) + 4;
-    // }
-    // else if (sliderValue >= 9)
-    // {
-    //     factor = 5 * (sliderValue - 9) + 10;
-    // }
-    // else if (sliderValue < 0)
-    // {
-    //     factor = (double)(30 + sliderValue) / 30;
-    // }
-    // else
-    // {
-    //     factor = 1.0;
-    // }
-
     return factor;
 }
 
@@ -224,17 +212,18 @@ MainWindow::recreateTray()
 void
 MainWindow::init()
 {
+    m_back = 0;
     m_settings =
       new QSettings(QCoreApplication::applicationDirPath() + "/config.ini",
                     QSettings::IniFormat);
 
-    m_aboutDlg = new AboutDialog();
+    m_aboutDlg = new AboutDialog(this);
     m_preferenceDlg = new PreferenceDialog((HWND)winId(),
                                            m_settings,
                                            ui->increaseSpeedLabel,
                                            ui->decreaseSpeedLabel,
                                            ui->resetSpeedLabel,
-                                           nullptr);
+                                           this);
 
     // 安装本地事件过滤器以处理全局快捷键
     QApplication::instance()->installNativeEventFilter(this);
