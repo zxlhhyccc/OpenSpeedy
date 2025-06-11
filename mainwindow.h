@@ -7,6 +7,7 @@
 #include "preferencedialog.h"
 #include "processmonitor.h"
 #include <QAbstractNativeEventFilter>
+#include <QActionGroup>
 #include <QMainWindow>
 #include <QSettings>
 #include <QSystemTrayIcon>
@@ -63,6 +64,8 @@ class MainWindow
     QSettings* m_settings;
 
     int m_back;
+
+    QActionGroup* m_languageGroup;
 
     void init();
 
