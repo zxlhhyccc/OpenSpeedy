@@ -31,6 +31,9 @@
   <a href="https://github.com/game1024/OpenSpeedy/releases">
     <img src="https://img.shields.io/github/v/release/game1024/OpenSpeedy?style=for-the-badge&color=brightgreen" alt="Version">
   </a>
+  <a href="https://github.com/game1024/OpenSpeedy/actions">
+      <img src="https://img.shields.io/github/actions/workflow/status/game1024/OpenSpeedy/ci.yml?style=for-the-badge" alt="Github Action">
+  </a>
   <a href="https://github.com/game1024/OpenSpeedy">
     <img src="https://img.shields.io/badge/Platform-Windows-lightblue?style=for-the-badge" alt="Platform">
   </a>
