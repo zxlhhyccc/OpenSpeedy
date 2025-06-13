@@ -24,7 +24,8 @@ echo "%QT_INSTALL_PREFIX%"
 cmake.exe ^
 -DQT_QMAKE_EXECUTABLE:FILEPATH="%QT_QMAKE_EXECUTABLE%" ^
 -DCMAKE_PREFIX_PATH:PATH="%QT_INSTALL_PREFIX%" ^
+-DCMAKE_BUILD_TYPE=Release ^
 -S %SOURCE_DIR% ^
 -B %BUILD_DIR%
 
-cmake.exe --build "%BUILD_DIR%"
+cmake.exe --build "%BUILD_DIR%" --config Release
