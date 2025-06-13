@@ -5,6 +5,7 @@
     <name>AboutDialog</name>
     <message>
         <location filename="aboutdialog.ui" line="35"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="201"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="201"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="201"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="201"/>
@@ -13,6 +14,7 @@
     </message>
     <message>
         <location filename="aboutdialog.ui" line="56"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="202"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="202"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="202"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="202"/>
@@ -21,6 +23,7 @@
     </message>
     <message>
         <location filename="aboutdialog.ui" line="110"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="204"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="204"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="204"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="204"/>
@@ -29,6 +32,7 @@
     </message>
     <message>
         <location filename="aboutdialog.ui" line="168"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="207"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="207"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="207"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="207"/>
@@ -37,6 +41,7 @@
     </message>
     <message>
         <location filename="aboutdialog.ui" line="199"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="209"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="209"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="209"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="209"/>
@@ -45,6 +50,7 @@
     </message>
     <message>
         <location filename="aboutdialog.ui" line="233"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="211"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="211"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="211"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="211"/>
@@ -53,6 +59,7 @@
     </message>
     <message>
         <location filename="aboutdialog.ui" line="248"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="212"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="212"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="212"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="212"/>
@@ -61,6 +68,7 @@
     </message>
     <message>
         <location filename="aboutdialog.ui" line="128"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="205"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="205"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="205"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="205"/>
@@ -69,6 +77,7 @@
     </message>
     <message>
         <location filename="aboutdialog.ui" line="293"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="214"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="214"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="214"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="214"/>
@@ -77,6 +86,7 @@
     </message>
     <message>
         <location filename="aboutdialog.ui" line="82"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="203"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="203"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="203"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="203"/>
@@ -85,6 +95,7 @@
     </message>
     <message>
         <location filename="aboutdialog.ui" line="266"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="213"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="213"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="213"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="213"/>
@@ -97,6 +108,7 @@
     </message>
     <message>
         <location filename="aboutdialog.ui" line="187"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="208"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="208"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="208"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="208"/>
@@ -109,6 +121,7 @@
     </message>
     <message>
         <location filename="aboutdialog.ui" line="221"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="210"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="210"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="210"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="210"/>
@@ -121,6 +134,7 @@
     </message>
     <message>
         <location filename="aboutdialog.ui" line="156"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="206"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="206"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="206"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="206"/>
@@ -141,6 +155,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="mainwindow.ui" line="37"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="498"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="250"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="250"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="250"/>
@@ -154,6 +169,7 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="61"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="502"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="438"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="502"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="502"/>
@@ -163,6 +179,7 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="121"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="503"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="503"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="503"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="503"/>
@@ -171,6 +188,7 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="139"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="504"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="440"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="504"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="504"/>
@@ -180,6 +198,7 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="157"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="505"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="441"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="505"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="505"/>
@@ -189,6 +208,7 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="178"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="506"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="442"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="506"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="506"/>
@@ -198,6 +218,7 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="196"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="507"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="443"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="507"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="507"/>
@@ -207,6 +228,7 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="214"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="508"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="444"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="508"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="508"/>
@@ -216,6 +238,7 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="232"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="509"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="445"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="509"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="509"/>
@@ -226,6 +249,8 @@
     <message>
         <location filename="mainwindow.ui" line="250"/>
         <location filename="mainwindow.ui" line="286"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="510"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="512"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="446"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="448"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="510"/>
@@ -239,6 +264,7 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="268"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="511"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="447"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="511"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="511"/>
@@ -248,6 +274,7 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="315"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="513"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="449"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="513"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="513"/>
@@ -271,6 +298,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="467"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="515"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="515"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="515"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="515"/>
@@ -279,6 +307,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="502"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="516"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="516"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="516"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="516"/>
@@ -287,6 +316,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="514"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="517"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="517"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="517"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="517"/>
@@ -295,6 +325,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="526"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="518"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="518"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="518"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="518"/>
@@ -303,6 +334,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="556"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="519"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="452"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="519"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="519"/>
@@ -312,6 +344,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="580"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="520"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="453"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="520"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="520"/>
@@ -321,6 +354,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="671"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="527"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="257"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="262"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="262"/>
@@ -337,6 +371,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="682"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="526"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="256"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="261"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="261"/>
@@ -353,6 +388,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="693"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="525"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="255"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="260"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="260"/>
@@ -369,6 +405,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="704"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="524"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="457"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="524"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="524"/>
@@ -379,6 +416,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="715"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="523"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="253"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="258"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="258"/>
@@ -395,6 +433,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="726"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="522"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="252"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="257"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="257"/>
@@ -411,6 +450,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="750"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="528"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="258"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="263"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="263"/>
@@ -427,6 +467,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="773"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="529"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="529"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="529"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="529"/>
@@ -435,6 +476,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="781"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="530"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="530"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="530"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="530"/>
@@ -443,6 +485,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="786"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="531"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="531"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="531"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="531"/>
@@ -451,6 +494,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="797"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="499"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="499"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="499"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="499"/>
@@ -459,6 +503,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="805"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="500"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="500"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="500"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="500"/>
@@ -467,6 +512,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="816"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="501"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="501"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="501"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="501"/>
@@ -556,6 +602,7 @@ Origin</translation>
     <name>PreferenceDialog</name>
     <message>
         <location filename="preferencedialog.ui" line="14"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="267"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="267"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="267"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="267"/>
@@ -564,6 +611,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="28"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="268"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="268"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="268"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="268"/>
@@ -572,6 +620,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="40"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="269"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="269"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="269"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="269"/>
@@ -580,6 +629,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="50"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="270"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="270"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="270"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="270"/>
@@ -588,6 +638,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="62"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="271"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="271"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="271"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="271"/>
@@ -597,6 +648,8 @@ Origin</translation>
     <message>
         <location filename="preferencedialog.ui" line="77"/>
         <location filename="preferencedialog.ui" line="312"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="272"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="286"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="272"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="286"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="272"/>
@@ -608,6 +661,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="107"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="273"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="273"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="273"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="273"/>
@@ -616,6 +670,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="119"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="274"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="274"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="274"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="274"/>
@@ -624,6 +679,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="126"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="275"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="275"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="275"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="275"/>
@@ -632,6 +688,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="156"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="276"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="276"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="276"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="276"/>
@@ -640,6 +697,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="163"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="277"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="277"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="277"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="277"/>
@@ -648,6 +706,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="175"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="278"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="278"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="278"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="278"/>
@@ -656,6 +715,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="185"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="279"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="279"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="279"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="279"/>
@@ -664,6 +724,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="192"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="280"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="280"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="280"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="280"/>
@@ -672,6 +733,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="217"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="281"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="281"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="281"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="281"/>
@@ -680,6 +742,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="224"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="282"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="282"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="282"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="282"/>
@@ -688,6 +751,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="231"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="283"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="283"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="283"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="283"/>
@@ -696,6 +760,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="256"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="284"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="284"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="284"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="284"/>
@@ -704,6 +769,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="287"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="285"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="285"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="285"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="285"/>
@@ -712,6 +778,7 @@ Origin</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="342"/>
+        <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="287"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="287"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="287"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="287"/>

@@ -1,4 +1,4 @@
-name: CI - Build Qt Windows
+name: Windows Build
 
 on:
   pull_request:
