@@ -120,7 +120,7 @@ OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调
 OpenSpeedy 遵循 GNU v3 许可证。
 
 # 🙏 鸣谢
-OpenSpeedy使用到以下项目的源码，感谢开源社区的力量
+OpenSpeedy使用到以下项目的源码，感谢开源社区的力量，如果OpenSpeedy对你有帮助，欢迎Star!
 - [minhook](https://github.com/TsudaKageyu/minhook): 用于API Hook
 - [Qt](https://www.qt.io/): GUI
 
