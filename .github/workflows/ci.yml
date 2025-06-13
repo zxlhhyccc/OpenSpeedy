@@ -26,7 +26,11 @@ jobs:
       if: success()
       with:
         name: windows-32bit-build
-        path: build/CMAKE-32bit-Release/
+        path: |
+          build/CMAKE-32bit-Release/**/OpenSpeedy.exe
+          build/CMAKE-32bit-Release/**/speedpatch32.dll
+          build/CMAKE-32bit-Release/**/bridge32.exe
+        if-no-files-found: warn
 
   build-64bit:
     runs-on: self-hosted
@@ -46,4 +50,8 @@ jobs:
       if: success()
       with:
         name: windows-64bit-build
-        path: build/CMAKE-64bit-Release/
+        path: |
+          build/CMAKE-64bit-Release/**/OpenSpeedy.exe
+          build/CMAKE-64bit-Release/**/speedpatch64.dll
+          build/CMAKE-64bit-Release/**/bridge64.exe
+        if-no-files-found: warn
