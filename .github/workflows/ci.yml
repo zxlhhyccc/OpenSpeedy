@@ -22,7 +22,7 @@ jobs:
         call build32.bat
         
     - name: Upload 32-bit artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: success()
       with:
         name: windows-32bit-build
@@ -42,7 +42,7 @@ jobs:
         call build64.bat
         
     - name: Upload 64-bit artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: success()
       with:
         name: windows-64bit-build
