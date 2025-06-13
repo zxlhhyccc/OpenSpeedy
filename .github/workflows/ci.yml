@@ -1,0 +1,49 @@
+name: CI - Build Qt Windows
+
+on:
+  push:
+    branches: []
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build-32bit:
+    runs-on: self-hosted
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Build 32-bit
+      shell: cmd
+      run: |
+        echo Building 32-bit...
+        call build32.bat
+        
+    - name: Upload 32-bit artifacts
+      uses: actions/upload-artifact@v3
+      if: success()
+      with:
+        name: windows-32bit-build
+        path: build/CMAKE-32bit-Release/
+
+  build-64bit:
+    runs-on: self-hosted
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Build 64-bit
+      shell: cmd
+      run: |
+        echo Building 64-bit...
+        call build64.bat
+        
+    - name: Upload 64-bit artifacts
+      uses: actions/upload-artifact@v3
+      if: success()
+      with:
+        name: windows-64bit-build
+        path: build/CMAKE-64bit-Release/
