@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "windbg.h"
 #include <QApplication>
+#include <QCommandLineParser>
 #include <QLocalServer>
 #include <QLocalSocket>
 #include <QLocale>
@@ -12,6 +13,7 @@ main(int argc, char* argv[])
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     QApplication a(argc, argv);
+    winutils::enableAllPrivilege();
 
     // 检查是否已有实例在运行
     QString unique = "OpenSpeedy";
@@ -44,9 +46,25 @@ main(int argc, char* argv[])
         a.installTranslator(&translator);
     }
 
+    // 解析命令行参数
+    QCommandLineParser parser;
+    parser.setApplicationDescription("OpenSpeedy");
+    QCommandLineOption minimizeOption(
+      QStringList() << "m" << "minimize-to-tray", "启动时最小化到托盘");
+    parser.addOption(minimizeOption);
+    parser.process(a);
+
     MainWindow w;
     w.resize(800, 768);
-    w.show();
+
+    if (parser.isSet(minimizeOption))
+    {
+        w.hide();
+    }
+    else
+    {
+        w.show();
+    }
 
     // 创建并启动本地服务器
     QLocalServer server;
