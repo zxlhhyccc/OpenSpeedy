@@ -159,7 +159,7 @@
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="250"/>
         <location filename="build/Desktop_Qt_5_15_2_MSVC2019_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="250"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="437"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="506"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="507"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="507"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="507"/>
         <location filename="build/Qt5_15_static_64bit-Release/ui_mainwindow.h" line="250"/>
@@ -181,7 +181,7 @@
         <location filename="mainwindow.ui" line="292"/>
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="513"/>
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="513"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="512"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="513"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="513"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="513"/>
         <source>🖥️ 操作系统</source>
@@ -192,7 +192,7 @@
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="514"/>
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="514"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="440"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="513"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="514"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="514"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="514"/>
         <source>windows 11 24H2</source>
@@ -203,7 +203,7 @@
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="515"/>
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="515"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="441"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="514"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="515"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="515"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="515"/>
         <source>🔥 CPU</source>
@@ -214,7 +214,7 @@
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="516"/>
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="516"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="442"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="515"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="516"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="516"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="516"/>
         <source>10.0%</source>
@@ -225,7 +225,7 @@
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="517"/>
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="517"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="443"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="516"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="517"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="517"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="517"/>
         <source>📊 内存</source>
@@ -236,7 +236,7 @@
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="518"/>
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="518"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="444"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="517"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="518"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="518"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="518"/>
         <source> ( 7.2G / 32.0G ) 12.3%</source>
@@ -247,7 +247,7 @@
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="519"/>
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="519"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="445"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="518"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="519"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="519"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="519"/>
         <source>♥️ 32bit 注入器</source>
@@ -262,8 +262,8 @@
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="522"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="446"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="448"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="519"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="521"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="520"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="522"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="520"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="522"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="520"/>
@@ -276,7 +276,7 @@
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="521"/>
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="521"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="447"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="520"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="521"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="521"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="521"/>
         <source>♥️ 64bit 注入器</source>
@@ -287,7 +287,7 @@
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="523"/>
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="523"/>
         <location filename="build/Qt5_15_static_32bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="449"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="522"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="523"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="523"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="523"/>
         <source>▲
@@ -310,7 +310,7 @@
         <location filename="mainwindow.ui" line="245"/>
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="512"/>
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="512"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="511"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="512"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="512"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="512"/>
         <source>✖️1.0倍</source>
@@ -320,7 +320,7 @@
         <location filename="mainwindow.ui" line="523"/>
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="525"/>
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="525"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="524"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="525"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="525"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="525"/>
         <source>Ctrl + Alt + ⬆️ 增加速度</source>
@@ -330,7 +330,7 @@
         <location filename="mainwindow.ui" line="535"/>
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="526"/>
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="526"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="525"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="526"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="526"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="526"/>
         <source>Ctrl + Alt + ⬇️ 减少速度</source>
@@ -340,7 +340,7 @@
         <location filename="mainwindow.ui" line="547"/>
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="527"/>
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="527"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="526"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="527"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="527"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="527"/>
         <source>Ctrl + Alt + 0 重置速度</source>
@@ -350,7 +350,7 @@
         <location filename="mainwindow.ui" line="72"/>
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="511"/>
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="511"/>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="527"/>
+        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="511"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="511"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="511"/>
         <source>开机自启</source>
@@ -526,11 +526,6 @@
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="540"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="540"/>
         <source>🌐语言</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="507"/>
-        <source>test</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
