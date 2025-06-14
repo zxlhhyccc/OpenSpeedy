@@ -1,0 +1,6 @@
+set VC_TOOLS_32BIT="D:\Program Files\Microsoft Visual Studio\2022\Preview\VC\Auxiliary\Build\vcvars32.bat"
+set VC_TOOLS_64BIT="D:\Program Files\Microsoft Visual Studio\2022\Preview\VC\Auxiliary\Build\vcvars64.bat"
+set BUILD_DIR_32BIT="%~dp0..\build\CMAKE-32bit-Release"
+set BUILD_DIR_64BIT="%~dp0..\build\CMAKE-64bit-Release"
+set QT_QMAKE_EXECUTABLE_32BIT="E:\source\github\vcpkg\installed\x86-windows-static\tools\qt5\bin\qmake.exe"
+set QT_QMAKE_EXECUTABLE_64BIT="E:\source\github\vcpkg\installed\x64-windows-static\tools\qt5\bin\qmake.exe"
