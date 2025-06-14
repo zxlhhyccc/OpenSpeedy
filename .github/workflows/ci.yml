@@ -80,6 +80,7 @@ jobs:
     - name: Merge artifacts
       shell: powershell
       run: |
+        Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
         New-Item -ItemType Directory -Path "merged" -Force
         
         # 合并所有文件
