@@ -55,45 +55,4 @@ jobs:
           build/CMAKE-64bit-Release/**/speedpatch64.dll
           build/CMAKE-64bit-Release/**/bridge64.exe
         if-no-files-found: warn
-
-
-  merge-artifacts:
-    runs-on: self-hosted
-    needs: [build-32bit, build-64bit]
-    if: always() && (needs.build-32bit.result == 'success' || needs.build-64bit.result == 'success')
-    
-    steps:
-    - name: Download 32-bit artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: windows-32bit-build
-        path: temp/32bit/
-      continue-on-error: true
-      
-    - name: Download 64-bit artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: windows-64bit-build
-        path: temp/64bit/
-      continue-on-error: true
-      
-    - name: Merge artifacts
-      shell: powershell
-      run: |
-        Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
-        New-Item -ItemType Directory -Path "merged" -Force
-        
-        # 合并所有文件
-        if (Test-Path "temp/32bit") {
-            Copy-Item "temp/32bit/*" "merged/" -Recurse
-        }
-        if (Test-Path "temp/64bit") {
-            Copy-Item "temp/64bit/*" "merged/" -Recurse
-        }
-        
-    - name: Upload merged artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: windows-all-builds
-        path: merged/
   
