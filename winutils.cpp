@@ -6,7 +6,6 @@
 #include <tlhelp32.h>
 #include <wchar.h>
 #include <winternl.h>
-
 static QSet<std::wstring> systemNames = {
     L"svchost.exe",
     L"wininit.exe",
@@ -645,6 +644,31 @@ winutils::checkProcessProtection(DWORD processId)
 
     CloseHandle(hProcess);
     return false;
+}
+
+void
+winutils::setAutoStart(bool enable,
+                       const QString& appName,
+                       const QString& execPath)
+{
+    TaskScheduler scheduler;
+
+    if (enable)
+    {
+        scheduler.createStartupTask(appName, execPath);
+        scheduler.enableTask(appName, true);
+    }
+    else
+    {
+        scheduler.deleteTask(appName);
+    }
+}
+
+bool
+winutils::isAutoStartEnabled(const QString& appName)
+{
+    TaskScheduler scheduler;
+    return scheduler.isTaskExists(appName);
 }
 
 typedef struct _OSVERSIONINFOEXW RTL_OSVERSIONINFOEXW, *PRTL_OSVERSIONINFOEXW;

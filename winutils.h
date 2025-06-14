@@ -1,11 +1,11 @@
 #ifndef WINUTILS_H
 #define WINUTILS_H
 #include <windows.h>
+#include "taskscheduler.h"
 #include <QSet>
 #include <QString>
 #include <string>
 #include <tlhelp32.h>
-
 struct ProcessInfo
 {
     DWORD pid;
@@ -19,10 +19,10 @@ struct ProcessInfo
 
 class winutils
 {
-   public:
+  public:
     winutils();
 
-   public:
+  public:
     // DLL 注入
     static bool injectDll(DWORD processId, const std::wstring& dllPath);
 
@@ -46,6 +46,12 @@ class winutils
 
     static bool checkProcessProtection(DWORD processId);
 
+    static void setAutoStart(bool enable,
+                             const QString& appName,
+                             const QString& execPath);
+
+    static bool isAutoStartEnabled(const QString& appName);
+
     static BOOL getWindowsVersion(DWORD* majorVersion,
                                   DWORD* minorVersion,
                                   DWORD* buildNumber);
@@ -64,4 +70,4 @@ class winutils
     static bool enableAllPrivilege();
 };
 
-#endif  // WINUTILS_H
+#endif // WINUTILS_H

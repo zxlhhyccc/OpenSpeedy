@@ -22,7 +22,6 @@ ProcessMonitor::ProcessMonitor(QSettings* settings,
   , m_injector64StatusLabel(injector64StatusLabel)
   , m_settings(settings)
 {
-    winutils::enableAllPrivilege();
     m_treeWidget->header()->setMinimumHeight(40);
     m_treeWidget->setColumnWidth(0, 300);
     m_treeWidget->setColumnWidth(5, 50);

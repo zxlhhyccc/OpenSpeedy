@@ -6,6 +6,7 @@
 #include "memutils.h"
 #include "preferencedialog.h"
 #include "processmonitor.h"
+#include "winutils.h"
 #include <QAbstractNativeEventFilter>
 #include <QActionGroup>
 #include <QMainWindow>
@@ -42,6 +43,8 @@ class MainWindow
     void recreateTray();
 
     void on_sliderLabel_clicked();
+
+    void on_autoStartCheckBox_stateChanged(int arg1);
 
   private:
     Ui::MainWindow* ui;

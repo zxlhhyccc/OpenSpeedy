@@ -65,19 +65,27 @@ else()
           preferencedialog.h preferencedialog.cpp preferencedialog.ui
           qsinglekeysequenceedit.h qsinglekeysequenceedit.cpp
           ${QM_FILES}
+
       )
 
       add_library(winutils
         winutils.h winutils.cpp
         cpuutils.h cpuutils.cpp
         memutils.h memutils.cpp
+        taskscheduler.h
+        taskscheduler.cpp
       )
 
       target_include_directories(winutils PUBLIC
           ${CMAKE_CURRENT_SOURCE_DIR}
       )
 
-    target_link_libraries(winutils PUBLIC Qt${QT_VERSION_MAJOR}::Core pdh)
+    target_link_libraries(winutils PUBLIC
+      Qt${QT_VERSION_MAJOR}::Core
+      pdh
+      ole32
+      oleaut32
+      taskschd)
 endif()
 
 
