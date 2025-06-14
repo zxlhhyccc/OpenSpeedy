@@ -19,6 +19,17 @@ jobs:
         echo Building 32-bit...
         call script\initenv.bat
         call script\build32.bat
+        
+    - name: Upload 32-bit artifacts
+      uses: actions/upload-artifact@v4
+      if: success()
+      with:
+        name: windows-32bit-build
+        path: |
+          build/CMAKE-32bit-Release/**/OpenSpeedy.exe
+          build/CMAKE-32bit-Release/**/speedpatch32.dll
+          build/CMAKE-32bit-Release/**/bridge32.exe
+        if-no-files-found: warn
 
   build-64bit:
     runs-on: self-hosted
@@ -33,22 +44,55 @@ jobs:
         echo Building 64-bit...
         call script\initenv.bat
         call script\build64.bat
+        
+    - name: Upload 64-bit artifacts
+      uses: actions/upload-artifact@v4
+      if: success()
+      with:
+        name: windows-64bit-build
+        path: |
+          build/CMAKE-64bit-Release/**/OpenSpeedy.exe
+          build/CMAKE-64bit-Release/**/speedpatch64.dll
+          build/CMAKE-64bit-Release/**/bridge64.exe
+        if-no-files-found: warn
 
-  upload-artifacts:
+
+  merge-artifacts:
     runs-on: self-hosted
     needs: [build-32bit, build-64bit]
     if: always() && (needs.build-32bit.result == 'success' || needs.build-64bit.result == 'success')
     
     steps:
-    - name: Upload OpenSpeedy artifacts
-      uses: actions/upload-artifact@v4
-      if: needs.build-64bit.result == 'success'
+    - name: Download 32-bit artifacts
+      uses: actions/download-artifact@v4
       with:
-        name: OpenSpeedy-artifacts
-        path: |
-          build/CMAKE-64bit-Release/**/OpenSpeedy.exe
-          build/CMAKE-32bit-Release/**/speedpatch32.dll
-          build/CMAKE-32bit-Release/**/bridge32.exe
-          build/CMAKE-64bit-Release/**/speedpatch64.dll
-          build/CMAKE-64bit-Release/**/bridge64.exe
-        if-no-files-found: warn
+        name: windows-32bit-build
+        path: temp/32bit/
+      continue-on-error: true
+      
+    - name: Download 64-bit artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: windows-64bit-build
+        path: temp/64bit/
+      continue-on-error: true
+      
+    - name: Merge artifacts
+      shell: powershell
+      run: |
+        New-Item -ItemType Directory -Path "merged" -Force
+        
+        # 合并所有文件
+        if (Test-Path "temp/32bit") {
+            Copy-Item "temp/32bit/*" "merged/" -Recurse
+        }
+        if (Test-Path "temp/64bit") {
+            Copy-Item "temp/64bit/*" "merged/" -Recurse
+        }
+        
+    - name: Upload merged artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: windows-all-builds
+        path: merged/
+  
