@@ -17,7 +17,8 @@ jobs:
       shell: cmd
       run: |
         echo Building 32-bit...
-        call build32.bat
+        call script\initenv.bat
+        call script\build32.bat
         
     - name: Upload 32-bit artifacts
       uses: actions/upload-artifact@v4
@@ -41,7 +42,8 @@ jobs:
       shell: cmd
       run: |
         echo Building 64-bit...
-        call build64.bat
+        call script\initenv.bat
+        call script\build64.bat
         
     - name: Upload 64-bit artifacts
       uses: actions/upload-artifact@v4
