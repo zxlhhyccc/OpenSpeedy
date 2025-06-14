@@ -144,7 +144,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="aboutdialog.cpp" line="10"/>
+        <location filename="aboutdialog.cpp" line="27"/>
         <source>确认</source>
         <translation type="unfinished"></translation>
     </message>
@@ -620,14 +620,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="337"/>
-        <location filename="mainwindow.cpp" line="351"/>
+        <location filename="mainwindow.cpp" line="354"/>
+        <location filename="mainwindow.cpp" line="368"/>
         <source>提示</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="338"/>
-        <location filename="mainwindow.cpp" line="352"/>
+        <location filename="mainwindow.cpp" line="355"/>
+        <location filename="mainwindow.cpp" line="369"/>
         <source>直到重启应用后，界面的语言才会生效</source>
         <translation type="unfinished"></translation>
     </message>
@@ -841,27 +841,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="preferencedialog.cpp" line="22"/>
+        <location filename="preferencedialog.cpp" line="39"/>
         <source>确认</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="preferencedialog.cpp" line="23"/>
+        <location filename="preferencedialog.cpp" line="40"/>
         <source>取消</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="preferencedialog.cpp" line="249"/>
+        <location filename="preferencedialog.cpp" line="266"/>
         <source>%1 增加速度</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="preferencedialog.cpp" line="254"/>
+        <location filename="preferencedialog.cpp" line="271"/>
         <source>%1 减少速度</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="preferencedialog.cpp" line="259"/>
+        <location filename="preferencedialog.cpp" line="276"/>
         <source>%1 重置速度</source>
         <translation type="unfinished"></translation>
     </message>
@@ -869,55 +869,55 @@
 <context>
     <name>ProcessMonitor</name>
     <message>
-        <location filename="processmonitor.cpp" line="79"/>
-        <location filename="processmonitor.cpp" line="92"/>
+        <location filename="processmonitor.cpp" line="96"/>
+        <location filename="processmonitor.cpp" line="109"/>
         <source>搜索到%1个进程, 已过滤展示%2个</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="121"/>
+        <location filename="processmonitor.cpp" line="138"/>
         <source>加速中</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="239"/>
-        <location filename="processmonitor.cpp" line="289"/>
+        <location filename="processmonitor.cpp" line="256"/>
+        <location filename="processmonitor.cpp" line="306"/>
         <source>高</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="242"/>
-        <location filename="processmonitor.cpp" line="292"/>
+        <location filename="processmonitor.cpp" line="259"/>
+        <location filename="processmonitor.cpp" line="309"/>
         <source>中</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="245"/>
-        <location filename="processmonitor.cpp" line="295"/>
+        <location filename="processmonitor.cpp" line="262"/>
+        <location filename="processmonitor.cpp" line="312"/>
         <source>低</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="248"/>
-        <location filename="processmonitor.cpp" line="298"/>
+        <location filename="processmonitor.cpp" line="265"/>
+        <location filename="processmonitor.cpp" line="315"/>
         <source>实时</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="251"/>
-        <location filename="processmonitor.cpp" line="301"/>
+        <location filename="processmonitor.cpp" line="268"/>
+        <location filename="processmonitor.cpp" line="318"/>
         <source>未知</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="408"/>
-        <location filename="processmonitor.cpp" line="419"/>
+        <location filename="processmonitor.cpp" line="425"/>
+        <location filename="processmonitor.cpp" line="436"/>
         <source>正常</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="413"/>
-        <location filename="processmonitor.cpp" line="424"/>
+        <location filename="processmonitor.cpp" line="430"/>
+        <location filename="processmonitor.cpp" line="441"/>
         <source>异常退出</source>
         <translation type="unfinished"></translation>
     </message>
