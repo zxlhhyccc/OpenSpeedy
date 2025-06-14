@@ -6,4 +6,7 @@
     <Publisher>Game1024</Publisher>
     <StartMenuDir>OpenSpeedy</StartMenuDir>
     <TargetDir>@HomeDir@/OpenSpeedy</TargetDir>
+
+    <WizardStyle>Modern</WizardStyle>
+    <AllowNonAsciiCharacters>true</AllowNonAsciiCharacters>
 </Installer>
