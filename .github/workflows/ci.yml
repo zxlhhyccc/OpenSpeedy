@@ -1,4 +1,4 @@
-name: Windows Build
+name: Build OpenSpeedy
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-32bit:
+  build:
     runs-on: self-hosted
     
     steps:
@@ -19,40 +19,34 @@ jobs:
         echo Building 32-bit...
         call script\initenv.bat
         call script\build32.bat
-        
-    - name: Upload 32-bit artifacts
-      uses: actions/upload-artifact@v4
-      if: success()
-      with:
-        name: windows-32bit-build
-        path: |
-          build/CMAKE-32bit-Release/**/OpenSpeedy.exe
-          build/CMAKE-32bit-Release/**/speedpatch32.dll
-          build/CMAKE-32bit-Release/**/bridge32.exe
-        if-no-files-found: warn
 
-  build-64bit:
-    runs-on: self-hosted
-    
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      
     - name: Build 64-bit
       shell: cmd
       run: |
         echo Building 64-bit...
         call script\initenv.bat
         call script\build64.bat
+
+    - name: Collect artifacts to flat directory
+      shell: cmd
+      run: |
+        echo Collecting artifacts...
+        if not exist "artifacts" mkdir "artifacts"
         
-    - name: Upload 64-bit artifacts
+        rem 复制文件到平级目录，去除路径结构
+        if exist "build\CMAKE-64bit-Release\OpenSpeedy.exe" copy "build\CMAKE-64bit-Release\OpenSpeedy.exe" "artifacts\"
+        if exist "build\CMAKE-64bit-Release\speedpatch64.dll" copy "build\CMAKE-64bit-Release\speedpatch64.dll" "artifacts\"
+        if exist "build\CMAKE-64bit-Release\bridge64.exe" copy "build\CMAKE-64bit-Release\bridge64.exe" "artifacts\"
+        if exist "build\CMAKE-32bit-Release\speedpatch32.dll" copy "build\CMAKE-32bit-Release\speedpatch32.dll" "artifacts\"
+        if exist "build\CMAKE-32bit-Release\bridge32.exe" copy "build\CMAKE-32bit-Release\bridge32.exe" "artifacts\"
+        
+        echo Artifacts directory contents:
+        dir "artifacts"
+        
+    - name: Upload artifacts
       uses: actions/upload-artifact@v4
       if: success()
       with:
-        name: windows-64bit-build
-        path: |
-          build/CMAKE-64bit-Release/**/OpenSpeedy.exe
-          build/CMAKE-64bit-Release/**/speedpatch64.dll
-          build/CMAKE-64bit-Release/**/bridge64.exe
+        name: OpenSpeedy-artifacts
+        path: artifacts/
         if-no-files-found: warn
-  
