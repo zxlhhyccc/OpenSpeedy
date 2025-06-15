@@ -1,4 +1,4 @@
-name: Windows Build
+name: Build OpenSpeedy
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-32bit:
+  build:
     runs-on: self-hosted
     
     steps:
