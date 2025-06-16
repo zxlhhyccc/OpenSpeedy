@@ -20,5 +20,4 @@ github-policies:
               - tool: CodeQL
                 min_alerts_threshold: errors
                 min_security_alerts_threshold: medium
-        allow_bypass_actors: true                # some people may bypass these rules
         enforced_from: '2025-01-01 00:00'        # had to be reset at some point
