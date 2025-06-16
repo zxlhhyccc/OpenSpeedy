@@ -64,7 +64,7 @@ jobs:
         wait-for-completion: true
         output-artifact-directory: signed/artifacts/
         parameters: |
-          version: "v1.7.2"
+          version: "v1.0.0"
 
     - name: Upload signed artifacts
       uses: actions/upload-artifact@v4
