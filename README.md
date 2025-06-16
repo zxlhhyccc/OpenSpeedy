@@ -117,7 +117,8 @@ OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调
 # 🔄 反馈
 如果在使用过程中遇到任何问题，欢迎通过以下方式反馈：
 - [GitHub Issues](https://github.com/game1024/OpenSpeedy/issues) - 提交问题报告
-
+- 我的微信
+<img width="30%" src="https://github.com/user-attachments/assets/421aedb1-3a04-46d9-88cc-210d4f7d0af1">
 
 # 📜 开源协议
 OpenSpeedy 遵循 GNU v3 许可证。
