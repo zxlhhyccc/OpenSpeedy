@@ -1,7 +1,6 @@
 <h1 align="center"> OpenSpeedy </h1>
 
 
-
 <p align="center">
   <img style="margin:0 auto" width=100 height=100 src="https://github.com/user-attachments/assets/bdbe4a60-7692-4e9c-9df4-ad1711337c57">
   </img>  
@@ -12,24 +11,40 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/game1024/OpenSpeedy/releases">
-    <img src="https://img.shields.io/github/v/release/game1024/OpenSpeedy?color=brightgreen" alt="Version">
-  </a>
-  <a href="https://github.com/game1024/OpenSpeedy/releases">
-    <img src="https://img.shields.io/github/downloads/game1024/OpenSpeedy/total" alt="Downloads">
-  </a>
-  <a href="https://github.com/game1024/OpenSpeedy">
-    <img src="https://img.shields.io/badge/Platform-Windows-lightblue" alt="Platform">
-  </a>
-  <a href="https://github.com/game1024/OpenSpeedy/commits">
-    <img src="https://img.shields.io/github/commit-activity/m/game1024/OpenSpeedy" alt="提交活跃度">
+  <img src="https://api.visitorbadge.io/api/visitors?path=game1024.openspeedy&countColor=%234ecdc4">
+  <br/>
+    
+  <a href="https://github.com/game1024/OpenSpeedy/stargazers">
+    <img src="https://img.shields.io/github/stars/game1024/OpenSpeedy?style=for-the-badge&color=yellow" alt="GitHub Stars">
   </a>
 
-  <img src="https://img.shields.io/badge/language-C/C++-blue">
-  <img src="https://img.shields.io/badge/License-GPLv3-green.svg">
-  <a href="https://github.com/game1024/OpenSpeedy/stargazers">
-    <img src="https://img.shields.io/github/stars/game1024/OpenSpeedy" alt="GitHub Stars">
+  <img src="https://img.shields.io/github/forks/game1024/OpenSpeedy?style=for-the-badge&color=8a2be2" alt="GitHub Forks">
+
+  <a href="https://github.com/game1024/OpenSpeedy/issues">
+    <img src="https://img.shields.io/github/issues-raw/game1024/OpenSpeedy?style=for-the-badge&label=Issues&color=orange" alt="Github Issues">
   </a>
+  <br/>  
+  
+  <a href="https://github.com/game1024/OpenSpeedy/releases">
+    <img src="https://img.shields.io/github/downloads/game1024/OpenSpeedy/total?style=for-the-badge" alt="Downloads">
+  </a>
+  <a href="https://github.com/game1024/OpenSpeedy/releases">
+    <img src="https://img.shields.io/github/v/release/game1024/OpenSpeedy?style=for-the-badge&color=brightgreen" alt="Version">
+  </a>
+  <a href="https://github.com/game1024/OpenSpeedy/actions">
+      <img src="https://img.shields.io/github/actions/workflow/status/game1024/OpenSpeedy/ci.yml?style=for-the-badge" alt="Github Action">
+  </a>
+  <a href="https://github.com/game1024/OpenSpeedy">
+    <img src="https://img.shields.io/badge/Platform-Windows-lightblue?style=for-the-badge" alt="Platform">
+  </a>
+  <br/>
+  
+  <a href="https://github.com/game1024/OpenSpeedy/commits">
+    <img src="https://img.shields.io/github/commit-activity/m/game1024/OpenSpeedy?style=for-the-badge" alt="提交活跃度">
+  </a>
+  <img src="https://img.shields.io/badge/language-C/C++-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/License-GPLv3-green.svg?style=for-the-badge">
+  <br/>
 </p>
 
 <p align="center">
@@ -72,11 +87,9 @@
 <img src="https://github.com/user-attachments/assets/648e721d-9c3a-4d82-954c-19b16355d084" width="50%">
 
 3. 勾选游戏进程，在 OpenSpeedy 界面中调整速度倍率
+<img src="https://github.com/user-attachments/assets/9469aae9-8be0-4e40-884d-1fbea3206e73" width="50%">
 
-
-<img src="https://github.com/user-attachments/assets/c42728b3-c6a0-44cb-b68e-42e490de6b53" width="50%">
-
-5. 即刻生效，对比效果如下
+4. 即刻生效，对比效果如下
 
 <video src="https://github.com/user-attachments/assets/74471b1f-7f95-4de8-b5aa-7edc85c9d5f0" width="70%"></video>
 
@@ -99,17 +112,19 @@ OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调
 - 部分在线游戏可能有反作弊系统，使用本工具可能导致账号被封禁
 - 过度加速可能导致游戏物理引擎异常或崩溃
 - 不建议在竞技类在线游戏中使用
+- 开源产品不带数字签名，可能被杀毒软件误报
 
 # 🔄 反馈
 如果在使用过程中遇到任何问题，欢迎通过以下方式反馈：
 - [GitHub Issues](https://github.com/game1024/OpenSpeedy/issues) - 提交问题报告
-
+- 我的微信
+<img width="30%" src="https://github.com/user-attachments/assets/421aedb1-3a04-46d9-88cc-210d4f7d0af1">
 
 # 📜 开源协议
 OpenSpeedy 遵循 GNU v3 许可证。
 
 # 🙏 鸣谢
-OpenSpeedy使用到以下项目的源码，感谢开源社区的力量
+OpenSpeedy使用到以下项目的源码，感谢开源社区的力量，如果OpenSpeedy对你有帮助，欢迎Star!
 - [minhook](https://github.com/TsudaKageyu/minhook): 用于API Hook
 - [Qt](https://www.qt.io/): GUI
 
