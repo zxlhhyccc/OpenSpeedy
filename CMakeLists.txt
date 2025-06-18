@@ -17,6 +17,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network WinExtras
 set(TS_FILES
   OpenSpeedy_zh_CN.ts
   OpenSpeedy_en_US.ts
+  OpenSpeedy_zh_TW.ts
 )
 
 set(PROJECT_SOURCES

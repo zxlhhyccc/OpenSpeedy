@@ -1,17 +1,17 @@
 /*
  * OpenSpeedy - Open Source Game Speed Controller
  * Copyright (C) 2025 Game1024
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
@@ -47,6 +47,21 @@ MainWindow::~MainWindow()
 }
 
 void
+MainWindow::recreate()
+{
+    layout()->invalidate();
+    layout()->activate();
+    adjustSize();
+    update();
+    if (isVisible())
+    {
+        hide();
+        show();
+    }
+    recreateTray();
+}
+
+void
 MainWindow::refresh()
 {
     ui->cpuContent->setText(QString("<span style='color:blue'>%1%</span>")
@@ -75,8 +90,8 @@ MainWindow::on_sliderCtrl_valueChanged(int value)
     }
     else
     {
-        ui->sliderCtrl->setToolTip(QString("%1倍").arg(factor, 0, 'f', 4));
-        ui->sliderLabel->setText(QString("✖️%1倍").arg(factor, 0, 'f', 4));
+        ui->sliderCtrl->setToolTip(QString("%1倍").arg(factor, 0, 'f'));
+        ui->sliderLabel->setText(QString("✖️%1倍").arg(factor, 0, 'f'));
     }
     m_settings->setValue(CONFIG_SLIDERVALUE_KEY, value);
     m_settings->sync();
@@ -184,7 +199,7 @@ MainWindow::speedFactor(int sliderValue)
     }
     else if (sliderValue < 0.0)
     {
-        factor = 1.0 + (double)sliderValue / 10000;
+        factor = 1.0 + (double)sliderValue / 1000000;
     }
     else
     {
@@ -204,7 +219,7 @@ MainWindow::sliderValue(double speedFactor)
     }
     else if (speedFactor < 1.0)
     {
-        sliderValue = (speedFactor - 1.0) * 10000;
+        sliderValue = (speedFactor - 1.0) * 1000000;
     }
     else
     {
@@ -218,13 +233,13 @@ void
 MainWindow::recreateTray()
 {
     qDebug() << "重绘托盘";
-    adjustSize();
     delete trayMenu;
     delete trayIcon;
     delete showAction;
     delete hideAction;
     delete quitAction;
     createTray();
+    adjustSize();
 }
 
 void
@@ -262,7 +277,7 @@ MainWindow::init()
     connect(QGuiApplication::primaryScreen(),
             &QScreen::logicalDotsPerInchChanged,
             this,
-            &MainWindow::recreateTray);
+            &MainWindow::recreate);
     m_thread->start();
     m_processMonitor->start();
 
@@ -337,6 +352,10 @@ MainWindow::init()
     {
         ui->actionCN->setChecked(true);
     }
+    else if (language == "zh_TW")
+    {
+        ui->actionTW->setChecked(true);
+    }
     else if (language == "en_US")
     {
         ui->actionEN->setChecked(true);
@@ -347,6 +366,20 @@ MainWindow::init()
             [this]
             {
                 m_settings->setValue(CONFIG_LANGUAGE, "zh_CN");
+                QMessageBox msgBox(this);
+                msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint |
+                                      Qt::CustomizeWindowHint);
+                msgBox.setIcon(QMessageBox::Information);
+                msgBox.setWindowTitle(tr("提示"));
+                msgBox.setText(tr("直到重启应用后，界面的语言才会生效"));
+                msgBox.exec();
+            });
+
+    connect(ui->actionTW,
+            &QAction::triggered,
+            [this]
+            {
+                m_settings->setValue(CONFIG_LANGUAGE, "zh_TW");
                 QMessageBox msgBox(this);
                 msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint |
                                       Qt::CustomizeWindowHint);

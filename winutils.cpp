@@ -61,6 +61,10 @@ winutils::injectDll(DWORD processId, const std::wstring& dllPath)
     {
         return true;
     }
+    else if (injectDllViaWHK(processId, dllPath))
+    {
+        return true;
+    }
     else
     {
         return false;

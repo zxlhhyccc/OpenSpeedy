@@ -163,10 +163,10 @@ QSlider::handle:horizontal:pressed {
 }</string>
               </property>
               <property name="minimum">
-               <number>-9900</number>
+               <number>-999900</number>
               </property>
               <property name="maximum">
-               <number>9900</number>
+               <number>999900</number>
               </property>
               <property name="pageStep">
                <number>100</number>
@@ -187,7 +187,7 @@ QSlider::handle:horizontal:pressed {
                <enum>QSlider::TicksBothSides</enum>
               </property>
               <property name="tickInterval">
-               <number>990</number>
+               <number>99000</number>
               </property>
              </widget>
             </item>
@@ -230,7 +230,7 @@ QSlider::handle:horizontal:pressed {
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::ClickFocus</enum>
+                 <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="styleSheet">
                  <string notr="true">    QPushButton {
@@ -807,6 +807,7 @@ QTreeWidget {
      <string>🌐语言</string>
     </property>
     <addaction name="actionCN"/>
+    <addaction name="actionTW"/>
     <addaction name="actionEN"/>
    </widget>
    <addaction name="menuPreference"/>
@@ -818,7 +819,7 @@ QTreeWidget {
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>中文</string>
+    <string>中文(简体)</string>
    </property>
    <property name="menuRole">
     <enum>QAction::ApplicationSpecificRole</enum>
@@ -830,6 +831,17 @@ QTreeWidget {
    </property>
    <property name="text">
     <string>English</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
+   </property>
+  </action>
+  <action name="actionTW">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>中文(繁體)</string>
    </property>
    <property name="menuRole">
     <enum>QAction::ApplicationSpecificRole</enum>
