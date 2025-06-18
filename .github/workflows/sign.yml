@@ -37,7 +37,7 @@ jobs:
         organization-id: '58b9835d-38ea-4898-a564-76610c01cecd'
         project-slug: OpenSpeedy
         signing-policy-slug: test-signing
-        github-artifact-id: ${{ github.event.inputs.artifact-id }}
+        github-artifact-id: ${{ github.event.inputs.artifact_id }}
         wait-for-completion: true
         output-artifact-directory: signed-artifacts/
         
