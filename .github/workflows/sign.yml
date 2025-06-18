@@ -28,7 +28,7 @@ jobs:
         name: ${{ github.event.inputs.artifact_name }}
         run-id: ${{ github.event.inputs.build_id }}
         path: artifacts/
-        github-token: ${{ secrets._GITHUB_TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - id: upload-unsigned-artifacts
       name: Re-upload as new artifact
