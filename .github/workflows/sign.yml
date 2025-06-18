@@ -1,0 +1,46 @@
+name: Sign OpenSpeedy
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_id:
+        description: '构建工作流ID'
+        required: true
+        type: string
+      artifact_name:
+        description: '签名的制品名称'
+        required: true
+        default: 'OpenSpeedy-unsigned-artifacts'
+        type: string
+
+jobs:
+  sign:
+    runs-on: windows-latest  # GitHub-hosted runner
+    
+    steps:
+    - name: Download build artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ github.event.inputs.artifact_name }}
+        run-id: ${{ github.event.inputs.build_id }}
+        path: artifacts/
+        github-token: ${{ secrets._GITHUB_TOKEN }}
+        
+    - name: SignPath signing
+      uses: signpath/github-action-submit-signing-request@v1.1
+      with:
+        api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+        organization-id: '58b9835d-38ea-4898-a564-76610c01cecd'
+        project-slug: OpenSpeedy
+        signing-policy-slug: test-signing
+        artifact-configuration: 'native'
+        artifact-path: 'artifacts/'
+        wait-for-completion: true
+        output-artifact-directory: signed-artifacts/
+        
+    - name: Upload signed artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: OpenSpeedy-signed
+        path: signed-artifacts/
+        retention-days: 30
