@@ -1,11 +1,15 @@
-name: Sign OpenSpeedy
-
+name: Sign
 on:
   workflow_dispatch:
     inputs:
       build_id:
         description: '构建工作流ID'
         required: true
+        type: string
+      version:
+        description: '版本号'
+        required: true
+        default: '1.0.0'
         type: string
       artifact_name:
         description: '签名的制品名称'
@@ -24,7 +28,7 @@ jobs:
         name: ${{ github.event.inputs.artifact_name }}
         run-id: ${{ github.event.inputs.build_id }}
         path: artifacts/
-        github-token: ${{ secrets._GITHUB_TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - id: upload-unsigned-artifacts
       name: Re-upload as new artifact
@@ -44,10 +48,12 @@ jobs:
         github-artifact-id: ${{ steps.upload-unsigned-artifacts.outputs.artifact-id }}
         wait-for-completion: true
         output-artifact-directory: signed-artifacts/
+        parameters: |
+          version: ${{ toJSON(github.event.inputs.version) }}
         
     - name: Upload signed artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: OpenSpeedy-signed
+        name: OpenSpeedy-signed-artifacts
         path: signed-artifacts/
         retention-days: 30
