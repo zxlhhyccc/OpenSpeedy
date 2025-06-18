@@ -7,6 +7,10 @@ on:
         description: '构建工作流ID'
         required: true
         type: string
+      artifact_id:
+        description: '签名的制品ID'
+        required: true
+        type: string
       artifact_name:
         description: '签名的制品名称'
         required: true
@@ -34,6 +38,7 @@ jobs:
         project-slug: OpenSpeedy
         signing-policy-slug: test-signing
         artifact-configuration: 'native'
+        github-artifact-id: ${{ github.event.inputs.artifact-id }}
         artifact-path: 'artifacts/'
         wait-for-completion: true
         output-artifact-directory: signed-artifacts/
