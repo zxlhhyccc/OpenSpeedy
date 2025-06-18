@@ -7,10 +7,6 @@ on:
         description: '构建工作流ID'
         required: true
         type: string
-      artifact_id:
-        description: '签名的制品ID'
-        required: true
-        type: string
       artifact_name:
         description: '签名的制品名称'
         required: true
@@ -29,6 +25,14 @@ jobs:
         run-id: ${{ github.event.inputs.build_id }}
         path: artifacts/
         github-token: ${{ secrets._GITHUB_TOKEN }}
+
+    - id: upload-unsigned-artifacts
+      name: Re-upload as new artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: OpenSpeedy-unsigned-artifacts  
+        path: artifacts/          
+        retention-days: 30       
         
     - name: SignPath signing
       uses: signpath/github-action-submit-signing-request@v1.1
@@ -37,7 +41,7 @@ jobs:
         organization-id: '58b9835d-38ea-4898-a564-76610c01cecd'
         project-slug: OpenSpeedy
         signing-policy-slug: test-signing
-        github-artifact-id: ${{ github.event.inputs.artifact_id }}
+        github-artifact-id: ${{ steps.upload-unsigned-artifacts.outputs.artifact-id }}
         wait-for-completion: true
         output-artifact-directory: signed-artifacts/
         
