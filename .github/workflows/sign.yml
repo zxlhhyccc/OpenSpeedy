@@ -9,7 +9,7 @@ on:
       version:
         description: '版本号'
         required: true
-        default: 'v1.0.0'
+        default: '1.0.0'
         type: string
       artifact_name:
         description: '签名的制品名称'
@@ -49,7 +49,7 @@ jobs:
         wait-for-completion: true
         output-artifact-directory: signed-artifacts/
         parameters: |
-          version: ${{ github.event.inputs.version }}
+          version: ${{ toJSON(github.event.inputs.version) }}
         
     - name: Upload signed artifacts
       uses: actions/upload-artifact@v4
