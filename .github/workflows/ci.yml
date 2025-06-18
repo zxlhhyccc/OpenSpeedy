@@ -8,7 +8,9 @@ on:
 jobs:
   build:
     runs-on: self-hosted
-    
+    outputs:
+      artifact-id: ${{ steps.upload-unsigned-artifacts.outputs.artifact-id }}
+
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -52,24 +54,25 @@ jobs:
         path: artifacts/
         if-no-files-found: warn
 
-    # - name: SignPath submit
-    #   uses: signpath/github-action-submit-signing-request@v1.1
-    #   with:
-    #     api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
-    #     organization-id: '58b9835d-38ea-4898-a564-76610c01cecd'
-    #     project-slug: 'OpenSpeedy'
-    #     signing-policy-slug: 'test-signing'
-    #     github-artifact-id: '${{ steps.upload-unsigned-artifacts.outputs.artifact-id }}'
-    #     wait-for-completion: true
-    #     output-artifact-directory: signed/artifacts/
-    #     parameters: |
-    #       version: "v1.0.0"
-
-    # - name: Upload signed artifacts
-    #   uses: actions/upload-artifact@v4
-    #   if: success()
-    #   with:
-    #     name: OpenSpeedy-artifacts
-    #     path: signed/artifacts/
-    #     if-no-files-found: warn
+  # sign:
+  #   runs-on: windows-latest  # 签名在 GitHub-hosted
+  #   needs: build
+    
+  #   steps:
+  #   - name: SignPath signing
+  #     uses: signpath/github-action-submit-signing-request@v1.1
+  #     with:
+  #       api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+  #       organization-id: '58b9835d-38ea-4898-a564-76610c01cecd'
+  #       project-slug: OpenSpeedy
+  #       signing-policy-slug: test-signing
+  #       github-artifact-id: ${{ needs.build.outputs.artifact-id }}
+  #       wait-for-completion: true
+  #       output-artifact-directory: signed-artifacts/
+        
+  #   - name: Upload signed artifacts
+  #     uses: actions/upload-artifact@v4
+  #     with:
+  #       name: OpenSpeedy-signed-artifacts
+  #       path: signed-artifacts/
     
