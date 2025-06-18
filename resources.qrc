@@ -9,5 +9,6 @@
     <qresource prefix="/i18n">
         <file>translations/OpenSpeedy_en_US.qm</file>
         <file>translations/OpenSpeedy_zh_CN.qm</file>
+        <file>translations/OpenSpeedy_zh_TW.qm</file>
     </qresource>
 </RCC>

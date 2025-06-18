@@ -1,17 +1,17 @@
 /*
  * OpenSpeedy - Open Source Game Speed Controller
  * Copyright (C) 2025 Game1024
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
@@ -19,6 +19,7 @@
 #include "ui_preferencedialog.h"
 #include <QDebug>
 #include <QPushButton>
+#include <QScreen>
 PreferenceDialog::PreferenceDialog(HWND hMainWindow,
                                    QSettings* settings,
                                    QLabel* increaseSpeedLabel,
@@ -67,7 +68,12 @@ PreferenceDialog::PreferenceDialog(HWND hMainWindow,
     m_decreaseStep =
       m_settings->value(CONFIG_DECREASE_STEP, DEFAULT_DECREASE_STEP).toInt();
 
+    connect(QGuiApplication::primaryScreen(),
+            &QScreen::logicalDotsPerInchChanged,
+            this,
+            &PreferenceDialog::recreate);
     redraw();
+    adjustSize();
     setupGlobalHotkeys();
 }
 
@@ -276,6 +282,8 @@ PreferenceDialog::redraw()
       QString(tr("%1 重置速度"))
         .arg(QSingleKeySequenceEdit::wrapText(
           ui->resetSpeedKeySequenceEdit->getKeyText())));
+
+    adjustSize();
 }
 
 void
@@ -292,4 +300,17 @@ PreferenceDialog::on_buttonBox_rejected()
 {
     redraw();
     setupGlobalHotkeys();
+}
+
+void
+PreferenceDialog::recreate()
+{
+    layout()->invalidate();
+    layout()->activate();
+    adjustSize();
+    if (isVisible())
+    {
+        hide();
+        show();
+    }
 }
