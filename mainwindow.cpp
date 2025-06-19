@@ -52,12 +52,7 @@ MainWindow::recreate()
     layout()->invalidate();
     layout()->activate();
     adjustSize();
-    update();
-    if (isVisible())
-    {
-        hide();
-        show();
-    }
+
     recreateTray();
 }
 
@@ -85,13 +80,13 @@ MainWindow::on_sliderCtrl_valueChanged(int value)
 
     if (factor >= 1.0)
     {
-        ui->sliderCtrl->setToolTip(QString("%1倍").arg(factor, 0, 'f', 2));
-        ui->sliderLabel->setText(QString("✖️%1倍").arg(factor, 0, 'f', 2));
+        ui->sliderCtrl->setToolTip(QString(tr("%1倍")).arg(factor, 0, 'f', 2));
+        ui->sliderLabel->setText(QString(tr("✖️%1倍")).arg(factor, 0, 'f', 2));
     }
     else
     {
-        ui->sliderCtrl->setToolTip(QString("%1倍").arg(factor, 0, 'f'));
-        ui->sliderLabel->setText(QString("✖️%1倍").arg(factor, 0, 'f'));
+        ui->sliderCtrl->setToolTip(QString(tr("%1倍")).arg(factor, 0, 'f'));
+        ui->sliderLabel->setText(QString(tr("✖️%1倍")).arg(factor, 0, 'f'));
     }
     m_settings->setValue(CONFIG_SLIDERVALUE_KEY, value);
     m_settings->sync();

@@ -200,7 +200,7 @@ QSlider::handle:horizontal:pressed {
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>100</width>
+                  <width>70</width>
                   <height>20</height>
                  </size>
                 </property>
@@ -256,7 +256,7 @@ QSlider::handle:horizontal:pressed {
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>100</width>
+                  <width>70</width>
                   <height>20</height>
                  </size>
                 </property>
@@ -784,7 +784,7 @@ QTreeWidget {
     </rect>
    </property>
    <property name="mouseTracking">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <widget class="QMenu" name="menuAbout">
     <property name="tearOffEnabled">

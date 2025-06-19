@@ -308,9 +308,4 @@ PreferenceDialog::recreate()
     layout()->invalidate();
     layout()->activate();
     adjustSize();
-    if (isVisible())
-    {
-        hide();
-        show();
-    }
 }
