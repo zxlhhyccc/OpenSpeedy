@@ -1,13 +1,12 @@
 <h1 align="center"> OpenSpeedy </h1>
 
-
 <p align="center">
   <img style="margin:0 auto" width=100 height=100 src="https://github.com/user-attachments/assets/bdbe4a60-7692-4e9c-9df4-ad1711337c57">
   </img>  
 </p>
 
 <p align="center">
-  OpenSpeedy 是一款开源免费的游戏变速工具，让你的游戏突破帧率限制，提供更流畅丝滑的游戏加速体验。
+  OpenSpeedy is an open-source and free game speed tool that helps you break frame rate limitations and provides a smoother, silkier gaming acceleration experience.
 </p>
 
 <p align="center">
@@ -40,7 +39,7 @@
   <br/>
   
   <a href="https://github.com/game1024/OpenSpeedy/commits">
-    <img src="https://img.shields.io/github/commit-activity/m/game1024/OpenSpeedy?style=for-the-badge" alt="提交活跃度">
+    <img src="https://img.shields.io/github/commit-activity/m/game1024/OpenSpeedy?style=for-the-badge" alt="Commit Activity">
   </a>
   <img src="https://img.shields.io/badge/language-C/C++-blue?style=for-the-badge">
   <img src="https://img.shields.io/badge/License-GPLv3-green.svg?style=for-the-badge">
@@ -48,7 +47,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/game1024/OpenSpeedy">
+  <a href="https://github.com/game1024/OpenSpeedy/blob/master/docs/README_cn.md">
     简体中文
   </a>
   ·
@@ -56,79 +55,77 @@
     日本語
   </a>
   ·
-  <a href="https://github.com/game1024/OpenSpeedy/blob/master/docs/README_en.md">
+  <a href="https://github.com/game1024/OpenSpeedy">
     English
   </a>
 </p>
 
+# 🚀 Features
+- Completely free and open-source
+- Easy-to-use interface
+- Customizable speed multiplier
+- Good compatibility with various game engines
+- Low system resource consumption
+- Supports accelerating both x86 and x64 processes
+- Non-invasive to the kernel: Ring3 level Hook, does not compromise the system kernel
 
-# 🚀 特性
-- 完全免费且开源
-- 简单易用的界面
-- 可自定义变速倍率
-- 对多种游戏引擎兼容性良好
-- 低系统资源占用
-- 同时可以加速x86和x64平台进程
-- 无内核侵入性，Ring3层Hook，不破坏系统内核
+# 📥 Installation
+1. Visit the [Installation Page](https://github.com/game1024/OpenSpeedy/releases) to download the latest version
+2. Extract the downloaded package to any location
+3. No installation required, just run OpenSpeedy.exe to use
 
-# 📥安装
-1. 访问[安装页面](https://github.com/game1024/OpenSpeedy/releases) 下载最新版本
-2. 解压缩下载的文件包到任意位置
-3. 无需安装，直接运行 OpenSpeedy.exe 即可使用
+# 💻 System Requirements
+- OS: Windows 10 or later
+- Platform: x86 (32-bit) and x64 (64-bit)
 
-# 💻 操作系统要求
-- OS: Windows10 以上
-- 平台：x86（32位） 和 x64 （64位）
-
-
-# 📝 使用说明
-1. 启动 OpenSpeedy
-2. 运行需要变速的目标游戏
+# 📝 Usage Instructions
+1. Start OpenSpeedy
+2. Launch the target game you want to speed up
 <img src="https://github.com/user-attachments/assets/648e721d-9c3a-4d82-954c-19b16355d084" width="50%">
 
-3. 勾选游戏进程，在 OpenSpeedy 界面中调整速度倍率
+3. Select the game process, and adjust the speed multiplier in the OpenSpeedy interface
 <img src="https://github.com/user-attachments/assets/9469aae9-8be0-4e40-884d-1fbea3206e73" width="50%">
 
-4. 即刻生效，对比效果如下
+4. The effect takes effect immediately. Compare the results below
 
 <video src="https://github.com/user-attachments/assets/74471b1f-7f95-4de8-b5aa-7edc85c9d5f0" width="70%"></video>
 
-# 🔧 技术原理
-OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调整：
+# 🔧 Technical Principle
+OpenSpeedy achieves game speed adjustment by hooking the following Windows system time functions:
 
-|函数名	| 所属库 |	功能 |
-|--------|----------|------------------|
-|Sleep|user32.dll|线程休眠|
-|SetTimer|user32.dll|创建基于消息的计时器|
-|timeGetTime | winmm.dll	| 获取系统启动后经过的毫秒数 |
-|GetTickCount | kernel32.dll	| 获取系统启动后经过的毫秒数 |
-|GetTickCount64	| kernel32.dll	| 获取系统启动后经过的毫秒数(64位) |
-|QueryPerformanceCounter |	kernel32.dll	| 高精度性能计数器 |
-|GetSystemTimeAsFileTime |	kernel32.dll	| 获取系统时间 |
-|GetSystemTimePreciseAsFileTime |	kernel32.dll	| 获取高精度系统时间 |
+| Function Name | Library | Description |
+|---------------|---------|-------------|
+| Sleep | user32.dll | Thread sleep |
+| SetTimer | user32.dll | Create message-based timer |
+| timeGetTime | winmm.dll | Get milliseconds elapsed since system startup |
+| GetTickCount | kernel32.dll | Get milliseconds elapsed since system startup |
+| GetTickCount64 | kernel32.dll | Get milliseconds elapsed since system startup (64-bit) |
+| QueryPerformanceCounter | kernel32.dll | High precision performance counter |
+| GetSystemTimeAsFileTime | kernel32.dll | Get system time |
+| GetSystemTimePreciseAsFileTime | kernel32.dll | Get high precision system time |
 
-# ⚠️ 注意事项
-- 本工具仅供学习和研究使用
-- 部分在线游戏可能有反作弊系统，使用本工具可能导致账号被封禁
-- 过度加速可能导致游戏物理引擎异常或崩溃
-- 不建议在竞技类在线游戏中使用
-- 开源产品不带数字签名，可能被杀毒软件误报
+# ⚠️ Notes
+- This tool is for learning and research purposes only
+- Some online games may have anti-cheat systems. Using this tool may result in your account being banned
+- Excessive speeding up may cause the game physics engine to malfunction or crash
+- Not recommended for use in competitive online games
+- Open source product does not include digital signature and may be falsely flagged by antivirus software
 
-# 🔄 反馈
-如果在使用过程中遇到任何问题，欢迎通过以下方式反馈：
-- [GitHub Issues](https://github.com/game1024/OpenSpeedy/issues) - 提交问题报告
-- 我的微信
+# 🔄 Feedback
+If you encounter any issues during use, feel free to provide feedback via:
+- [GitHub Issues](https://github.com/game1024/OpenSpeedy/issues) - Submit issue reports
+- My WeChat
 <img width="30%" src="https://github.com/user-attachments/assets/421aedb1-3a04-46d9-88cc-210d4f7d0af1">
 
-# 📜 开源协议
-OpenSpeedy 遵循 GNU v3 许可证。
+# 📜 License
+OpenSpeedy is licensed under the GNU v3 License.
 
-# 🙏 鸣谢
-OpenSpeedy使用到以下项目的源码，感谢开源社区的力量，如果OpenSpeedy对你有帮助，欢迎Star!
-- [minhook](https://github.com/TsudaKageyu/minhook): 用于API Hook
+# 🙏 Acknowledgements
+OpenSpeedy uses source code from the following projects. Thanks to the open-source community! If OpenSpeedy helps you, please give us a Star!
+- [minhook](https://github.com/TsudaKageyu/minhook): For API Hooking
 - [Qt](https://www.qt.io/): GUI
 
-免责声明: OpenSpeedy 仅用于教育和研究目的。用户应自行承担使用本软件的所有风险和责任。作者不对因使用本软件导致的任何损失或法律责任负责。
+Disclaimer: OpenSpeedy is intended for educational and research purposes only. Users assume all risks and responsibilities for using this software. The author is not responsible for any loss or legal liability resulting from the use of this software.
 
 <p align="center">
   <img src="https://api.star-history.com/svg?repos=game1024/openspeedy&type=Date" Alt="Star History Chart">

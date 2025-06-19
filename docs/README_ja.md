@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  OpenSpeedyは、フレームレート制限を突破し、よりスムーズでシルキーなゲーム加速体験を提供するオープンソース無料のゲーム速度変更ツールです。
+  OpenSpeedyは、フレームレート制限を突破し、よりスムーズで快適なゲーム加速体験を提供する、オープンソースかつ無料のゲーム速度調整ツールです。
 </p>
 
 <p align="center">
@@ -39,16 +39,15 @@
   <br/>
   
   <a href="https://github.com/game1024/OpenSpeedy/commits">
-    <img src="https://img.shields.io/github/commit-activity/m/game1024/OpenSpeedy?style=for-the-badge" alt="提交活跃度">
+    <img src="https://img.shields.io/github/commit-activity/m/game1024/OpenSpeedy?style=for-the-badge" alt="コミットアクティビティ">
   </a>
   <img src="https://img.shields.io/badge/language-C/C++-blue?style=for-the-badge">
   <img src="https://img.shields.io/badge/License-GPLv3-green.svg?style=for-the-badge">
   <br/>
 </p>
 
-
 <p align="center">
-  <a href="https://github.com/game1024/OpenSpeedy">
+  <a href="https://github.com/game1024/OpenSpeedy/blob/master/docs/README_cn.md">
     简体中文
   </a>
   ·
@@ -56,74 +55,77 @@
     日本語
   </a>
   ·
-  <a href="https://github.com/game1024/OpenSpeedy/blob/master/docs/README_en.md">
+  <a href="https://github.com/game1024/OpenSpeedy">
     English
   </a>
 </p>
 
 # 🚀 特徴
-- 完全無料でオープンソース
+- 完全無料・オープンソース
 - シンプルで使いやすいインターフェース
-- カスタマイズ可能な速度倍率
+- 速度倍率をカスタマイズ可能
 - 様々なゲームエンジンとの高い互換性
-- 低いシステムリソース使用量
-- x86とx64プラットフォームプロセスの同時加速対応
-- カーネル非侵入性、Ring3レベルHook、システムカーネルを破壊しない
+- 低いシステムリソース消費
+- x86およびx64プラットフォームのプロセスを同時に加速可能
+- カーネル非侵入型、Ring3レベルのHook、システムカーネルを破壊しない
 
 # 📥 インストール
-1. [リリースページ](https://github.com/game1024/OpenSpeedy/releases)にアクセスして最新版をダウンロード
-2. ダウンロードしたファイルパッケージを任意の場所に解凍
-3. インストール不要、OpenSpeedy.exeを直接実行して使用可能
+1. [インストールページ](https://github.com/game1024/OpenSpeedy/releases)にアクセスし、最新版をダウンロードしてください
+2. ダウンロードしたファイルを任意の場所に解凍してください
+3. インストール不要、「OpenSpeedy.exe」を直接実行するだけで利用できます
 
-# 💻 システム要件
-- OS: Windows 10以上
+# 💻 動作環境
+- OS: Windows10以降
 - プラットフォーム：x86（32ビット）およびx64（64ビット）
 
-# 📝 使用方法
-1. OpenSpeedyを起動
-2. 速度変更したい対象ゲームを実行
+# 📝 使い方
+1. OpenSpeedyを起動する
+2. 速度を変更したいゲームを起動する
 <img src="https://github.com/user-attachments/assets/648e721d-9c3a-4d82-954c-19b16355d084" width="50%">
 
-3. ゲームプロセスにチェックを入れ、OpenSpeedyインターフェースで速度倍率を調整
+3. ゲームプロセスを選択し、OpenSpeedyの画面で速度倍率を調整する
 <img src="https://github.com/user-attachments/assets/9469aae9-8be0-4e40-884d-1fbea3206e73" width="50%">
 
-4. 即座に効果が適用、比較効果は以下の通り
+4. すぐに効果が反映されます。下記の比較動画をご覧ください
 
 <video src="https://github.com/user-attachments/assets/74471b1f-7f95-4de8-b5aa-7edc85c9d5f0" width="70%"></video>
 
 # 🔧 技術原理
-OpenSpeedyは以下のWindowsシステム時間関数をHookすることでゲーム速度調整を実現：
+OpenSpeedyは、以下のWindowsシステム時間関数をHookすることで、ゲーム速度を調整しています：
 
 | 関数名 | 所属ライブラリ | 機能 |
-|--------|-------------|------|
-| Sleep | user32.dll | スレッドスリープ |
-| SetTimer | user32.dll | メッセージベースタイマーの作成 |
+|--------|--------|------------------|
+| Sleep | user32.dll | スレッドのスリープ |
+| SetTimer | user32.dll | メッセージベースのタイマー作成 |
 | timeGetTime | winmm.dll | システム起動後の経過ミリ秒数取得 |
 | GetTickCount | kernel32.dll | システム起動後の経過ミリ秒数取得 |
-| GetTickCount64 | kernel32.dll | システム起動後の経過ミリ秒数取得（64ビット） |
-| QueryPerformanceCounter | kernel32.dll | 高精度パフォーマンスカウンター |
-| GetSystemTimeAsFileTime | kernel32.dll | システム時間取得 |
-| GetSystemTimePreciseAsFileTime | kernel32.dll | 高精度システム時間取得 |
+| GetTickCount64 | kernel32.dll | システム起動後の経過ミリ秒数取得 (64ビット) |
+| QueryPerformanceCounter | kernel32.dll | 高精度パフォーマンスカウンタ |
+| GetSystemTimeAsFileTime | kernel32.dll | システム時刻の取得 |
+| GetSystemTimePreciseAsFileTime | kernel32.dll | 高精度なシステム時刻の取得 |
 
 # ⚠️ 注意事項
-- 本ツールは学習・研究目的でのみ使用してください
-- 一部のオンラインゲームにはアンチチートシステムがあり、本ツールの使用によりアカウントBANの可能性があります
-- 過度の加速はゲーム物理エンジンの異常やクラッシュを引き起こす可能性があります
-- 競技性のあるオンラインゲームでの使用は推奨しません
+- 本ツールは学習および研究用途のみを目的としています
+- 一部オンラインゲームにはアンチチートシステムが搭載されています。本ツールの使用によりアカウントがBANされる場合があります
+- 過度な加速は、ゲームの物理エンジン異常やクラッシュの原因となる場合があります
+- 対戦型オンラインゲームでの利用は推奨しません
+- オープンソース製品のためデジタル署名は付与しておらず、ウイルス対策ソフトによる誤検出の可能性があります
 
 # 🔄 フィードバック
-使用中に問題が発生した場合は、以下の方法でフィードバックをお願いします：
-- [GitHub Issues](https://github.com/game1024/OpenSpeedy/issues) - 問題報告の提出
+使用中に問題が発生した場合は、以下の方法でご連絡ください：
+- [GitHub Issues](https://github.com/game1024/OpenSpeedy/issues) - 不具合報告
+- WeChat
+<img width="30%" src="https://github.com/user-attachments/assets/421aedb1-3a04-46d9-88cc-210d4f7d0af1">
 
 # 📜 ライセンス
-OpenSpeedyはGNU v3ライセンスに従います。
+OpenSpeedyはGNU v3ライセンスに従っています。
 
-# 🙏 謝辞
-OpenSpeedyは以下のプロジェクトのソースコードを使用しており、オープンソースコミュニティの力に感謝します：
-- [minhook](https://github.com/TsudaKageyu/minhook): API Hookに使用
-- [Qt](https://www.qt.io/): GUIフレームワーク
+# 🙏 クレジット
+OpenSpeedyは以下のプロジェクトのソースコードを使用しています。オープンソースコミュニティに感謝します。OpenSpeedyが役立った場合はStarをお願いします！
+- [minhook](https://github.com/TsudaKageyu/minhook): APIフック用
+- [Qt](https://www.qt.io/): GUI
 
-免責事項: OpenSpeedyは教育・研究目的のみを意図しています。ユーザーは本ソフトウェアの使用に関するすべてのリスクと責任を負うものとします。作者は本ソフトウェアの使用により生じるいかなる損失や法的責任についても責任を負いません。
+免責事項: OpenSpeedyは教育及び研究目的のみでご利用ください。本ソフトウェアの使用に伴うすべてのリスクと責任は利用者にあります。著者は本ソフトウェアの使用によるいかなる損害や法的責任も一切負いません。
 
 <p align="center">
   <img src="https://api.star-history.com/svg?repos=game1024/openspeedy&type=Date" Alt="Star History Chart">
