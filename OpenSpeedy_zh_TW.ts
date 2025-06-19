@@ -626,16 +626,28 @@
         <translation>🪟 操作系統</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="373"/>
-        <location filename="mainwindow.cpp" line="387"/>
-        <location filename="mainwindow.cpp" line="401"/>
+        <location filename="mainwindow.cpp" line="83"/>
+        <location filename="mainwindow.cpp" line="88"/>
+        <source>%1倍</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="84"/>
+        <location filename="mainwindow.cpp" line="89"/>
+        <source>✖️%1倍</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="368"/>
+        <location filename="mainwindow.cpp" line="382"/>
+        <location filename="mainwindow.cpp" line="396"/>
         <source>提示</source>
         <translation>提示</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="374"/>
-        <location filename="mainwindow.cpp" line="388"/>
-        <location filename="mainwindow.cpp" line="402"/>
+        <location filename="mainwindow.cpp" line="369"/>
+        <location filename="mainwindow.cpp" line="383"/>
+        <location filename="mainwindow.cpp" line="397"/>
         <source>直到重启应用后，界面的语言才会生效</source>
         <translation>直到重啟應用後，界面的語言才會生效</translation>
     </message>

@@ -549,13 +549,13 @@ Origin</translation>
         <location filename="mainwindow.ui" line="822"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="514"/>
         <source>中文(简体)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="844"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="516"/>
         <source>中文(繁體)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="508"/>
@@ -642,16 +642,28 @@ Origin</translation>
         <translation>🪟 Operate System</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="373"/>
-        <location filename="mainwindow.cpp" line="387"/>
-        <location filename="mainwindow.cpp" line="401"/>
+        <location filename="mainwindow.cpp" line="83"/>
+        <location filename="mainwindow.cpp" line="88"/>
+        <source>%1倍</source>
+        <translation>%1 times</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="84"/>
+        <location filename="mainwindow.cpp" line="89"/>
+        <source>✖️%1倍</source>
+        <translation>✖️%1 times</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="368"/>
+        <location filename="mainwindow.cpp" line="382"/>
+        <location filename="mainwindow.cpp" line="396"/>
         <source>提示</source>
         <translation>Tips</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="374"/>
-        <location filename="mainwindow.cpp" line="388"/>
-        <location filename="mainwindow.cpp" line="402"/>
+        <location filename="mainwindow.cpp" line="369"/>
+        <location filename="mainwindow.cpp" line="383"/>
+        <location filename="mainwindow.cpp" line="397"/>
         <source>直到重启应用后，界面的语言才会生效</source>
         <translation>The UI language will only take effect after restarting the application.</translation>
     </message>

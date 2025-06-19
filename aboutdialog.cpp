@@ -45,9 +45,4 @@ AboutDialog::recreate()
     layout()->activate();
 
     adjustSize();
-    if (isVisible())
-    {
-        hide();
-        show();
-    }
 }
