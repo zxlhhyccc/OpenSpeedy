@@ -59,8 +59,6 @@ else()
           icons.rc
           config.h
           windbg.h
-          docs/README_en.md
-          docs/README_ja.md
           aboutdialog.ui
           aboutdialog.h aboutdialog.cpp aboutdialog.ui
           preferencedialog.h preferencedialog.cpp preferencedialog.ui
