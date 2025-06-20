@@ -78,7 +78,7 @@ jobs:
 
         $configXmlPath = "installer\config\config.xml"
         [xml]$configXml = Get-Content $configXmlPath
-        $configXml.Package.Version = $version
+        $configXml.Installer.Version = $version
         $configXml.Save((Resolve-Path $configXmlPath))
 
         $packageXmlPath = "installer\packages\com.openspeedy.app\meta\package.xml"
