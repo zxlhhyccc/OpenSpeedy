@@ -74,12 +74,26 @@ jobs:
     - name: Package installer
       run: |
         Copy-Item -Path "signed-artifacts/*" -Destination "installer/packages/com.openspeedy.app/data/" -Recurse -Force
-        binarycreator.exe -c installer\config\config.xml -p installer\packages OpenSpeedy-${{ github.event.inputs.version }}-installer.exe
+        $version = "${{ github.event.inputs.version }}"
+
+        $configXmlPath = "installer\config\config.xml"
+        [xml]$configXml = Get-Content $configXmlPath
+        $configXml.Installer.Version = $version
+        $configXml.Save((Resolve-Path $configXmlPath))
+
+        $packageXmlPath = "installer\packages\com.openspeedy.app\meta\package.xml"
+        [xml]$packageXml = Get-Content $packageXmlPath
+        $packageXml.Package.Version = $version
+        $packageXml.Save((Resolve-Path $packageXmlPath))
+
+        Write-Host "Updated package version to: $version"
+
+        binarycreator.exe -c installer\config\config.xml -p installer\packages OpenSpeedy-installer-${{ github.event.inputs.version }}.exe
 
 
     - name: Upload installer
       uses: actions/upload-artifact@v4
       with:
-        name: OpenSpeedy-installer
-        path: OpenSpeedy-${{ github.event.inputs.version }}-installer.exe
+        name: OpenSpeedy-installer-${{ github.event.inputs.version }}
+        path: OpenSpeedy-installer-${{ github.event.inputs.version }}.exe
         
