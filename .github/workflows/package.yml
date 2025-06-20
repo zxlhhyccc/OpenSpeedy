@@ -71,7 +71,7 @@ jobs:
     - name: Package installer
       run: |
         Copy-Item -Path "signed-artifacts/*" -Destination "installer/packages/data/" -Recurse -Force
-        binarycreator.exe -c %~dp0config\config.xml -p packages OpenSpeedy-${{ github.event.inputs.version }}-installer.exe
+        binarycreator.exe -c installer\config\config.xml -p packages OpenSpeedy-${{ github.event.inputs.version }}-installer.exe
 
 
     - name: Upload installer
