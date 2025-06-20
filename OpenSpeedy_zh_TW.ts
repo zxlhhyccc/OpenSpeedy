@@ -638,16 +638,16 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="368"/>
-        <location filename="mainwindow.cpp" line="382"/>
-        <location filename="mainwindow.cpp" line="396"/>
+        <location filename="mainwindow.cpp" line="369"/>
+        <location filename="mainwindow.cpp" line="383"/>
+        <location filename="mainwindow.cpp" line="397"/>
         <source>提示</source>
         <translation>提示</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="369"/>
-        <location filename="mainwindow.cpp" line="383"/>
-        <location filename="mainwindow.cpp" line="397"/>
+        <location filename="mainwindow.cpp" line="370"/>
+        <location filename="mainwindow.cpp" line="384"/>
+        <location filename="mainwindow.cpp" line="398"/>
         <source>直到重启应用后，界面的语言才会生效</source>
         <translation>直到重啟應用後，界面的語言才會生效</translation>
     </message>
@@ -889,55 +889,55 @@
 <context>
     <name>ProcessMonitor</name>
     <message>
-        <location filename="processmonitor.cpp" line="96"/>
-        <location filename="processmonitor.cpp" line="109"/>
+        <location filename="processmonitor.cpp" line="82"/>
+        <location filename="processmonitor.cpp" line="95"/>
         <source>搜索到%1个进程, 已过滤展示%2个</source>
         <translation>搜索到%1個進程，已過濾展示%2個</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="138"/>
+        <location filename="processmonitor.cpp" line="124"/>
         <source>加速中</source>
         <translation>加速中</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="256"/>
-        <location filename="processmonitor.cpp" line="306"/>
+        <location filename="processmonitor.cpp" line="234"/>
+        <location filename="processmonitor.cpp" line="284"/>
         <source>高</source>
         <translation>高</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="259"/>
-        <location filename="processmonitor.cpp" line="309"/>
+        <location filename="processmonitor.cpp" line="237"/>
+        <location filename="processmonitor.cpp" line="287"/>
         <source>中</source>
         <translation>中</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="262"/>
-        <location filename="processmonitor.cpp" line="312"/>
+        <location filename="processmonitor.cpp" line="240"/>
+        <location filename="processmonitor.cpp" line="290"/>
         <source>低</source>
         <translation>低</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="265"/>
-        <location filename="processmonitor.cpp" line="315"/>
+        <location filename="processmonitor.cpp" line="243"/>
+        <location filename="processmonitor.cpp" line="293"/>
         <source>实时</source>
         <translation>實時</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="268"/>
-        <location filename="processmonitor.cpp" line="318"/>
+        <location filename="processmonitor.cpp" line="246"/>
+        <location filename="processmonitor.cpp" line="296"/>
         <source>未知</source>
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="425"/>
-        <location filename="processmonitor.cpp" line="436"/>
+        <location filename="processmonitor.cpp" line="393"/>
+        <location filename="processmonitor.cpp" line="404"/>
         <source>正常</source>
         <translation>正常</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="430"/>
-        <location filename="processmonitor.cpp" line="441"/>
+        <location filename="processmonitor.cpp" line="398"/>
+        <location filename="processmonitor.cpp" line="409"/>
         <source>异常退出</source>
         <translation>異常退出</translation>
     </message>

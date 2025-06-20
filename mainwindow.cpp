@@ -210,16 +210,17 @@ MainWindow::sliderValue(double speedFactor)
     int sliderValue = 0;
     if (speedFactor > 1.0)
     {
-        sliderValue = (speedFactor - 1.0) * 100;
+        sliderValue = (long long)(speedFactor * 100) - 100;
     }
     else if (speedFactor < 1.0)
     {
-        sliderValue = (speedFactor - 1.0) * 1000000;
+        sliderValue = (long long)(speedFactor * 1000000) - 1000000;
     }
     else
     {
         sliderValue = 0;
     }
+    qDebug() << sliderValue;
 
     return sliderValue;
 }
