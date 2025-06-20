@@ -18,7 +18,7 @@ on:
         type: string
 
 jobs:
-  sign:
+  package:
     runs-on: windows-latest  # GitHub-hosted runner
     
     steps:
