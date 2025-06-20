@@ -55,7 +55,7 @@
     日本語
   </a>
   ·
-  <a href="https://github.com/game1024/OpenSpeedy">
+  <a href="https://github.com/game1024/OpenSpeedy?tab=readme-ov-file#-openspeedy-">
     English
   </a>
 </p>
