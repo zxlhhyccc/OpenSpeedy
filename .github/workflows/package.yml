@@ -49,6 +49,7 @@ jobs:
         project-slug: OpenSpeedy
         signing-policy-slug: test-signing
         github-artifact-id: ${{ steps.upload-unsigned-artifacts.outputs.artifact-id }}
+        artifact-configuration-slug: initial
         wait-for-completion: true
         output-artifact-directory: signed-artifacts/
         parameters: |
@@ -103,10 +104,30 @@ jobs:
         Write-Host "Updated package version to: $version"
         binarycreator.exe -c installer\config\config.xml -p installer\packages OpenSpeedy-installer-${{ github.event.inputs.version }}.exe
 
-
-    - name: Upload installer
+    - id: upload-unsigned-installer
+      name: Upload installer
       uses: actions/upload-artifact@v4
       with:
-        name: OpenSpeedy-installer-${{ github.event.inputs.version }}
+        name: OpenSpeedy-unsigned-installer-${{ github.event.inputs.version }}
         path: OpenSpeedy-installer-${{ github.event.inputs.version }}.exe
-        
+
+    - name: SignPath signing
+      uses: signpath/github-action-submit-signing-request@v1.1
+      with:
+        api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+        organization-id: '58b9835d-38ea-4898-a564-76610c01cecd'
+        project-slug: OpenSpeedy
+        signing-policy-slug: test-signing
+        github-artifact-id: ${{ steps.upload-unsigned-installer.outputs.artifact-id }}
+        artifact-configuration-slug: installer
+        wait-for-completion: true
+        output-artifact-directory: signed-installer/
+        parameters: |
+          version: ${{ toJSON(github.event.inputs.version) }}    
+
+    - name: Upload signed installer
+      uses: actions/upload-artifact@v4
+      with:
+        name: OpenSpeedy-signed-installer-${{ github.event.inputs.version }}
+        path: signed-installer/
+        retention-days: 30
