@@ -65,14 +65,25 @@ jobs:
       with:
         python-version: '3.13' 
 
-    - name: Install QtInstallFramework
+    - name: Cache Qt Installer Framework
+      uses: actions/cache@v4
+      id: cache-qtifw
+      with:
+        path: ${{ github.workspace }}/Qt/Tools/QtInstallerFramework
+        key: qtifw-4.7.0-${{ runner.os }}
+        restore-keys: |
+          qtifw-4.7.0-
+          qtifw-
+
+    - name: Install QtInstallerFramework
+      if: steps.cache-qtifw.outputs.cache-hit != 'true'
       run: |
         pip install aqtinstall
         python3 -m aqt install-tool -O ${{ github.workspace }}/Qt/ windows desktop tools_ifw qt.tools.ifw.47
-        echo "${{ github.workspace }}/Qt/Tools/QtInstallerFramework/4.7/bin/" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
     
     - name: Package installer
       run: |
+        echo "${{ github.workspace }}/Qt/Tools/QtInstallerFramework/4.7/bin/" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
         Copy-Item -Path "signed-artifacts/*" -Destination "installer/packages/com.openspeedy.app/data/" -Recurse -Force
         $version = "${{ github.event.inputs.version }}"
 
