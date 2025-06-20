@@ -30,20 +30,20 @@ jobs:
         call script\build64.bat
 
     - name: Collect artifacts to flat directory
-      shell: powershell
+      shell: cmd
       run: |
-        Write-Host "Collecting artifacts..."
-    
-        New-Item -ItemType Directory -Force -Path "artifacts"
-  
-        Copy-Item -Path "build\CMAKE-64bit-Release\OpenSpeedy.exe" -Destination "artifacts\"
-        Copy-Item -Path "build\CMAKE-64bit-Release\speedpatch64.dll" -Destination "artifacts\"      
-        Copy-Item -Path "build\CMAKE-64bit-Release\bridge64.exe" -Destination "artifacts\"
-        Copy-Item -Path "build\CMAKE-32bit-Release\speedpatch32.dll" -Destination "artifacts\"
-        Copy-Item -Path "build\CMAKE-32bit-Release\bridge32.exe" -Destination "artifacts\"
+        echo Collecting artifacts...
         
-        Write-Host "Artifacts directory contents:"
-        Get-ChildItem -Path "artifacts"
+        if not exist "artifacts" mkdir "artifacts"
+        
+        copy "build\CMAKE-64bit-Release\OpenSpeedy.exe" "artifacts\"
+        copy "build\CMAKE-64bit-Release\speedpatch64.dll" "artifacts\"
+        copy "build\CMAKE-64bit-Release\bridge64.exe" "artifacts\"
+        copy "build\CMAKE-32bit-Release\speedpatch32.dll" "artifacts\"
+        copy "build\CMAKE-32bit-Release\bridge32.exe" "artifacts\"
+        
+        echo Artifacts directory contents:
+        dir "artifacts"
         
     - name: Upload unsigned artifacts
       id: upload-unsigned-artifacts
