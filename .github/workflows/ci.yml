@@ -33,14 +33,14 @@ jobs:
       shell: cmd
       run: |
         echo Collecting artifacts...
+        
         if not exist "artifacts" mkdir "artifacts"
         
-        rem 复制文件到平级目录，去除路径结构
-        if exist "build\CMAKE-64bit-Release\OpenSpeedy.exe" copy "build\CMAKE-64bit-Release\OpenSpeedy.exe" "artifacts\"
-        if exist "build\CMAKE-64bit-Release\speedpatch64.dll" copy "build\CMAKE-64bit-Release\speedpatch64.dll" "artifacts\"
-        if exist "build\CMAKE-64bit-Release\bridge64.exe" copy "build\CMAKE-64bit-Release\bridge64.exe" "artifacts\"
-        if exist "build\CMAKE-32bit-Release\speedpatch32.dll" copy "build\CMAKE-32bit-Release\speedpatch32.dll" "artifacts\"
-        if exist "build\CMAKE-32bit-Release\bridge32.exe" copy "build\CMAKE-32bit-Release\bridge32.exe" "artifacts\"
+        copy "build\CMAKE-64bit-Release\OpenSpeedy.exe" "artifacts\"
+        copy "build\CMAKE-64bit-Release\speedpatch64.dll" "artifacts\"
+        copy "build\CMAKE-64bit-Release\bridge64.exe" "artifacts\"
+        copy "build\CMAKE-32bit-Release\speedpatch32.dll" "artifacts\"
+        copy "build\CMAKE-32bit-Release\bridge32.exe" "artifacts\"
         
         echo Artifacts directory contents:
         dir "artifacts"
@@ -53,26 +53,4 @@ jobs:
         name: OpenSpeedy-unsigned-artifacts
         path: artifacts/
         if-no-files-found: warn
-
-  # sign:
-  #   runs-on: windows-latest  # 签名在 GitHub-hosted
-  #   needs: build
-    
-  #   steps:
-  #   - name: SignPath signing
-  #     uses: signpath/github-action-submit-signing-request@v1.1
-  #     with:
-  #       api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
-  #       organization-id: '58b9835d-38ea-4898-a564-76610c01cecd'
-  #       project-slug: OpenSpeedy
-  #       signing-policy-slug: test-signing
-  #       github-artifact-id: ${{ needs.build.outputs.artifact-id }}
-  #       wait-for-completion: true
-  #       output-artifact-directory: signed-artifacts/
-        
-  #   - name: Upload signed artifacts
-  #     uses: actions/upload-artifact@v4
-  #     with:
-  #       name: OpenSpeedy-signed-artifacts
-  #       path: signed-artifacts/
     

@@ -1,4 +1,4 @@
-name: Sign
+name: Package
 on:
   workflow_dispatch:
     inputs:
@@ -57,3 +57,26 @@ jobs:
         name: OpenSpeedy-signed-artifacts
         path: signed-artifacts/
         retention-days: 30
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.13' 
+
+    - name: Install QtInstallFramework
+      run: |
+        pip install aqtinstall
+        python3 -m aqt install-tool -O ${{ github.workspace }}/Qt/ windows desktop tools_ifw --version 4.7.0
+        echo "${{ github.workspace }}/Qt/Tools/QtInstallerFramework/4.7/bin/" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+    
+    - name: Package installer
+      run: |
+        Copy-Item -Path "signed-artifacts/*" -Destination "installer/packages/data/" -Recurse -Force
+        binarycreator.exe -c installer\config\config.xml -p packages OpenSpeedy-${{ github.event.inputs.version }}-installer.exe
+
+
+    - name: Upload installer
+      uses: actions/upload-artifact@v4
+      with:
+        name: OpenSpeedy-installer
+        path: OpenSpeedy-${{ github.event.inputs.version }}-installer.exe
+        
