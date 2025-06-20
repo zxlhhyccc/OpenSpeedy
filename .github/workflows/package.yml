@@ -24,7 +24,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-      
+
     - name: Download build artifact
       uses: actions/download-artifact@v4
       with:
@@ -74,7 +74,7 @@ jobs:
     - name: Package installer
       run: |
         Copy-Item -Path "signed-artifacts/*" -Destination "installer/packages/com.openspeedy.app/data/" -Recurse -Force
-        binarycreator.exe -c installer\config\config.xml -p packages OpenSpeedy-${{ github.event.inputs.version }}-installer.exe
+        binarycreator.exe -c installer\config\config.xml -p installer\packages OpenSpeedy-${{ github.event.inputs.version }}-installer.exe
 
 
     - name: Upload installer
