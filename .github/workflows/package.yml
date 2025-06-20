@@ -75,15 +75,18 @@ jobs:
           qtifw-4.7.0-
           qtifw-
 
-    - name: Install QtInstallerFramework
+    - name: Install Qt Installer Framework
       if: steps.cache-qtifw.outputs.cache-hit != 'true'
       run: |
         pip install aqtinstall
         python3 -m aqt install-tool -O ${{ github.workspace }}/Qt/ windows desktop tools_ifw qt.tools.ifw.47
     
-    - name: Package installer
+    - name: Add Qt Installer Framework to PATH
       run: |
         echo "${{ github.workspace }}/Qt/Tools/QtInstallerFramework/4.7/bin/" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+    - name: Package installer
+      run: |
         Copy-Item -Path "signed-artifacts/*" -Destination "installer/packages/com.openspeedy.app/data/" -Recurse -Force
         $version = "${{ github.event.inputs.version }}"
 
@@ -98,7 +101,6 @@ jobs:
         $packageXml.Save((Resolve-Path $packageXmlPath))
 
         Write-Host "Updated package version to: $version"
-
         binarycreator.exe -c installer\config\config.xml -p installer\packages OpenSpeedy-installer-${{ github.event.inputs.version }}.exe
 
 
