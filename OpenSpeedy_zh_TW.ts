@@ -105,11 +105,15 @@
     </message>
     <message>
         <location filename="aboutdialog.ui" line="239"/>
+        <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="216"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/game1024/OpenSpeedy&quot;&gt;&lt;span style=&quot; text-decoration: none; color:#003e92;&quot;&gt;game1024/OpenSpeedy&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="211"/>
         <location filename="build/CMAKE-64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="211"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="211"/>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="211"/>
-        <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_aboutdialog.h" line="216"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/game1024/OpenSpeedy&quot;&gt;&lt;span style=&quot; text-decoration: none; color:#003e92;&quot;&gt;https://github.com/game1024/OpenSpeedy&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>

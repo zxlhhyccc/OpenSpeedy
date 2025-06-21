@@ -1,17 +1,17 @@
 /*
  * OpenSpeedy - Open Source Game Speed Controller
  * Copyright (C) 2025 Game1024
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
@@ -82,9 +82,9 @@ TaskScheduler::createStartupTask(const QString& taskName,
             break;
 
         // 设置以最高权限运行
-        hr = pPrincipal->put_RunLevel(TASK_RUNLEVEL_HIGHEST);
-        if (FAILED(hr))
-            break;
+        // hr = pPrincipal->put_RunLevel(TASK_RUNLEVEL_HIGHEST);
+        // if (FAILED(hr))
+        //    break;
 
         // 设置登录类型
         hr = pPrincipal->put_LogonType(TASK_LOGON_INTERACTIVE_TOKEN);
