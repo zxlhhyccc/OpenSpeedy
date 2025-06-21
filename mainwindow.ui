@@ -361,7 +361,13 @@
                 <pointsize>10</pointsize>
                </font>
               </property>
+              <property name="focusPolicy">
+               <enum>Qt::StrongFocus</enum>
+              </property>
               <property name="wrapping">
+               <bool>false</bool>
+              </property>
+              <property name="frame">
                <bool>false</bool>
               </property>
               <property name="alignment">
@@ -370,8 +376,11 @@
               <property name="buttonSymbols">
                <enum>QAbstractSpinBox::UpDownArrows</enum>
               </property>
-              <property name="keyboardTracking">
+              <property name="accelerated">
                <bool>false</bool>
+              </property>
+              <property name="keyboardTracking">
+               <bool>true</bool>
               </property>
               <property name="minimum">
                <double>0.010000000000000</double>

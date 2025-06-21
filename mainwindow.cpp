@@ -98,6 +98,7 @@ void
 MainWindow::on_sliderInputSpinBox_editingFinished()
 {
     double factor = ui->sliderInputSpinBox->value();
+    ui->sliderInputSpinBox->clearFocus();
     ui->sliderCtrl->setValue(sliderValue(factor));
 }
 
