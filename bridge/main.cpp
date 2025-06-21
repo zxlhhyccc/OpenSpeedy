@@ -18,7 +18,7 @@ void
 handleInject(int processId, QString dllPath)
 {
     qDebug() << "执行 inject，进程ID:" << processId;
-    winutils::injectDll(processId, dllPath.toStdWString());
+    winutils::injectDll(processId, dllPath);
     QString processName = winutils::getProcessNameById(processId);
     if (processName == "")
         return;

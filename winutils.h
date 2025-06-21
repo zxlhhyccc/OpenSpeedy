@@ -41,25 +41,25 @@ class winutils
 
   public:
     // DLL 注入
-    static bool injectDll(DWORD processId, const std::wstring& dllPath);
+    static bool injectDll(DWORD processId, const QString& dllPath);
 
     // 远程 DLL 注入
-    static bool injectDllViaCRT(DWORD processId, const std::wstring& dllPath);
+    static bool injectDllViaCRTA(DWORD processId, const QString& dllPath);
+    static bool injectDllViaCRTW(DWORD processId, const QString& dllPath);
 
     // APC DLL 注入
-    static bool injectDllViaAPC(DWORD processId, const std::wstring& dllPath);
-
-    // 汇编注入
-    static bool injectDllViaASM(DWORD processId, const std::wstring& dllPath);
+    static bool injectDllViaAPCA(DWORD processId, const QString& dllPath);
+    static bool injectDllViaAPCW(DWORD processId, const QString& dllPath);
 
     // Windows Hooks 注入
-    static bool injectDllViaWHK(DWORD processId, const std::wstring& dllPath);
+    static bool injectDllViaWHKA(DWORD processId, const QString& dllPath);
+    static bool injectDllViaWHKW(DWORD processId, const QString& dllPath);
 
     // DLL 卸载
-    static bool unhookDll(DWORD processId, const std::wstring& dllPath);
+    static bool unhookDll(DWORD processId, const QString& dllPath);
 
     // 检查DLL是否已挂载
-    static bool checkDllExist(DWORD processId, const std::wstring& dllPath);
+    static bool checkDllExist(DWORD processId, const QString& dllPath);
 
     static bool checkProcessProtection(DWORD processId);
 
