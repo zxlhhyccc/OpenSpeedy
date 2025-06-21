@@ -120,6 +120,10 @@ OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调
 - 我的微信
 <img width="30%" src="https://github.com/user-attachments/assets/421aedb1-3a04-46d9-88cc-210d4f7d0af1">
 
+# 🎁 赞助
+<img width="30%" src="https://github.com/user-attachments/assets/83410e8d-329a-4785-8e3e-65905bebd4b6">
+
+
 # 📜 开源协议
 OpenSpeedy 遵循 GNU v3 许可证。
 
