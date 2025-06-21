@@ -88,8 +88,17 @@ MainWindow::on_sliderCtrl_valueChanged(int value)
         ui->sliderCtrl->setToolTip(QString(tr("%1倍")).arg(factor, 0, 'f'));
         ui->sliderLabel->setText(QString(tr("✖️%1倍")).arg(factor, 0, 'f'));
     }
+
+    ui->sliderInputSpinBox->setValue(factor);
     m_settings->setValue(CONFIG_SLIDERVALUE_KEY, value);
     m_settings->sync();
+}
+
+void
+MainWindow::on_sliderInputSpinBox_editingFinished()
+{
+    double factor = ui->sliderInputSpinBox->value();
+    ui->sliderCtrl->setValue(sliderValue(factor));
 }
 
 void

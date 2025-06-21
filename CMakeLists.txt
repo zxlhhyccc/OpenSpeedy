@@ -65,6 +65,7 @@ else()
           qsinglekeysequenceedit.h qsinglekeysequenceedit.cpp
           ${QM_FILES}
 
+
       )
 
       add_library(winutils

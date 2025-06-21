@@ -43,6 +43,5 @@ AboutDialog::recreate()
 {
     layout()->invalidate();
     layout()->activate();
-
     adjustSize();
 }

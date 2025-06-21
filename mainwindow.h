@@ -55,6 +55,8 @@ class MainWindow
 
     void on_sliderCtrl_valueChanged(int value);
 
+    void on_sliderInputSpinBox_editingFinished();
+
     void on_processNameFilter_textChanged(const QString& text);
 
     void iconActivated(QSystemTrayIcon::ActivationReason reason);

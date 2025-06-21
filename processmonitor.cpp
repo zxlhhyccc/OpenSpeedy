@@ -222,11 +222,13 @@ ProcessMonitor::update(const QList<ProcessInfo>& processList)
             // 更新已存在的进程信息
             QTreeWidgetItem* item = m_processItems[info.pid];
             item->setText(1, QString::number(info.pid));
+            item->setData(1, Qt::UserRole, (long long)info.pid);
             item->setText(2,
                           QString("%1 MB").arg(info.memoryUsage / 1024 / 1024));
+            item->setData(2, Qt::UserRole, info.memoryUsage);
+
             QString arch = info.is64Bit ? "x64" : "x86";
             item->setText(3, arch);
-
             QString priority;
             switch (info.priorityClass)
             {
@@ -265,12 +267,15 @@ ProcessMonitor::update(const QList<ProcessInfo>& processList)
         else
         {
             // 添加新进程
-            QTreeWidgetItem* item = new QTreeWidgetItem();
+            QTreeWidgetItem* item = new SortTreeWidgetItem();
 
             item->setText(0, info.name);
             item->setText(1, QString::number(info.pid));
+            item->setData(1, Qt::UserRole, (long long)info.pid);
             item->setText(2,
                           QString("%1 MB").arg(info.memoryUsage / 1024 / 1024));
+            item->setData(2, Qt::UserRole, info.memoryUsage);
+
             QString arch = info.is64Bit ? "x64" : "x86";
             item->setText(3, arch);
 
