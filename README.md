@@ -117,6 +117,10 @@ If you encounter any issues during use, feel free to provide feedback via:
 - My WeChat
 <img width="30%" src="https://github.com/user-attachments/assets/421aedb1-3a04-46d9-88cc-210d4f7d0af1">
 
+# 🎁 Sponosor
+<img width="30%" src="https://github.com/user-attachments/assets/83410e8d-329a-4785-8e3e-65905bebd4b6">
+
+
 # 📜 License
 OpenSpeedy is licensed under the GNU v3 License.
 
