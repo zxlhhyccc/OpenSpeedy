@@ -225,7 +225,7 @@ ProcessMonitor::update(const QList<ProcessInfo>& processList)
             item->setData(1, Qt::UserRole, (long long)info.pid);
             item->setText(2,
                           QString("%1 MB").arg(info.memoryUsage / 1024 / 1024));
-            item->setData(2, Qt::UserRole, info.memoryUsage);
+            item->setData(2, Qt::UserRole, (uint)info.memoryUsage);
 
             QString arch = info.is64Bit ? "x64" : "x86";
             item->setText(3, arch);
@@ -274,7 +274,7 @@ ProcessMonitor::update(const QList<ProcessInfo>& processList)
             item->setData(1, Qt::UserRole, (long long)info.pid);
             item->setText(2,
                           QString("%1 MB").arg(info.memoryUsage / 1024 / 1024));
-            item->setData(2, Qt::UserRole, info.memoryUsage);
+            item->setData(2, Qt::UserRole, (uint)info.memoryUsage);
 
             QString arch = info.is64Bit ? "x64" : "x86";
             item->setText(3, arch);
