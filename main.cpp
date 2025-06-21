@@ -75,7 +75,7 @@ main(int argc, char* argv[])
     parser.process(a);
 
     MainWindow w;
-    w.resize(800, 768);
+    w.resize(1024, 768);
 
     if (parser.isSet(minimizeOption))
     {

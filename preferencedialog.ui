@@ -364,6 +364,23 @@
    <header>qsinglekeysequenceedit.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>speedUpKeySequenceEdit</tabstop>
+  <tabstop>increaseStepSpinBox</tabstop>
+  <tabstop>speedDownKeySequenceEdit</tabstop>
+  <tabstop>decreaseStepSpinBox</tabstop>
+  <tabstop>resetSpeedKeySequenceEdit</tabstop>
+  <tabstop>shift1KeySequenceEdit</tabstop>
+  <tabstop>shift1DoubleSpinBox</tabstop>
+  <tabstop>shift2KeySequenceEdit</tabstop>
+  <tabstop>shift2DoubleSpinBox</tabstop>
+  <tabstop>shift3KeySequenceEdit</tabstop>
+  <tabstop>shift3DoubleSpinBox</tabstop>
+  <tabstop>shift4KeySequenceEdit</tabstop>
+  <tabstop>shift4DoubleSpinBox</tabstop>
+  <tabstop>shift5KeySequenceEdit</tabstop>
+  <tabstop>shift5DoubleSpinBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

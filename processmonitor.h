@@ -1,17 +1,17 @@
 /*
  * OpenSpeedy - Open Source Game Speed Controller
  * Copyright (C) 2025 Game1024
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
@@ -108,4 +108,50 @@ class ProcessMonitor : public QObject
 
     QIcon getProcessIconCached(DWORD proccessId);
 };
+
+class SortTreeWidgetItem : public QTreeWidgetItem
+{
+  public:
+    SortTreeWidgetItem(QTreeWidget* parent = nullptr)
+      : QTreeWidgetItem(parent)
+    {
+    }
+
+    bool operator<(const QTreeWidgetItem& other) const override
+    {
+        int column = treeWidget()->sortColumn();
+
+        QVariant ldata = this->data(column, Qt::UserRole);
+        QVariant rdata = other.data(column, Qt::UserRole);
+        if (ldata.isValid() && rdata.isValid())
+        {
+            return ldata.toUInt() < rdata.toUInt();
+        }
+        else
+        {
+            QString ltext = this->text(column);
+            QString rtext = other.text(column);
+            return ltext < rtext;
+        }
+    }
+
+    bool operator>(const QTreeWidgetItem& other) const
+    {
+        int column = treeWidget()->sortColumn();
+
+        QVariant ldata = this->data(column, Qt::UserRole);
+        QVariant rdata = other.data(column, Qt::UserRole);
+        if (ldata.isValid() && rdata.isValid())
+        {
+            return ldata.toUInt() > rdata.toUInt();
+        }
+        else
+        {
+            QString ltext = this->text(column);
+            QString rtext = other.text(column);
+            return ltext > rtext;
+        }
+    }
+};
+
 #endif // PROCESSMONITOR_H

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>960</width>
-    <height>640</height>
+    <width>1024</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -68,6 +68,9 @@
              <family>微软雅黑</family>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="text">
             <string>开机自启</string>
            </property>
@@ -108,163 +111,7 @@
             <property name="verticalSpacing">
              <number>7</number>
             </property>
-            <item row="3" column="0">
-             <widget class="QSlider" name="sliderCtrl">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                <horstretch>2</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>300</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="cursor">
-               <cursorShape>PointingHandCursor</cursorShape>
-              </property>
-              <property name="mouseTracking">
-               <bool>true</bool>
-              </property>
-              <property name="tabletTracking">
-               <bool>false</bool>
-              </property>
-              <property name="focusPolicy">
-               <enum>Qt::NoFocus</enum>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QSlider::handle:horizontal {
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-                stop:0 rgba(255, 255, 255, 0.9), 
-                stop:0.2 rgba(255, 255, 255, 0.7),
-                stop:0.8 rgba(230, 230, 230, 0.8), 
-                stop:1 rgba(200, 200, 200, 0.9));
-    border: 1px solid rgba(150, 150, 150, 0.8);
-}
-
-QSlider::handle:horizontal:hover {
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-                stop:0 rgba(255, 255, 255, 0.95), 
-                stop:0.2 rgba(227, 242, 253, 0.8),
-                stop:0.8 rgba(144, 202, 249, 0.8), 
-                stop:1 rgba(100, 181, 246, 0.9));
-    border: 1px solid rgba(25, 118, 210, 0.8);
-}
-
-QSlider::handle:horizontal:pressed {
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-                stop:0 rgba(227, 242, 253, 0.9), 
-                stop:0.3 rgba(144, 202, 249, 0.8),
-                stop:0.7 rgba(66, 165, 245, 0.9), 
-                stop:1 rgba(25, 118, 210, 0.95));
-    border: 1px solid rgba(13, 71, 161, 0.9);
-}</string>
-              </property>
-              <property name="minimum">
-               <number>-999900</number>
-              </property>
-              <property name="maximum">
-               <number>999900</number>
-              </property>
-              <property name="pageStep">
-               <number>100</number>
-              </property>
-              <property name="sliderPosition">
-               <number>0</number>
-              </property>
-              <property name="tracking">
-               <bool>true</bool>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="invertedControls">
-               <bool>true</bool>
-              </property>
-              <property name="tickPosition">
-               <enum>QSlider::TicksBothSides</enum>
-              </property>
-              <property name="tickInterval">
-               <number>99900</number>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <layout class="QHBoxLayout" name="sliderTitle">
-              <item>
-               <spacer name="horizontalSpacer_1">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>70</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QPushButton" name="sliderLabel">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>120</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>微软雅黑</family>
-                  <pointsize>14</pointsize>
-                 </font>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">    QPushButton {
-        background-color: #0078D4;
-
-        color: white;
-        border-radius: 20px;
-		padding: 10;
-    }</string>
-                </property>
-                <property name="text">
-                 <string>✖️1.0倍</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Expanding</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>70</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item row="0" column="2" rowspan="5">
+            <item row="0" column="3" rowspan="6">
              <layout class="QFormLayout" name="osLayout">
               <property name="sizeConstraint">
                <enum>QLayout::SetMaximumSize</enum>
@@ -463,7 +310,7 @@ QSlider::handle:horizontal:pressed {
               </item>
              </layout>
             </item>
-            <item row="4" column="0">
+            <item row="5" column="0">
              <widget class="QLabel" name="originSpeedLabel">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
@@ -494,7 +341,142 @@ QSlider::handle:horizontal:pressed {
               </property>
              </widget>
             </item>
-            <item row="0" column="1" rowspan="5">
+            <item row="4" column="1">
+             <widget class="QDoubleSpinBox" name="sliderInputSpinBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Maximum" vsizetype="MinimumExpanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>微软雅黑</family>
+                <pointsize>10</pointsize>
+               </font>
+              </property>
+              <property name="focusPolicy">
+               <enum>Qt::StrongFocus</enum>
+              </property>
+              <property name="wrapping">
+               <bool>false</bool>
+              </property>
+              <property name="frame">
+               <bool>false</bool>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="buttonSymbols">
+               <enum>QAbstractSpinBox::UpDownArrows</enum>
+              </property>
+              <property name="accelerated">
+               <bool>false</bool>
+              </property>
+              <property name="keyboardTracking">
+               <bool>true</bool>
+              </property>
+              <property name="minimum">
+               <double>0.010000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>10000.000000000000000</double>
+              </property>
+              <property name="value">
+               <double>1.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QSlider" name="sliderCtrl">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                <horstretch>2</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>300</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="mouseTracking">
+               <bool>true</bool>
+              </property>
+              <property name="tabletTracking">
+               <bool>false</bool>
+              </property>
+              <property name="focusPolicy">
+               <enum>Qt::NoFocus</enum>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QSlider::handle:horizontal {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                stop:0 rgba(255, 255, 255, 0.9), 
+                stop:0.2 rgba(255, 255, 255, 0.7),
+                stop:0.8 rgba(230, 230, 230, 0.8), 
+                stop:1 rgba(200, 200, 200, 0.9));
+    border: 1px solid rgba(150, 150, 150, 0.8);
+}
+
+QSlider::handle:horizontal:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                stop:0 rgba(255, 255, 255, 0.95), 
+                stop:0.2 rgba(227, 242, 253, 0.8),
+                stop:0.8 rgba(144, 202, 249, 0.8), 
+                stop:1 rgba(100, 181, 246, 0.9));
+    border: 1px solid rgba(25, 118, 210, 0.8);
+}
+
+QSlider::handle:horizontal:pressed {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                stop:0 rgba(227, 242, 253, 0.9), 
+                stop:0.3 rgba(144, 202, 249, 0.8),
+                stop:0.7 rgba(66, 165, 245, 0.9), 
+                stop:1 rgba(25, 118, 210, 0.95));
+    border: 1px solid rgba(13, 71, 161, 0.9);
+}</string>
+              </property>
+              <property name="minimum">
+               <number>-999900</number>
+              </property>
+              <property name="maximum">
+               <number>999900</number>
+              </property>
+              <property name="pageStep">
+               <number>100</number>
+              </property>
+              <property name="sliderPosition">
+               <number>0</number>
+              </property>
+              <property name="tracking">
+               <bool>true</bool>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="invertedControls">
+               <bool>true</bool>
+              </property>
+              <property name="tickPosition">
+               <enum>QSlider::TicksBothSides</enum>
+              </property>
+              <property name="tickInterval">
+               <number>33300</number>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" rowspan="6">
              <widget class="Line" name="osSpliter">
               <property name="frameShadow">
                <enum>QFrame::Sunken</enum>
@@ -506,6 +488,79 @@ QSlider::handle:horizontal:pressed {
                <enum>Qt::Vertical</enum>
               </property>
              </widget>
+            </item>
+            <item row="3" column="0">
+             <layout class="QHBoxLayout" name="sliderTitle">
+              <item>
+               <spacer name="horizontalSpacer_1">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>70</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="sliderLabel">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>微软雅黑</family>
+                  <pointsize>14</pointsize>
+                 </font>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">    QPushButton {
+        background-color: #0078D4;
+
+        color: white;
+        border-radius: 20px;
+		padding: 10;
+    }</string>
+                </property>
+                <property name="text">
+                 <string>✖️1.0倍</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Expanding</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>70</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
@@ -660,6 +715,9 @@ padding: 0px 8px;</string>
              <pointsize>9</pointsize>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="styleSheet">
             <string notr="true">QTreeWidget::item { 
 	height: 30px; 
@@ -683,6 +741,9 @@ QTreeWidget {
            </attribute>
            <attribute name="headerDefaultSectionSize">
             <number>80</number>
+           </attribute>
+           <attribute name="headerShowSortIndicator" stdset="0">
+            <bool>true</bool>
            </attribute>
            <attribute name="headerStretchLastSection">
             <bool>true</bool>
@@ -722,7 +783,7 @@ QTreeWidget {
            </column>
            <column>
             <property name="text">
-             <string>平台架构</string>
+             <string>体系结构</string>
             </property>
             <property name="font">
              <font>
@@ -779,12 +840,12 @@ QTreeWidget {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>960</width>
+     <width>1024</width>
      <height>26</height>
     </rect>
    </property>
    <property name="mouseTracking">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <widget class="QMenu" name="menuAbout">
     <property name="tearOffEnabled">
