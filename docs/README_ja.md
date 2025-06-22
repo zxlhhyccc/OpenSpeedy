@@ -113,16 +113,16 @@ OpenSpeedyは、以下のWindowsシステム時間関数をHookすることで�
 
 # 🔄 フィードバック
 使用中に問題が発生した場合は、以下の方法でご連絡ください：
+- [FAQ](https://github.com/game1024/OpenSpeedy/wiki#faq) - まずはWikiを確認して問題の場所を特定できます
 - [GitHub Issues](https://github.com/game1024/OpenSpeedy/issues) - 不具合報告
-- WeChat
-<img width="30%" src="https://github.com/user-attachments/assets/421aedb1-3a04-46d9-88cc-210d4f7d0af1">
+- WeChat Group
+<img width="30%" src="https://github.com/user-attachments/assets/9fa1b998-6030-42ee-a5ae-1753927f57d8">
 
 # 📜 ライセンス
 OpenSpeedyはGNU v3ライセンスに従っています。
 
 # 🙏 クレジット
 OpenSpeedyは以下のプロジェクトのソースコードを使用しています。オープンソースコミュニティに感謝します。OpenSpeedyが役立った場合はStarをお願いします！
-- [FAQ](https://github.com/game1024/OpenSpeedy/wiki#faq) - まずはWikiを確認して問題の場所を特定できます
 - [minhook](https://github.com/TsudaKageyu/minhook): APIフック用
 - [Qt](https://www.qt.io/): GUI
 
