@@ -119,7 +119,7 @@ OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调
 - [FAQ](https://github.com/game1024/OpenSpeedy/wiki#faq) - 先查看wiki定位常见问题
 - [GitHub Issues](https://github.com/game1024/OpenSpeedy/issues) - 提交问题报告
 - 我的微信
-<img width="30%" src="https://github.com/user-attachments/assets/421aedb1-3a04-46d9-88cc-210d4f7d0af1">
+<img width="30%" src="https://github.com/user-attachments/assets/9fa1b998-6030-42ee-a5ae-1753927f57d8">
 
 # 🎁 赞助
 <img width="30%" src="https://github.com/user-attachments/assets/83410e8d-329a-4785-8e3e-65905bebd4b6">
