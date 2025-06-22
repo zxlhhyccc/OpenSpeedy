@@ -122,6 +122,7 @@ OpenSpeedyはGNU v3ライセンスに従っています。
 
 # 🙏 クレジット
 OpenSpeedyは以下のプロジェクトのソースコードを使用しています。オープンソースコミュニティに感謝します。OpenSpeedyが役立った場合はStarをお願いします！
+- [FAQ](https://github.com/game1024/OpenSpeedy/wiki#faq) - まずはWikiを確認して問題の場所を特定できます
 - [minhook](https://github.com/TsudaKageyu/minhook): APIフック用
 - [Qt](https://www.qt.io/): GUI
 
