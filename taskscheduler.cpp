@@ -18,336 +18,192 @@
 #include "taskscheduler.h"
 #include <QDebug>
 #include <QDir>
-TaskScheduler::TaskScheduler(QObject* parent)
-  : QObject{ parent }
-  , pService(nullptr)
+#include <QProcess>
+TaskScheduler::TaskScheduler(QObject *parent) : QObject{parent} {}
+
+TaskScheduler::~TaskScheduler() {}
+
+bool TaskScheduler::createStartupTask(const QString &taskName,
+                                      const QString &executablePath)
 {
-    initializeTaskService();
+    if (taskName.isEmpty() || executablePath.isEmpty())
+    {
+        qWarning() << "任务名称或可执行文件路径不能为空";
+        return false;
+    }
+
+    if (!QFile::exists(executablePath))
+    {
+        qWarning() << "可执行文件不存在" << executablePath;
+        return false;
+    }
+
+    QStringList arguments;
+    arguments << "/create"
+              << "/f"
+              << "/tn" << taskName << "/tr"
+              << QString("\"%1\" --minimize-to-tray").arg(executablePath)
+              << "/sc" << "onlogon"
+              << "/delay" << "0000:10"
+              << "/rl" << "highest";
+
+    return execute(arguments);
 }
 
-TaskScheduler::~TaskScheduler()
+bool TaskScheduler::deleteTask(const QString &taskName)
 {
-    cleanup();
+    if (taskName.isEmpty())
+    {
+        qWarning() << "任务名称不能为空";
+        return false;
+    }
+
+    if (!isTaskExists(taskName))
+    {
+        qWarning() << "任务不存在, 无需删除" << taskName;
+        return true;
+    }
+
+    QStringList arguments;
+    arguments << "/delete"
+              << "/f"
+              << "/tn" << taskName;
+
+    return execute(arguments);
 }
 
-bool
-TaskScheduler::createStartupTask(const QString& taskName,
-                                 const QString& executablePath)
+bool TaskScheduler::enableTask(const QString &taskName, bool enable)
 {
-    if (!pService)
-        return false;
-
-    HRESULT hr;
-    ITaskFolder* pRootFolder = nullptr;
-    ITaskDefinition* pTask = nullptr;
-    IRegistrationInfo* pRegInfo = nullptr;
-    IPrincipal* pPrincipal = nullptr;
-    ITaskSettings* pSettings = nullptr;
-    ITriggerCollection* pTriggerCollection = nullptr;
-    ITrigger* pTrigger = nullptr;
-    IBootTrigger* pBootTrigger = nullptr;
-    IActionCollection* pActionCollection = nullptr;
-    IAction* pAction = nullptr;
-    IExecAction* pExecAction = nullptr;
-    IRegisteredTask* pRegisteredTask = nullptr;
-
-    do
+    if (!isTaskExists(taskName))
     {
-        // 获取根文件夹
-        hr = pService->GetFolder(_bstr_t(L"\\"), &pRootFolder);
-        if (FAILED(hr))
-            break;
+        qWarning() << "任务不存在:" << taskName;
+        return false;
+    }
 
-        // 创建任务定义
-        hr = pService->NewTask(0, &pTask);
-        if (FAILED(hr))
-            break;
-
-        // 设置注册信息
-        hr = pTask->get_RegistrationInfo(&pRegInfo);
-        if (FAILED(hr))
-            break;
-
-        hr = pRegInfo->put_Author(_bstr_t(L"OpenSpeedy"));
-        if (FAILED(hr))
-            break;
-
-        hr = pRegInfo->put_Description(_bstr_t(L"OpenSpeedy Auto Start Task"));
-        if (FAILED(hr))
-            break;
-
-        // 设置权限（以最高权限运行）
-        hr = pTask->get_Principal(&pPrincipal);
-        if (FAILED(hr))
-            break;
-
-        // 设置以最高权限运行
-        // hr = pPrincipal->put_RunLevel(TASK_RUNLEVEL_HIGHEST);
-        // if (FAILED(hr))
-        //    break;
-
-        // 设置登录类型
-        hr = pPrincipal->put_LogonType(TASK_LOGON_INTERACTIVE_TOKEN);
-        if (FAILED(hr))
-            break;
-
-        // 创建启动触发器
-        hr = pTask->get_Triggers(&pTriggerCollection);
-        if (FAILED(hr))
-            break;
-
-        hr = pTriggerCollection->Create(TASK_TRIGGER_BOOT, &pTrigger);
-        if (FAILED(hr))
-            break;
-
-        hr = pTrigger->QueryInterface(IID_IBootTrigger, (void**)&pBootTrigger);
-        if (FAILED(hr))
-            break;
-
-        hr = pBootTrigger->put_Id(_bstr_t(L"Trigger1"));
-        if (FAILED(hr))
-            break;
-
-        // 设置延迟启动（可选）
-        hr = pBootTrigger->put_Delay(_bstr_t(L"PT5S")); // 5秒延迟
-        if (FAILED(hr))
-            break;
-
-        // 创建执行动作
-        hr = pTask->get_Actions(&pActionCollection);
-        if (FAILED(hr))
-            break;
-
-        hr = pActionCollection->Create(TASK_ACTION_EXEC, &pAction);
-        if (FAILED(hr))
-            break;
-
-        hr = pAction->QueryInterface(IID_IExecAction, (void**)&pExecAction);
-        if (FAILED(hr))
-            break;
-
-        hr =
-          pExecAction->put_Path(_bstr_t(executablePath.toStdWString().c_str()));
-        if (FAILED(hr))
-            break;
-
-        // 设置启动参数 最小化到托盘
-        hr = pExecAction->put_Arguments(_bstr_t(L"--minimize-to-tray"));
-        if (FAILED(hr))
-            break;
-
-        // 注册任务
-        hr = pRootFolder->RegisterTaskDefinition(
-          _bstr_t(taskName.toStdWString().c_str()),
-          pTask,
-          TASK_CREATE_OR_UPDATE,
-          _variant_t(),
-          _variant_t(),
-          TASK_LOGON_INTERACTIVE_TOKEN,
-          _variant_t(L""),
-          &pRegisteredTask);
-
-    } while (false);
-
-    // 清理资源
-    if (pRegisteredTask)
-        pRegisteredTask->Release();
-    if (pExecAction)
-        pExecAction->Release();
-    if (pAction)
-        pAction->Release();
-    if (pActionCollection)
-        pActionCollection->Release();
-    if (pBootTrigger)
-        pBootTrigger->Release();
-    if (pTrigger)
-        pTrigger->Release();
-    if (pTriggerCollection)
-        pTriggerCollection->Release();
-    if (pRegInfo)
-        pRegInfo->Release();
-    if (pTask)
-        pTask->Release();
-    if (pRootFolder)
-        pRootFolder->Release();
-
-    return SUCCEEDED(hr);
+    QStringList arguments;
+    arguments << "/change"
+              << "/tn" << taskName << (enable ? "/enable" : "/disable");
+    return execute(arguments);
 }
 
-bool
-TaskScheduler::deleteTask(const QString& taskName)
+bool TaskScheduler::isTaskExists(const QString &taskName)
 {
-    if (!pService)
-        return false;
+    QStringList arguments;
+    arguments << "/query" << "/tn" << taskName;
 
-    ITaskFolder* pRootFolder = nullptr;
-    HRESULT hr = pService->GetFolder(_bstr_t(L"\\"), &pRootFolder);
-
-    if (SUCCEEDED(hr))
-    {
-        hr =
-          pRootFolder->DeleteTask(_bstr_t(taskName.toStdWString().c_str()), 0);
-        pRootFolder->Release();
-    }
-
-    return SUCCEEDED(hr);
+    return execute(arguments);
 }
 
-bool
-TaskScheduler::isTaskExists(const QString& taskName)
+bool TaskScheduler::execute(const QStringList &arguments)
 {
-    if (!pService)
-        return false;
+    QProcess process;
+    process.setProgram("schtasks");
+    process.setArguments(arguments);
 
-    ITaskFolder* pRootFolder = nullptr;
-    IRegisteredTask* pRegisteredTask = nullptr;
-
-    HRESULT hr = pService->GetFolder(_bstr_t(L"\\"), &pRootFolder);
-    if (SUCCEEDED(hr))
+    const int timeout = 10000;
+    process.start();
+    if (!process.waitForStarted(timeout))
     {
-        hr = pRootFolder->GetTask(_bstr_t(taskName.toStdWString().c_str()),
-                                  &pRegisteredTask);
-        if (pRegisteredTask)
-            pRegisteredTask->Release();
-        pRootFolder->Release();
+        qWarning() << "无法运行:" << process.errorString();
+        return false;
     }
 
-    return SUCCEEDED(hr);
+    if (!process.waitForFinished(timeout))
+    {
+        qWarning() << "执行超时";
+        process.kill();
+        return false;
+    }
+
+    int exitcode = process.exitCode();
+    QString stdout_ = QString::fromLocal8Bit(process.readAllStandardOutput());
+    QString stderr_ = QString::fromLocal8Bit(process.readAllStandardError());
+
+    if (exitcode == 0)
+    {
+        qDebug() << "执行成功:" << arguments;
+        qDebug() << "输出:" << stdout_;
+        return true;
+    }
+    else
+    {
+        qDebug() << "执行失败:" << arguments;
+        qDebug() << "错误输出:" << stderr_;
+        qDebug() << "标准输出:" << stdout_;
+        return false;
+    }
 }
 
-bool
-TaskScheduler::enableTask(const QString& taskName, bool enable)
+bool TaskScheduler::createStartupShortcut(const QString &taskName,
+                                          const QString &executablePath)
 {
-    if (!pService)
-        return false;
+    QString home = QDir::homePath();
+    QString startupDir =
+        home +
+        "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup";
+    QString shortcutPath = QDir(startupDir).absoluteFilePath(taskName + ".lnk");
+    QString arguments = "--minimize-to-tray";
 
-    ITaskFolder* pRootFolder = nullptr;
-    IRegisteredTask* pRegisteredTask = nullptr;
+    QString psScript =
+        QString("$WScriptShell = New-Object -ComObject WScript.Shell; "
+                "$Shortcut = $WScriptShell.CreateShortcut('%1'); "
+                "$Shortcut.TargetPath = '%2'; "
+                "$Shortcut.Arguments = '%3'; "
+                "$Shortcut.Description = '%4'; "
+                "$Shortcut.Save()")
+            .arg(shortcutPath, executablePath, arguments,
+                 QString("启动 %1").arg(QFileInfo(executablePath).baseName()));
 
-    HRESULT hr = pService->GetFolder(_bstr_t(L"\\"), &pRootFolder);
-    if (FAILED(hr))
-    {
-        qDebug() << "Failed to get root folder:" << hr;
-        return false;
-    }
-
-    do
-    {
-        // 获取指定的任务
-        hr = pRootFolder->GetTask(_bstr_t(taskName.toStdWString().c_str()),
-                                  &pRegisteredTask);
-        if (FAILED(hr))
-        {
-            qDebug() << "Task not found:" << taskName;
-            break;
-        }
-
-        // 启用或禁用任务
-        hr =
-          pRegisteredTask->put_Enabled(enable ? VARIANT_TRUE : VARIANT_FALSE);
-        if (FAILED(hr))
-        {
-            qDebug() << "Failed to" << (enable ? "enable" : "disable")
-                     << "task:" << hr;
-            break;
-        }
-
-        qDebug() << "Task" << taskName << (enable ? "enabled" : "disabled")
-                 << "successfully";
-
-    } while (false);
-
-    // 清理资源
-    if (pRegisteredTask)
-        pRegisteredTask->Release();
-    if (pRootFolder)
-        pRootFolder->Release();
-
-    return SUCCEEDED(hr);
+    return executePs(psScript);
 }
 
-bool
-TaskScheduler::initializeTaskService()
+bool TaskScheduler::deleteStartupShortcut(const QString &taskName)
 {
-    // 先尝试初始化COM，如果已经初始化则忽略错误
-    HRESULT hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
-    if (FAILED(hr) && hr != RPC_E_CHANGED_MODE)
-    {
-        qDebug() << "CoInitializeEx failed:" << hr;
-        return false;
-    }
+    QString home = QDir::homePath();
+    QString startupDir =
+        home +
+        "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup";
+    QString shortcutPath = QDir(startupDir).absoluteFilePath(taskName + ".lnk");
 
-    // 如果是RPC_E_CHANGED_MODE，尝试单线程模式
-    if (hr == RPC_E_CHANGED_MODE)
-    {
-        hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
-        if (FAILED(hr) && hr != RPC_E_CHANGED_MODE)
-        {
-            qDebug() << "CoInitializeEx with APARTMENTTHREADED failed:" << hr;
-            return false;
-        }
-    }
+    QString psScript = QString("Remove-Item '%1' -Force").arg(shortcutPath);
 
-    // 如果COM已经初始化，跳过安全初始化
-    if (hr != RPC_E_CHANGED_MODE)
-    {
-        hr = CoInitializeSecurity(NULL,
-                                  -1,
-                                  NULL,
-                                  NULL,
-                                  RPC_C_AUTHN_LEVEL_PKT_PRIVACY,
-                                  RPC_C_IMP_LEVEL_IMPERSONATE,
-                                  NULL,
-                                  0,
-                                  NULL);
-        if (FAILED(hr) && hr != RPC_E_TOO_LATE)
-        {
-            qDebug() << "CoInitializeSecurity failed:" << hr;
-            CoUninitialize();
-            return false;
-        }
-    }
-
-    if (FAILED(hr) && hr != RPC_E_TOO_LATE)
-    {
-        qDebug() << "CoInitializeSecurity failed:" << hr;
-        CoUninitialize();
-        return false;
-    }
-
-    hr = CoCreateInstance(CLSID_TaskScheduler,
-                          NULL,
-                          CLSCTX_INPROC_SERVER,
-                          IID_ITaskService,
-                          (void**)&pService);
-    if (FAILED(hr))
-    {
-        qDebug() << "Failed to create TaskService instance:" << hr;
-        CoUninitialize();
-        return false;
-    }
-
-    hr =
-      pService->Connect(_variant_t(), _variant_t(), _variant_t(), _variant_t());
-    if (FAILED(hr))
-    {
-        qDebug() << "ITaskService::Connect failed:" << hr;
-        pService->Release();
-        pService = nullptr;
-        CoUninitialize();
-        return false;
-    }
-
-    return true;
+    return executePs(psScript);
 }
 
-void
-TaskScheduler::cleanup()
+bool TaskScheduler::isStartupShortcutExists(const QString &taskName)
 {
-    if (pService)
+    QString home = QDir::homePath();
+    QString startupDir =
+        home +
+        "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup";
+    QString shortcutPath = QDir(startupDir).absoluteFilePath(taskName + ".lnk");
+
+    return QFile::exists(shortcutPath);
+}
+
+bool TaskScheduler::executePs(const QString &psScript)
+{
+    QProcess process;
+    process.setProgram("powershell");
+    process.setArguments({"-ExecutionPolicy", "Bypass", "-Command", psScript});
+
+    process.start();
+    if (!process.waitForStarted(5000))
     {
-        pService->Release();
-        pService = nullptr;
+        qDebug() << "PowerShell 启动失败:" << process.errorString();
+        return false;
     }
-    CoUninitialize();
+
+    if (process.waitForFinished(5000) && process.exitCode() == 0)
+    {
+        qDebug() << "PowerShell 执行成功";
+        return true;
+    }
+    else
+    {
+        QString error = QString::fromLocal8Bit(process.readAllStandardError());
+        qDebug() << "PowerShell 执行失败:" << error;
+    }
+
+    return false;
 }

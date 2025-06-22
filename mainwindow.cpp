@@ -25,8 +25,8 @@
 #include <QScreen>
 #include <QStyle>
 MainWindow::MainWindow(QWidget* parent)
-  : QMainWindow(parent)
-  , ui(new Ui::MainWindow)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     init();
@@ -46,8 +46,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void
-MainWindow::recreate()
+void MainWindow::recreate()
 {
     layout()->invalidate();
     layout()->activate();
@@ -56,23 +55,21 @@ MainWindow::recreate()
     recreateTray();
 }
 
-void
-MainWindow::refresh()
+void MainWindow::refresh()
 {
     ui->cpuContent->setText(QString("<span style='color:blue'>%1%</span>")
-                              .arg(m_cpu->getUsage(), 5, 'f', 1, ' '));
+            .arg(m_cpu->getUsage(), 5, 'f', 1, ' '));
 
     double memUsage = m_mem->getUsage();
     double memTotal = m_mem->getTotal();
     ui->memContent->setText(
-      QString("<span style='color:blue'>(%1G / %2G) %3%</span>")
-        .arg(memUsage, 0, 'f', 1)
-        .arg(memTotal, 0, 'f', 1)
-        .arg(memUsage / memTotal * 100, 4, 'f', 1));
+        QString("<span style='color:blue'>(%1G / %2G) %3%</span>")
+            .arg(memUsage, 0, 'f', 1)
+            .arg(memTotal, 0, 'f', 1)
+            .arg(memUsage / memTotal * 100, 4, 'f', 1));
 }
 
-void
-MainWindow::on_sliderCtrl_valueChanged(int value)
+void MainWindow::on_sliderCtrl_valueChanged(int value)
 {
     double factor = speedFactor(value);
 
@@ -94,22 +91,19 @@ MainWindow::on_sliderCtrl_valueChanged(int value)
     m_settings->sync();
 }
 
-void
-MainWindow::on_sliderInputSpinBox_editingFinished()
+void MainWindow::on_sliderInputSpinBox_editingFinished()
 {
     double factor = ui->sliderInputSpinBox->value();
     ui->sliderInputSpinBox->clearFocus();
     ui->sliderCtrl->setValue(sliderValue(factor));
 }
 
-void
-MainWindow::on_processNameFilter_textChanged(const QString& text)
+void MainWindow::on_processNameFilter_textChanged(const QString& text)
 {
     m_processMonitor->setFilter(text);
 }
 
-void
-MainWindow::on_sliderLabel_clicked()
+void MainWindow::on_sliderLabel_clicked()
 {
     if (ui->sliderCtrl->value() != 0)
     {
@@ -122,35 +116,33 @@ MainWindow::on_sliderLabel_clicked()
     }
 }
 
-void
-MainWindow::iconActivated(QSystemTrayIcon::ActivationReason reason)
+void MainWindow::iconActivated(QSystemTrayIcon::ActivationReason reason)
 {
     {
         switch (reason)
         {
-            case QSystemTrayIcon::Trigger: // 单击
-                if (isVisible())
-                    hide();
-                else
-                {
-                    show();
-                    showNormal();
-                    activateWindow();
-                }
-                break;
-            case QSystemTrayIcon::DoubleClick: // 双击
+        case QSystemTrayIcon::Trigger: // 单击
+            if (isVisible())
+                hide();
+            else
+            {
                 show();
                 showNormal();
                 activateWindow();
-                break;
-            default:
-                break;
+            }
+            break;
+        case QSystemTrayIcon::DoubleClick: // 双击
+            show();
+            showNormal();
+            activateWindow();
+            break;
+        default:
+            break;
         }
     }
 }
 
-void
-MainWindow::createTray()
+void MainWindow::createTray()
 {
     // 创建系统托盘图标
     trayIcon = new QSystemTrayIcon(this);
@@ -167,13 +159,13 @@ MainWindow::createTray()
 
     // 连接信号和槽
     connect(showAction,
-            &QAction::triggered,
-            this,
-            [&]
-            {
-                showNormal();
-                activateWindow();
-            });
+        &QAction::triggered,
+        this,
+        [&]
+        {
+            showNormal();
+            activateWindow();
+        });
     connect(hideAction, &QAction::triggered, this, &MainWindow::hide);
     connect(quitAction, &QAction::triggered, qApp, &QApplication::quit);
 
@@ -188,7 +180,7 @@ MainWindow::createTray()
 
     // 处理托盘图标的点击事件
     connect(
-      trayIcon, &QSystemTrayIcon::activated, this, &MainWindow::iconActivated);
+        trayIcon, &QSystemTrayIcon::activated, this, &MainWindow::iconActivated);
 
     // 显示托盘图标
     trayIcon->show();
@@ -214,8 +206,7 @@ MainWindow::speedFactor(int sliderValue)
     return factor;
 }
 
-int
-MainWindow::sliderValue(double speedFactor)
+int MainWindow::sliderValue(double speedFactor)
 {
     int sliderValue = 0;
     if (speedFactor > 1.0)
@@ -235,8 +226,7 @@ MainWindow::sliderValue(double speedFactor)
     return sliderValue;
 }
 
-void
-MainWindow::recreateTray()
+void MainWindow::recreateTray()
 {
     qDebug() << "重绘托盘";
     delete trayMenu;
@@ -248,42 +238,40 @@ MainWindow::recreateTray()
     adjustSize();
 }
 
-void
-MainWindow::init()
+void MainWindow::init()
 {
     m_back = 0;
-    m_settings =
-      new QSettings(QCoreApplication::applicationDirPath() + "/config.ini",
-                    QSettings::IniFormat);
+    m_settings = new QSettings(QCoreApplication::applicationDirPath() + "/config.ini",
+        QSettings::IniFormat);
 
     m_aboutDlg = new AboutDialog(this);
     m_preferenceDlg = new PreferenceDialog((HWND)winId(),
-                                           m_settings,
-                                           ui->increaseSpeedLabel,
-                                           ui->decreaseSpeedLabel,
-                                           ui->resetSpeedLabel,
-                                           this);
+        m_settings,
+        ui->increaseSpeedLabel,
+        ui->decreaseSpeedLabel,
+        ui->resetSpeedLabel,
+        this);
 
     // 安装本地事件过滤器以处理全局快捷键
     QApplication::instance()->installNativeEventFilter(this);
 
     m_processMonitor = new ProcessMonitor(m_settings,
-                                          ui->processMonitorWidget,
-                                          ui->processMonitorLabel,
-                                          ui->injector32Status,
-                                          ui->injector64Status,
-                                          nullptr);
+        ui->processMonitorWidget,
+        ui->processMonitorLabel,
+        ui->injector32Status,
+        ui->injector64Status,
+        nullptr);
     m_thread = new QThread(this);
 
     connect(
-      m_thread, &QThread::started, m_processMonitor, &ProcessMonitor::start);
+        m_thread, &QThread::started, m_processMonitor, &ProcessMonitor::start);
     connect(
-      m_thread, &QThread::finished, m_processMonitor, &QObject::deleteLater);
+        m_thread, &QThread::finished, m_processMonitor, &QObject::deleteLater);
     connect(m_thread, &QThread::finished, m_thread, &QThread::deleteLater);
     connect(QGuiApplication::primaryScreen(),
-            &QScreen::logicalDotsPerInchChanged,
-            this,
-            &MainWindow::recreate);
+        &QScreen::logicalDotsPerInchChanged,
+        this,
+        &MainWindow::recreate);
     m_thread->start();
     m_processMonitor->start();
 
@@ -303,8 +291,8 @@ MainWindow::init()
 
     /* 读取slider值 */
     int value = qBound(ui->sliderCtrl->minimum(),
-                       m_settings->value(CONFIG_SLIDERVALUE_KEY, 0).toInt(),
-                       ui->sliderCtrl->maximum());
+        m_settings->value(CONFIG_SLIDERVALUE_KEY, 0).toInt(),
+        ui->sliderCtrl->maximum());
 
     ui->sliderCtrl->setValue(value);
 
@@ -319,41 +307,40 @@ MainWindow::init()
 
     /* 首选项菜单 */
     connect(ui->menuPreference,
-            &QMenu::aboutToShow,
-            [this]
-            {
-                ui->menuPreference->hide();
-                QTimer::singleShot(50,
-                                   [this]()
-                                   {
-                                       m_preferenceDlg->show();
-                                       m_preferenceDlg->activateWindow();
-                                       m_preferenceDlg->raise();
-                                   });
-            });
+        &QMenu::aboutToShow,
+        [this]
+        {
+            ui->menuPreference->hide();
+            QTimer::singleShot(50,
+                [this]()
+                {
+                    m_preferenceDlg->show();
+                    m_preferenceDlg->activateWindow();
+                    m_preferenceDlg->raise();
+                });
+        });
 
     /* 关于菜单 */
     connect(ui->menuAbout,
-            &QMenu::aboutToShow,
-            [this]
-            {
-                ui->menuAbout->hide();
-                QTimer::singleShot(50,
-                                   [this]()
-                                   {
-                                       m_aboutDlg->show();
-                                       m_aboutDlg->activateWindow();
-                                       m_aboutDlg->raise();
-                                   });
-            });
+        &QMenu::aboutToShow,
+        [this]
+        {
+            ui->menuAbout->hide();
+            QTimer::singleShot(50,
+                [this]()
+                {
+                    m_aboutDlg->show();
+                    m_aboutDlg->activateWindow();
+                    m_aboutDlg->raise();
+                });
+        });
 
     m_languageGroup = new QActionGroup(this);
     m_languageGroup->setExclusive(true);
     m_languageGroup->setEnabled(true);
     m_languageGroup->addAction(ui->actionCN);
     m_languageGroup->addAction(ui->actionEN);
-    QString language =
-      m_settings->value(CONFIG_LANGUAGE, QLocale().system().name()).toString();
+    QString language = m_settings->value(CONFIG_LANGUAGE, QLocale().system().name()).toString();
     if (language == "zh_CN")
     {
         ui->actionCN->setChecked(true);
@@ -368,50 +355,46 @@ MainWindow::init()
     }
 
     connect(ui->actionCN,
-            &QAction::triggered,
-            [this]
-            {
-                m_settings->setValue(CONFIG_LANGUAGE, "zh_CN");
-                QMessageBox msgBox(this);
-                msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint |
-                                      Qt::CustomizeWindowHint);
-                msgBox.setIcon(QMessageBox::Information);
-                msgBox.setWindowTitle(tr("提示"));
-                msgBox.setText(tr("直到重启应用后，界面的语言才会生效"));
-                msgBox.exec();
-            });
+        &QAction::triggered,
+        [this]
+        {
+            m_settings->setValue(CONFIG_LANGUAGE, "zh_CN");
+            QMessageBox msgBox(this);
+            msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setWindowTitle(tr("提示"));
+            msgBox.setText(tr("直到重启应用后，界面的语言才会生效"));
+            msgBox.exec();
+        });
 
     connect(ui->actionTW,
-            &QAction::triggered,
-            [this]
-            {
-                m_settings->setValue(CONFIG_LANGUAGE, "zh_TW");
-                QMessageBox msgBox(this);
-                msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint |
-                                      Qt::CustomizeWindowHint);
-                msgBox.setIcon(QMessageBox::Information);
-                msgBox.setWindowTitle(tr("提示"));
-                msgBox.setText(tr("直到重启应用后，界面的语言才会生效"));
-                msgBox.exec();
-            });
+        &QAction::triggered,
+        [this]
+        {
+            m_settings->setValue(CONFIG_LANGUAGE, "zh_TW");
+            QMessageBox msgBox(this);
+            msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setWindowTitle(tr("提示"));
+            msgBox.setText(tr("直到重启应用后，界面的语言才会生效"));
+            msgBox.exec();
+        });
 
     connect(ui->actionEN,
-            &QAction::triggered,
-            [this]
-            {
-                m_settings->setValue(CONFIG_LANGUAGE, "en_US");
-                QMessageBox msgBox(this);
-                msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint |
-                                      Qt::CustomizeWindowHint);
-                msgBox.setIcon(QMessageBox::Information);
-                msgBox.setWindowTitle(tr("提示"));
-                msgBox.setText(tr("直到重启应用后，界面的语言才会生效"));
-                msgBox.exec();
-            });
+        &QAction::triggered,
+        [this]
+        {
+            m_settings->setValue(CONFIG_LANGUAGE, "en_US");
+            QMessageBox msgBox(this);
+            msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.setWindowTitle(tr("提示"));
+            msgBox.setText(tr("直到重启应用后，界面的语言才会生效"));
+            msgBox.exec();
+        });
 }
 
-void
-MainWindow::closeEvent(QCloseEvent* event)
+void MainWindow::closeEvent(QCloseEvent* event)
 {
     // 如果托盘图标可见，则隐藏窗口而不是关闭
     if (trayIcon->isVisible())
@@ -428,15 +411,13 @@ MainWindow::closeEvent(QCloseEvent* event)
     }
 }
 
-bool
-MainWindow::nativeEventFilter(const QByteArray& eventType,
-                              void* message,
-                              long* result)
+bool MainWindow::nativeEventFilter(const QByteArray& eventType,
+    void* message,
+    long* result)
 {
     Q_UNUSED(result)
 
-    if (eventType == "windows_generic_MSG" ||
-        eventType == "windows_dispatcher_MSG")
+    if (eventType == "windows_generic_MSG" || eventType == "windows_dispatcher_MSG")
     {
         MSG* msg = static_cast<MSG*>(message);
 
@@ -449,100 +430,98 @@ MainWindow::nativeEventFilter(const QByteArray& eventType,
 
             switch (hotkeyId)
             {
-                case HOTKEY_INCREASE_SPEED:
+            case HOTKEY_INCREASE_SPEED:
+            {
+                int currentValue = ui->sliderCtrl->value();
+                if (currentValue < ui->sliderCtrl->maximum())
                 {
-                    int currentValue = ui->sliderCtrl->value();
-                    if (currentValue < ui->sliderCtrl->maximum())
+                    if (canPlaySound)
                     {
-                        if (canPlaySound)
-                        {
-                            Beep(400, 5);
-                            lastSoundTime = currentTime;
-                        }
-                        ui->sliderCtrl->setValue(
-                          currentValue + m_preferenceDlg->getIncreaseStep());
-                        qDebug()
-                          << "全局快捷键: 增加速度到"
-                          << speedFactor(currentValue +
-                                         m_preferenceDlg->getIncreaseStep());
+                        Beep(400, 5);
+                        lastSoundTime = currentTime;
                     }
+                    ui->sliderCtrl->setValue(
+                        currentValue + m_preferenceDlg->getIncreaseStep());
+                    qDebug()
+                        << "全局快捷键: 增加速度到"
+                        << speedFactor(currentValue + m_preferenceDlg->getIncreaseStep());
                 }
-                break;
+            }
+            break;
 
-                case HOTKEY_DECREASE_SPEED:
+            case HOTKEY_DECREASE_SPEED:
+            {
+                int currentValue = ui->sliderCtrl->value();
+                if (currentValue > ui->sliderCtrl->minimum())
                 {
-                    int currentValue = ui->sliderCtrl->value();
-                    if (currentValue > ui->sliderCtrl->minimum())
+                    if (canPlaySound)
                     {
-                        if (canPlaySound)
-                        {
-                            Beep(400, 5);
-                            lastSoundTime = currentTime;
-                        }
-                        ui->sliderCtrl->setValue(
-                          currentValue - m_preferenceDlg->getDecreaseStep());
-                        qDebug()
-                          << "全局快捷键: 降低速度到"
-                          << speedFactor(currentValue -
-                                         m_preferenceDlg->getDecreaseStep());
+                        Beep(400, 5);
+                        lastSoundTime = currentTime;
                     }
+                    ui->sliderCtrl->setValue(
+                        currentValue - m_preferenceDlg->getDecreaseStep());
+                    qDebug()
+                        << "全局快捷键: 降低速度到"
+                        << speedFactor(currentValue - m_preferenceDlg->getDecreaseStep());
                 }
-                break;
+            }
+            break;
 
-                case HOTKEY_RESET_SPEED:
-                    if (canPlaySound)
-                    {
-                        Beep(1600, 5);
-                        lastSoundTime = currentTime;
-                    }
-                    ui->sliderCtrl->setValue(0);
-                    qDebug() << "全局快捷键: 重置速度";
-                    break;
-                case HOTKEY_SHIFT1:
-                    if (canPlaySound)
-                    {
-                        Beep(1600, 5);
-                        lastSoundTime = currentTime;
-                    }
-                    ui->sliderCtrl->setValue(
-                      sliderValue(m_preferenceDlg->getShift1()));
-                    break;
-                case HOTKEY_SHIFT2:
-                    if (canPlaySound)
-                    {
-                        Beep(1600, 5);
-                        lastSoundTime = currentTime;
-                    }
-                    ui->sliderCtrl->setValue(
-                      sliderValue(m_preferenceDlg->getShift2()));
-                    break;
-                case HOTKEY_SHIFT3:
-                    if (canPlaySound)
-                    {
-                        Beep(1600, 5);
-                        lastSoundTime = currentTime;
-                    }
-                    ui->sliderCtrl->setValue(
-                      sliderValue(m_preferenceDlg->getShift3()));
-                    break;
-                case HOTKEY_SHIFT4:
-                    if (canPlaySound)
-                    {
-                        Beep(1600, 5);
-                        lastSoundTime = currentTime;
-                    }
-                    ui->sliderCtrl->setValue(
-                      sliderValue(m_preferenceDlg->getShift4()));
-                    break;
-                case HOTKEY_SHIFT5:
-                    if (canPlaySound)
-                    {
-                        Beep(1600, 5);
-                        lastSoundTime = currentTime;
-                    }
-                    ui->sliderCtrl->setValue(
-                      sliderValue(m_preferenceDlg->getShift5()));
-                    break;
+            case HOTKEY_RESET_SPEED:
+                if (canPlaySound)
+                {
+                    Beep(1600, 5);
+                    lastSoundTime = currentTime;
+                }
+                ui->sliderCtrl->setValue(0);
+                qDebug() << "全局快捷键: 重置速度";
+                break;
+            case HOTKEY_SHIFT1:
+                if (canPlaySound)
+                {
+                    Beep(1600, 5);
+                    lastSoundTime = currentTime;
+                }
+                ui->sliderCtrl->setValue(
+                    sliderValue(m_preferenceDlg->getShift1()));
+                break;
+            case HOTKEY_SHIFT2:
+                if (canPlaySound)
+                {
+                    Beep(1600, 5);
+                    lastSoundTime = currentTime;
+                }
+                ui->sliderCtrl->setValue(
+                    sliderValue(m_preferenceDlg->getShift2()));
+                break;
+            case HOTKEY_SHIFT3:
+                if (canPlaySound)
+                {
+                    Beep(1600, 5);
+                    lastSoundTime = currentTime;
+                }
+                ui->sliderCtrl->setValue(
+                    sliderValue(m_preferenceDlg->getShift3()));
+                break;
+            case HOTKEY_SHIFT4:
+                if (canPlaySound)
+                {
+                    Beep(1600, 5);
+                    lastSoundTime = currentTime;
+                }
+                ui->sliderCtrl->setValue(
+                    sliderValue(m_preferenceDlg->getShift4()));
+                break;
+            case HOTKEY_SHIFT5:
+                if (canPlaySound)
+                {
+                    Beep(1600, 5);
+                    lastSoundTime = currentTime;
+                }
+                ui->sliderCtrl->setValue(
+                    sliderValue(m_preferenceDlg->getShift5()));
+                break;
             }
 
             return true; // 事件已处理
@@ -552,22 +531,20 @@ MainWindow::nativeEventFilter(const QByteArray& eventType,
     return false; // 让其他过滤器处理
 }
 
-void
-MainWindow::on_autoStartCheckBox_stateChanged(int state)
+void MainWindow::on_autoStartCheckBox_stateChanged(int state)
 {
-    QString execFilePath =
-      QString("\"%1\"").arg(QApplication::applicationFilePath());
+    QString execFilePath = QDir::toNativeSeparators(QApplication::applicationFilePath());
     if (state == Qt::Checked)
     {
 
         qDebug() << QApplication::applicationName()
                  << QApplication::applicationFilePath();
         winutils::setAutoStart(
-          true, QApplication::applicationName(), execFilePath);
+            true, QApplication::applicationName(), execFilePath);
     }
     else
     {
         winutils::setAutoStart(
-          false, QApplication::applicationName(), execFilePath);
+            false, QApplication::applicationName(), execFilePath);
     }
 }

@@ -31,8 +31,7 @@ static QSet<std::wstring> systemNames = {
 
 winutils::winutils() {}
 
-bool
-winutils::injectDll(DWORD processId, const QString& dllPath)
+bool winutils::injectDll(DWORD processId, const QString &dllPath)
 {
     HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
     if (!hProcess)
@@ -75,8 +74,7 @@ winutils::injectDll(DWORD processId, const QString& dllPath)
     }
 }
 
-bool
-winutils::injectDllViaCRTA(DWORD processId, const QString& dllPath)
+bool winutils::injectDllViaCRTA(DWORD processId, const QString &dllPath)
 {
     HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
     if (!hProcess)
@@ -91,11 +89,9 @@ winutils::injectDllViaCRTA(DWORD processId, const QString& dllPath)
         return true;
     }
     SIZE_T pathSize = (dllPath.size() + 1) * sizeof(char);
-    LPVOID pDllPath = VirtualAllocEx(hProcess,
-                                     nullptr,
-                                     pathSize,
-                                     MEM_COMMIT | MEM_RESERVE,
-                                     PAGE_EXECUTE_READWRITE);
+    LPVOID pDllPath =
+        VirtualAllocEx(hProcess, nullptr, pathSize, MEM_COMMIT | MEM_RESERVE,
+                       PAGE_EXECUTE_READWRITE);
     if (!pDllPath)
     {
         qDebug() << "Failed to allocate memory in target process:"
@@ -104,8 +100,8 @@ winutils::injectDllViaCRTA(DWORD processId, const QString& dllPath)
         return false;
     }
 
-    if (!WriteProcessMemory(
-          hProcess, pDllPath, dllPath.toStdString().c_str(), pathSize, nullptr))
+    if (!WriteProcessMemory(hProcess, pDllPath, dllPath.toStdString().c_str(),
+                            pathSize, nullptr))
     {
         qDebug() << "Failed to write memory in target process:"
                  << GetLastError();
@@ -132,13 +128,9 @@ winutils::injectDllViaCRTA(DWORD processId, const QString& dllPath)
         return false;
     }
 
-    HANDLE hThread = CreateRemoteThread(hProcess,
-                                        nullptr,
-                                        0,
+    HANDLE hThread = CreateRemoteThread(hProcess, nullptr, 0,
                                         (LPTHREAD_START_ROUTINE)pLoadLibraryA,
-                                        pDllPath,
-                                        0,
-                                        nullptr);
+                                        pDllPath, 0, nullptr);
     if (!hThread)
     {
         qDebug() << "Failed to create remote thread:" << GetLastError();
@@ -172,8 +164,7 @@ winutils::injectDllViaCRTA(DWORD processId, const QString& dllPath)
     return true;
 }
 
-bool
-winutils::injectDllViaCRTW(DWORD processId, const QString& dllPath)
+bool winutils::injectDllViaCRTW(DWORD processId, const QString &dllPath)
 {
     HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
     if (!hProcess)
@@ -188,11 +179,9 @@ winutils::injectDllViaCRTW(DWORD processId, const QString& dllPath)
         return true;
     }
     SIZE_T pathSize = (dllPath.size() + 1) * sizeof(wchar_t);
-    LPVOID pDllPath = VirtualAllocEx(hProcess,
-                                     nullptr,
-                                     pathSize,
-                                     MEM_COMMIT | MEM_RESERVE,
-                                     PAGE_EXECUTE_READWRITE);
+    LPVOID pDllPath =
+        VirtualAllocEx(hProcess, nullptr, pathSize, MEM_COMMIT | MEM_RESERVE,
+                       PAGE_EXECUTE_READWRITE);
     if (!pDllPath)
     {
         qDebug() << "Failed to allocate memory in target process:"
@@ -201,11 +190,8 @@ winutils::injectDllViaCRTW(DWORD processId, const QString& dllPath)
         return false;
     }
 
-    if (!WriteProcessMemory(hProcess,
-                            pDllPath,
-                            dllPath.toStdWString().c_str(),
-                            pathSize,
-                            nullptr))
+    if (!WriteProcessMemory(hProcess, pDllPath, dllPath.toStdWString().c_str(),
+                            pathSize, nullptr))
     {
         qDebug() << "Failed to write memory in target process:"
                  << GetLastError();
@@ -232,13 +218,9 @@ winutils::injectDllViaCRTW(DWORD processId, const QString& dllPath)
         return false;
     }
 
-    HANDLE hThread = CreateRemoteThread(hProcess,
-                                        nullptr,
-                                        0,
+    HANDLE hThread = CreateRemoteThread(hProcess, nullptr, 0,
                                         (LPTHREAD_START_ROUTINE)pLoadLibraryW,
-                                        pDllPath,
-                                        0,
-                                        nullptr);
+                                        pDllPath, 0, nullptr);
     if (!hThread)
     {
         qDebug() << "Failed to create remote thread:" << GetLastError();
@@ -272,13 +254,12 @@ winutils::injectDllViaCRTW(DWORD processId, const QString& dllPath)
     return true;
 }
 
-bool
-winutils::injectDllViaAPCA(DWORD processId, const QString& dllPath)
+bool winutils::injectDllViaAPCA(DWORD processId, const QString &dllPath)
 {
-    HANDLE hProcess = OpenProcess(PROCESS_VM_OPERATION | PROCESS_VM_WRITE |
-                                    PROCESS_VM_READ | PROCESS_QUERY_INFORMATION,
-                                  FALSE,
-                                  processId);
+    HANDLE hProcess =
+        OpenProcess(PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ |
+                        PROCESS_QUERY_INFORMATION,
+                    FALSE, processId);
 
     if (!hProcess)
     {
@@ -295,7 +276,7 @@ winutils::injectDllViaAPCA(DWORD processId, const QString& dllPath)
     // 在目标进程中分配内存并写入DLL路径
     SIZE_T pathSize = (dllPath.toStdString().size() + 1) * sizeof(char);
     LPVOID pDllPath =
-      VirtualAllocEx(hProcess, NULL, pathSize, MEM_COMMIT, PAGE_READWRITE);
+        VirtualAllocEx(hProcess, NULL, pathSize, MEM_COMMIT, PAGE_READWRITE);
 
     if (!pDllPath)
     {
@@ -304,8 +285,8 @@ winutils::injectDllViaAPCA(DWORD processId, const QString& dllPath)
         return false;
     }
 
-    if (!WriteProcessMemory(
-          hProcess, pDllPath, dllPath.toStdString().c_str(), pathSize, NULL))
+    if (!WriteProcessMemory(hProcess, pDllPath, dllPath.toStdString().c_str(),
+                            pathSize, NULL))
     {
         qDebug() << "Failed to write memory: " << GetLastError();
         VirtualFreeEx(hProcess, pDllPath, 0, MEM_RELEASE);
@@ -352,7 +333,7 @@ winutils::injectDllViaAPCA(DWORD processId, const QString& dllPath)
         // 将LoadLibraryW作为APC函数加入队列
         PostThreadMessageW(threadId, WM_PAINT, 0, 0);
         DWORD result =
-          QueueUserAPC((PAPCFUNC)pLoadLibraryA, hThread, (ULONG_PTR)pDllPath);
+            QueueUserAPC((PAPCFUNC)pLoadLibraryA, hThread, (ULONG_PTR)pDllPath);
         PostThreadMessageW(threadId, WM_PAINT, 0, 0);
         if (result != 0)
         {
@@ -378,13 +359,12 @@ winutils::injectDllViaAPCA(DWORD processId, const QString& dllPath)
     return true;
 }
 
-bool
-winutils::injectDllViaAPCW(DWORD processId, const QString& dllPath)
+bool winutils::injectDllViaAPCW(DWORD processId, const QString &dllPath)
 {
-    HANDLE hProcess = OpenProcess(PROCESS_VM_OPERATION | PROCESS_VM_WRITE |
-                                    PROCESS_VM_READ | PROCESS_QUERY_INFORMATION,
-                                  FALSE,
-                                  processId);
+    HANDLE hProcess =
+        OpenProcess(PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ |
+                        PROCESS_QUERY_INFORMATION,
+                    FALSE, processId);
 
     if (!hProcess)
     {
@@ -401,7 +381,7 @@ winutils::injectDllViaAPCW(DWORD processId, const QString& dllPath)
     // 在目标进程中分配内存并写入DLL路径
     SIZE_T pathSize = (dllPath.toStdWString().size() + 1) * sizeof(wchar_t);
     LPVOID pDllPath =
-      VirtualAllocEx(hProcess, NULL, pathSize, MEM_COMMIT, PAGE_READWRITE);
+        VirtualAllocEx(hProcess, NULL, pathSize, MEM_COMMIT, PAGE_READWRITE);
 
     if (!pDllPath)
     {
@@ -410,8 +390,8 @@ winutils::injectDllViaAPCW(DWORD processId, const QString& dllPath)
         return false;
     }
 
-    if (!WriteProcessMemory(
-          hProcess, pDllPath, dllPath.toStdWString().c_str(), pathSize, NULL))
+    if (!WriteProcessMemory(hProcess, pDllPath, dllPath.toStdWString().c_str(),
+                            pathSize, NULL))
     {
         qDebug() << "Failed to write memory: " << GetLastError();
         VirtualFreeEx(hProcess, pDllPath, 0, MEM_RELEASE);
@@ -458,7 +438,7 @@ winutils::injectDllViaAPCW(DWORD processId, const QString& dllPath)
         // 将LoadLibraryW作为APC函数加入队列
         PostThreadMessageW(threadId, WM_PAINT, 0, 0);
         DWORD result =
-          QueueUserAPC((PAPCFUNC)pLoadLibraryW, hThread, (ULONG_PTR)pDllPath);
+            QueueUserAPC((PAPCFUNC)pLoadLibraryW, hThread, (ULONG_PTR)pDllPath);
         PostThreadMessageW(threadId, WM_PAINT, 0, 0);
         if (result != 0)
         {
@@ -484,8 +464,7 @@ winutils::injectDllViaAPCW(DWORD processId, const QString& dllPath)
     return true;
 }
 
-bool
-winutils::injectDllViaWHKA(DWORD processId, const QString& dllPath)
+bool winutils::injectDllViaWHKA(DWORD processId, const QString &dllPath)
 {
     if (checkProcessProtection(processId))
     {
@@ -525,8 +504,7 @@ winutils::injectDllViaWHKA(DWORD processId, const QString& dllPath)
     return true;
 }
 
-bool
-winutils::injectDllViaWHKW(DWORD processId, const QString& dllPath)
+bool winutils::injectDllViaWHKW(DWORD processId, const QString &dllPath)
 {
     if (checkProcessProtection(processId))
     {
@@ -566,8 +544,7 @@ winutils::injectDllViaWHKW(DWORD processId, const QString& dllPath)
     return true;
 }
 
-bool
-winutils::unhookDll(DWORD processId, const QString& dllPath)
+bool winutils::unhookDll(DWORD processId, const QString &dllPath)
 {
     HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
     if (!hProcess)
@@ -583,9 +560,7 @@ winutils::unhookDll(DWORD processId, const QString& dllPath)
         for (unsigned int i = 0; i < (cbNeeded / sizeof(HMODULE)); i++)
         {
             TCHAR moduleName[MAX_PATH];
-            if (GetModuleFileNameEx(hProcess,
-                                    hModules[i],
-                                    moduleName,
+            if (GetModuleFileNameEx(hProcess, hModules[i], moduleName,
                                     sizeof(moduleName) / sizeof(TCHAR)))
             {
 #ifdef UNICODE
@@ -596,7 +571,7 @@ winutils::unhookDll(DWORD processId, const QString& dllPath)
                 if (isDll)
                 {
                     FARPROC pFreeLibrary = GetProcAddress(
-                      GetModuleHandle(L"kernel32.dll"), "FreeLibrary");
+                        GetModuleHandle(L"kernel32.dll"), "FreeLibrary");
                     if (!pFreeLibrary)
                     {
                         qDebug() << "Failed to get address of FreeLibrary:"
@@ -606,13 +581,9 @@ winutils::unhookDll(DWORD processId, const QString& dllPath)
                     }
 
                     HANDLE hThread =
-                      CreateRemoteThread(hProcess,
-                                         nullptr,
-                                         0,
-                                         (LPTHREAD_START_ROUTINE)pFreeLibrary,
-                                         hModules[i],
-                                         0,
-                                         nullptr);
+                        CreateRemoteThread(hProcess, nullptr, 0,
+                                           (LPTHREAD_START_ROUTINE)pFreeLibrary,
+                                           hModules[i], 0, nullptr);
                     if (!hThread)
                     {
                         qDebug() << "Failed to create remote thread for "
@@ -635,11 +606,10 @@ winutils::unhookDll(DWORD processId, const QString& dllPath)
     return false;
 }
 
-bool
-winutils::checkDllExist(DWORD processId, const QString& dllPath)
+bool winutils::checkDllExist(DWORD processId, const QString &dllPath)
 {
-    HANDLE hProcess = OpenProcess(
-      PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, processId);
+    HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ,
+                                  FALSE, processId);
     if (!hProcess)
     {
         qDebug() << "打开进程失败:" << GetLastError();
@@ -656,12 +626,10 @@ winutils::checkDllExist(DWORD processId, const QString& dllPath)
         DWORD moduleCount = cbNeeded / sizeof(HMODULE);
         for (DWORD i = 0; i < moduleCount; i++)
         {
-            TCHAR moduleName[MAX_PATH] = { 0 };
+            TCHAR moduleName[MAX_PATH] = {0};
 
             // 获取模块的完整路径
-            if (GetModuleFileNameExW(hProcess,
-                                     hModules[i],
-                                     moduleName,
+            if (GetModuleFileNameExW(hProcess, hModules[i], moduleName,
                                      sizeof(moduleName) / sizeof(WCHAR)))
             {
 #ifdef UNICODE
@@ -686,11 +654,10 @@ winutils::checkDllExist(DWORD processId, const QString& dllPath)
     return dllFound;
 }
 
-bool
-winutils::checkProcessProtection(DWORD processId)
+bool winutils::checkProcessProtection(DWORD processId)
 {
     HANDLE hProcess =
-      OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, processId);
+        OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, processId);
     if (!hProcess)
     {
         qDebug() << "Cannot open process - likely protected";
@@ -701,10 +668,8 @@ winutils::checkProcessProtection(DWORD processId)
     PROCESS_PROTECTION_LEVEL_INFORMATION protectionInfo = {};
     DWORD returnLength;
 
-    if (GetProcessInformation(hProcess,
-                              ProcessProtectionLevelInfo,
-                              &protectionInfo,
-                              sizeof(protectionInfo)))
+    if (GetProcessInformation(hProcess, ProcessProtectionLevelInfo,
+                              &protectionInfo, sizeof(protectionInfo)))
     {
         CloseHandle(hProcess);
         return protectionInfo.ProtectionLevel != PROTECTION_LEVEL_NONE;
@@ -714,46 +679,42 @@ winutils::checkProcessProtection(DWORD processId)
     return false;
 }
 
-void
-winutils::setAutoStart(bool enable,
-                       const QString& appName,
-                       const QString& execPath)
+void winutils::setAutoStart(bool enable,
+                            const QString &appName,
+                            const QString &execPath)
 {
     TaskScheduler scheduler;
 
     if (enable)
     {
-        scheduler.createStartupTask(appName, execPath);
-        scheduler.enableTask(appName, true);
+        scheduler.createStartupShortcut(appName, execPath);
     }
     else
     {
-        scheduler.deleteTask(appName);
+        scheduler.deleteStartupShortcut(appName);
     }
 }
 
-bool
-winutils::isAutoStartEnabled(const QString& appName)
+bool winutils::isAutoStartEnabled(const QString &appName)
 {
     TaskScheduler scheduler;
-    return scheduler.isTaskExists(appName);
+    return scheduler.isStartupShortcutExists(appName);
 }
 
 typedef struct _OSVERSIONINFOEXW RTL_OSVERSIONINFOEXW, *PRTL_OSVERSIONINFOEXW;
 typedef LONG NTSTATUS;
-typedef NTSTATUS(WINAPI* fnRtlGetVersion)(PRTL_OSVERSIONINFOEXW);
+typedef NTSTATUS(WINAPI *fnRtlGetVersion)(PRTL_OSVERSIONINFOEXW);
 
-BOOL
-winutils::getWindowsVersion(DWORD* majorVersion,
-                            DWORD* minorVersion,
-                            DWORD* buildNumber)
+BOOL winutils::getWindowsVersion(DWORD *majorVersion,
+                                 DWORD *minorVersion,
+                                 DWORD *buildNumber)
 {
     HMODULE hNtdll = GetModuleHandleW(L"ntdll.dll");
     if (!hNtdll)
         return FALSE;
 
     fnRtlGetVersion RtlGetVersion =
-      (fnRtlGetVersion)GetProcAddress(hNtdll, "RtlGetVersion");
+        (fnRtlGetVersion)GetProcAddress(hNtdll, "RtlGetVersion");
     if (!RtlGetVersion)
         return FALSE;
 
@@ -775,10 +736,9 @@ winutils::getWindowsVersion(DWORD* majorVersion,
     return TRUE;
 }
 
-QString
-winutils::getWindowsVersion()
+QString winutils::getWindowsVersion()
 {
-    static char version[100] = { 0 };
+    static char version[100] = {0};
     DWORD major, minor, build;
 
     if (!getWindowsVersion(&major, &minor, &build))
@@ -800,45 +760,39 @@ winutils::getWindowsVersion()
     {
         switch (minor)
         {
-            case 3:
-                sprintf(version, "Windows 8.1 (Build %lu)", build);
-                break;
-            case 2:
-                sprintf(version, "Windows 8 (Build %lu)", build);
-                break;
-            case 1:
-                sprintf(version, "Windows 7 (Build %lu)", build);
-                break;
-            case 0:
-                sprintf(version, "Windows Vista (Build %lu)", build);
-                break;
-            default:
-                sprintf(version,
-                        "Windows NT %lu.%lu (Build %lu)",
-                        major,
-                        minor,
-                        build);
+        case 3:
+            sprintf(version, "Windows 8.1 (Build %lu)", build);
+            break;
+        case 2:
+            sprintf(version, "Windows 8 (Build %lu)", build);
+            break;
+        case 1:
+            sprintf(version, "Windows 7 (Build %lu)", build);
+            break;
+        case 0:
+            sprintf(version, "Windows Vista (Build %lu)", build);
+            break;
+        default:
+            sprintf(version, "Windows NT %lu.%lu (Build %lu)", major, minor,
+                    build);
         }
     }
     else if (major == 5)
     {
         switch (minor)
         {
-            case 2:
-                sprintf(version, "Windows Server 2003 (Build %lu)", build);
-                break;
-            case 1:
-                sprintf(version, "Windows XP (Build %lu)", build);
-                break;
-            case 0:
-                sprintf(version, "Windows 2000 (Build %lu)", build);
-                break;
-            default:
-                sprintf(version,
-                        "Windows NT %lu.%lu (Build %lu)",
-                        major,
-                        minor,
-                        build);
+        case 2:
+            sprintf(version, "Windows Server 2003 (Build %lu)", build);
+            break;
+        case 1:
+            sprintf(version, "Windows XP (Build %lu)", build);
+            break;
+        case 0:
+            sprintf(version, "Windows 2000 (Build %lu)", build);
+            break;
+        default:
+            sprintf(version, "Windows NT %lu.%lu (Build %lu)", major, minor,
+                    build);
         }
     }
     else
@@ -848,8 +802,7 @@ winutils::getWindowsVersion()
     return version;
 }
 
-QList<ProcessInfo>
-winutils::getProcessList()
+QList<ProcessInfo> winutils::getProcessList()
 {
     QList<ProcessInfo> processList;
 
@@ -884,7 +837,7 @@ winutils::getProcessList()
 
         // 获取内存使用和优先级信息
         HANDLE hProcess = OpenProcess(
-          PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, info.pid);
+            PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, info.pid);
         if (hProcess)
         {
             PROCESS_MEMORY_COUNTERS pmc;
@@ -915,12 +868,11 @@ winutils::getProcessList()
     return processList;
 }
 
-QString
-winutils::getProcessPath(DWORD processId)
+QString winutils::getProcessPath(DWORD processId)
 {
     QString processPath;
-    HANDLE hProcess = OpenProcess(
-      PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, processId);
+    HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ,
+                                  FALSE, processId);
 
     if (hProcess != NULL)
     {
@@ -949,7 +901,7 @@ winutils::getProcessMainThread(DWORD processId)
     te32.dwSize = sizeof(THREADENTRY32);
 
     DWORD mainThreadId = 0;
-    FILETIME earliestTime = { 0xFFFFFFFF, 0xFFFFFFFF }; // 设为最大值
+    FILETIME earliestTime = {0xFFFFFFFF, 0xFFFFFFFF}; // 设为最大值
 
     if (Thread32First(hSnapshot, &te32))
     {
@@ -958,16 +910,13 @@ winutils::getProcessMainThread(DWORD processId)
             if (te32.th32OwnerProcessID == processId)
             {
                 // 打开线程获取创建时间
-                HANDLE hThread = OpenThread(
-                  THREAD_QUERY_INFORMATION, FALSE, te32.th32ThreadID);
+                HANDLE hThread = OpenThread(THREAD_QUERY_INFORMATION, FALSE,
+                                            te32.th32ThreadID);
                 if (hThread)
                 {
                     FILETIME creationTime, exitTime, kernelTime, userTime;
-                    if (GetThreadTimes(hThread,
-                                       &creationTime,
-                                       &exitTime,
-                                       &kernelTime,
-                                       &userTime))
+                    if (GetThreadTimes(hThread, &creationTime, &exitTime,
+                                       &kernelTime, &userTime))
                     {
                         // 比较创建时间，找最早的线程
                         if (CompareFileTime(&creationTime, &earliestTime) < 0)
@@ -986,11 +935,10 @@ winutils::getProcessMainThread(DWORD processId)
     return mainThreadId;
 }
 
-QString
-winutils::getProcessNameById(DWORD processId)
+QString winutils::getProcessNameById(DWORD processId)
 {
-    HANDLE hProcess = OpenProcess(
-      PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, processId);
+    HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ,
+                                  FALSE, processId);
     if (hProcess == NULL)
     {
         return QString();
@@ -1008,23 +956,22 @@ winutils::getProcessNameById(DWORD processId)
     return QString();
 }
 
-bool
-winutils::enableAllPrivilege()
+bool winutils::enableAllPrivilege()
 {
     HANDLE hToken;
     // 获取进程token
-    if (!OpenProcessToken(
-          GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken))
+    if (!OpenProcessToken(GetCurrentProcess(),
+                          TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken))
         return false;
 
-    const wchar_t* essentialPrivileges[] = {
+    const wchar_t *essentialPrivileges[] = {
         SE_DEBUG_NAME, // 最重要的调试权限
     };
 
     TOKEN_PRIVILEGES tkp;
     bool success = true;
 
-    for (const auto& privilege : essentialPrivileges)
+    for (const auto &privilege : essentialPrivileges)
     {
         tkp.PrivilegeCount = 1;
         tkp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
