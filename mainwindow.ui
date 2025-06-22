@@ -389,7 +389,7 @@
                <double>0.010000000000000</double>
               </property>
               <property name="maximum">
-               <double>10000.000000000000000</double>
+               <double>1000.000000000000000</double>
               </property>
               <property name="value">
                <double>1.000000000000000</double>
@@ -451,10 +451,10 @@ QSlider::handle:horizontal:pressed {
 }</string>
               </property>
               <property name="minimum">
-               <number>-999900</number>
+               <number>-99900</number>
               </property>
               <property name="maximum">
-               <number>999900</number>
+               <number>99900</number>
               </property>
               <property name="pageStep">
                <number>100</number>
@@ -475,7 +475,7 @@ QSlider::handle:horizontal:pressed {
                <enum>QSlider::TicksBothSides</enum>
               </property>
               <property name="tickInterval">
-               <number>33300</number>
+               <number>3330</number>
               </property>
              </widget>
             </item>

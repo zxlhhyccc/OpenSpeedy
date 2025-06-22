@@ -106,7 +106,7 @@
       <double>0.010000000000000</double>
      </property>
      <property name="maximum">
-      <double>10000.000000000000000</double>
+      <double>1000.000000000000000</double>
      </property>
      <property name="value">
       <double>50.000000000000000</double>
@@ -211,7 +211,7 @@
       <double>0.010000000000000</double>
      </property>
      <property name="maximum">
-      <double>10000.000000000000000</double>
+      <double>1000.000000000000000</double>
      </property>
      <property name="value">
       <double>30.000000000000000</double>
@@ -250,7 +250,7 @@
       <double>0.010000000000000</double>
      </property>
      <property name="maximum">
-      <double>10000.000000000000000</double>
+      <double>1000.000000000000000</double>
      </property>
      <property name="value">
       <double>20.000000000000000</double>
@@ -278,7 +278,7 @@
       <double>0.010000000000000</double>
      </property>
      <property name="maximum">
-      <double>10000.000000000000000</double>
+      <double>1000.000000000000000</double>
      </property>
      <property name="stepType">
       <enum>QAbstractSpinBox::DefaultStepType</enum>
@@ -306,7 +306,7 @@
       <double>0.010000000000000</double>
      </property>
      <property name="maximum">
-      <double>10000.000000000000000</double>
+      <double>1000.000000000000000</double>
      </property>
      <property name="value">
       <double>40.000000000000000</double>
@@ -334,7 +334,7 @@
       <number>1</number>
      </property>
      <property name="maximum">
-      <number>100000</number>
+      <number>1000</number>
      </property>
     </widget>
    </item>
@@ -344,7 +344,7 @@
       <number>1</number>
      </property>
      <property name="maximum">
-      <number>100000</number>
+      <number>1000</number>
      </property>
     </widget>
    </item>
