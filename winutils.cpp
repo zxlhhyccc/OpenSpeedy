@@ -630,7 +630,7 @@ bool winutils::checkDllExist(DWORD processId, const QString &dllPath)
 
             // 获取模块的完整路径
             if (GetModuleFileNameExW(hProcess, hModules[i], moduleName,
-                                     sizeof(moduleName) / sizeof(WCHAR)))
+                                     sizeof(moduleName) / sizeof(TCHAR)))
             {
 #ifdef UNICODE
                 bool isDll = dllPath.toStdWString() == moduleName;

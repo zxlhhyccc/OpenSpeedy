@@ -651,28 +651,28 @@ Origin</translation>
         <translation>🪟 Operate System</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="80"/>
-        <location filename="mainwindow.cpp" line="85"/>
+        <location filename="mainwindow.cpp" line="79"/>
+        <location filename="mainwindow.cpp" line="84"/>
         <source>%1倍</source>
         <translation>%1 times</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="81"/>
-        <location filename="mainwindow.cpp" line="86"/>
+        <location filename="mainwindow.cpp" line="80"/>
+        <location filename="mainwindow.cpp" line="85"/>
         <source>✖️%1倍</source>
         <translation>✖️%1 times</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="365"/>
-        <location filename="mainwindow.cpp" line="378"/>
-        <location filename="mainwindow.cpp" line="391"/>
+        <location filename="mainwindow.cpp" line="354"/>
+        <location filename="mainwindow.cpp" line="367"/>
+        <location filename="mainwindow.cpp" line="380"/>
         <source>提示</source>
         <translation>Tips</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="366"/>
-        <location filename="mainwindow.cpp" line="379"/>
-        <location filename="mainwindow.cpp" line="392"/>
+        <location filename="mainwindow.cpp" line="355"/>
+        <location filename="mainwindow.cpp" line="368"/>
+        <location filename="mainwindow.cpp" line="381"/>
         <source>直到重启应用后，界面的语言才会生效</source>
         <translation>The UI language will only take effect after restarting the application.</translation>
     </message>
