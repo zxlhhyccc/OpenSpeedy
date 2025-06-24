@@ -119,6 +119,8 @@ If you encounter any issues during use, feel free to provide feedback via:
 <img width="30%" src="https://github.com/user-attachments/assets/9fa1b998-6030-42ee-a5ae-1753927f57d8">
 
 # 🎁 Sponosor
+If you find the OpenSpeedy project helpful, you can buy me a coffee~ ☕️
+
 <img width="30%" src="https://github.com/user-attachments/assets/83410e8d-329a-4785-8e3e-65905bebd4b6">
 
 # 📜 License
