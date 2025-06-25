@@ -474,12 +474,13 @@ DetourGetSystemTimePreciseAsFileTime(LPFILETIME lpSystemTimeAsFileTime)
     FILETIME ftNow = { 0 };
     pfnKernelGetSystemTimePreciseAsFileTime(&ftNow);
     prevcallKernelGetSystemTimePreciseAsFileTime.store(ftNow);
-    ULARGE_INTEGER ulNow = { ftNow.dwLowDateTime, ftNow.dwHighDateTime };
+    ULARGE_INTEGER ulNow = { ftNow.dwLowDateTime,
+                             ftNow.dwHighDateTime
+    };
     ULONGLONG delta = SpeedFactor() * (ulNow.QuadPart - baselineKernel.QuadPart);
     ULARGE_INTEGER ulRtn = { 0 };
     ulRtn.QuadPart = baselineDetour.QuadPart + delta;
-    prevcallDetourGetSystemTimePreciseAsFileTime.store(
-        { ulRtn.LowPart, ulRtn.HighPart });
+    prevcallDetourGetSystemTimePreciseAsFileTime.store({ ulRtn.LowPart, ulRtn.HighPart });
     (*lpSystemTimeAsFileTime) = { ulRtn.LowPart, ulRtn.HighPart };
 }
 
