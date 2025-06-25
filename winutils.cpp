@@ -29,7 +29,9 @@ static QSet<std::wstring> systemNames = {
     L"RuntimeBroker.exe",
 };
 
-winutils::winutils() {}
+winutils::winutils()
+{
+}
 
 bool winutils::injectDll(DWORD processId, const QString &dllPath)
 {
@@ -258,7 +260,7 @@ bool winutils::injectDllViaAPCA(DWORD processId, const QString &dllPath)
 {
     HANDLE hProcess =
         OpenProcess(PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ |
-                        PROCESS_QUERY_INFORMATION,
+                    PROCESS_QUERY_INFORMATION,
                     FALSE, processId);
 
     if (!hProcess)
@@ -330,11 +332,11 @@ bool winutils::injectDllViaAPCA(DWORD processId, const QString &dllPath)
     HANDLE hThread = OpenThread(THREAD_SET_CONTEXT, FALSE, threadId);
     if (hThread)
     {
-        // 将LoadLibraryW作为APC函数加入队列
-        PostThreadMessageW(threadId, WM_PAINT, 0, 0);
+        // 将LoadLibraryA作为APC函数加入队列
+        PostThreadMessageA(threadId, WM_PAINT, 0, 0);
         DWORD result =
             QueueUserAPC((PAPCFUNC)pLoadLibraryA, hThread, (ULONG_PTR)pDllPath);
-        PostThreadMessageW(threadId, WM_PAINT, 0, 0);
+        PostThreadMessageA(threadId, WM_PAINT, 0, 0);
         if (result != 0)
         {
             success = true;
@@ -363,7 +365,7 @@ bool winutils::injectDllViaAPCW(DWORD processId, const QString &dllPath)
 {
     HANDLE hProcess =
         OpenProcess(PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ |
-                        PROCESS_QUERY_INFORMATION,
+                    PROCESS_QUERY_INFORMATION,
                     FALSE, processId);
 
     if (!hProcess)
@@ -488,16 +490,16 @@ bool winutils::injectDllViaWHKA(DWORD processId, const QString &dllPath)
         return false;
 
     // 4. 安装Hook
-    HHOOK hHook = SetWindowsHookExW(WH_CBT,   // Hook类型
+    HHOOK hHook = SetWindowsHookExA(WH_CBT,   // Hook类型
                                     hookProc, // Hook过程
                                     hMod,     // DLL模块句柄
                                     threadId  // 目标线程ID
-    );
+                                    );
 
     if (!hHook)
         return false;
     // 5. 触发Hook执行
-    PostThreadMessage(threadId, WM_NULL, 0, 0);
+    PostThreadMessageA(threadId, WM_NULL, 0, 0);
     Sleep(5000);
     UnhookWindowsHookEx(hHook);
 
@@ -532,12 +534,12 @@ bool winutils::injectDllViaWHKW(DWORD processId, const QString &dllPath)
                                     hookProc, // Hook过程
                                     hMod,     // DLL模块句柄
                                     threadId  // 目标线程ID
-    );
+                                    );
 
     if (!hHook)
         return false;
     // 5. 触发Hook执行
-    PostThreadMessage(threadId, WM_NULL, 0, 0);
+    PostThreadMessageW(threadId, WM_NULL, 0, 0);
     Sleep(5000);
     UnhookWindowsHookEx(hHook);
 
@@ -587,7 +589,7 @@ bool winutils::unhookDll(DWORD processId, const QString &dllPath)
                     if (!hThread)
                     {
                         qDebug() << "Failed to create remote thread for "
-                                    "FreeLibrary:"
+                            "FreeLibrary:"
                                  << GetLastError();
                         CloseHandle(hProcess);
                         return false;
@@ -703,7 +705,7 @@ bool winutils::isAutoStartEnabled(const QString &appName)
 
 typedef struct _OSVERSIONINFOEXW RTL_OSVERSIONINFOEXW, *PRTL_OSVERSIONINFOEXW;
 typedef LONG NTSTATUS;
-typedef NTSTATUS(WINAPI *fnRtlGetVersion)(PRTL_OSVERSIONINFOEXW);
+typedef NTSTATUS (WINAPI *fnRtlGetVersion)(PRTL_OSVERSIONINFOEXW);
 
 BOOL winutils::getWindowsVersion(DWORD *majorVersion,
                                  DWORD *minorVersion,
