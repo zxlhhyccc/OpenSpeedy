@@ -30,20 +30,27 @@ std::wstring
 GetCurrentProcessName();
 
 std::wstring
-GetProcessFileMapName(const std::wstring& processName);
-
-SPEEDPATCH_API void
-SetProccessStatus(const std::wstring& processName, BOOL status);
+GetProcessFileMapName(
+    DWORD processId
+    );
 
 extern "C"
 {
-    SPEEDPATCH_API void Init();
-    SPEEDPATCH_API void Clean();
-    SPEEDPATCH_API BOOL GetStatus();
-    SPEEDPATCH_API void ChangeSpeed(double factor_);
-    SPEEDPATCH_API LRESULT CALLBACK HookProc(int nCode,
-                                             WPARAM wParam,
-                                             LPARAM lParam);
+SPEEDPATCH_API void Init();
+SPEEDPATCH_API void Clean();
+SPEEDPATCH_API BOOL GetStatus();
+SPEEDPATCH_API void SetProcessStatus(
+    DWORD processId,
+    BOOL  status
+    );
+SPEEDPATCH_API void ChangeSpeed(
+    double factor_
+    );
+SPEEDPATCH_API LRESULT CALLBACK HookProc(
+    int    nCode,
+    WPARAM wParam,
+    LPARAM lParam
+    );
 }
 
 #endif // SPEEDPATCH_H

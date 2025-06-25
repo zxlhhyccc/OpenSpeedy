@@ -19,22 +19,14 @@ handleInject(int processId, QString dllPath)
 {
     qDebug() << "执行 inject，进程ID:" << processId;
     winutils::injectDll(processId, dllPath);
-    QString processName = winutils::getProcessNameById(processId);
-    if (processName == "")
-        return;
-
-    SetProccessStatus(processName.toStdWString(), true);
+    SetProcessStatus(processId, true);
 }
 
 void
 handleUnhook(int processId, QString dllPath)
 {
     qDebug() << "执行 unhook，进程ID:" << processId;
-    QString processName = winutils::getProcessNameById(processId);
-    if (processName == "")
-        return;
-
-    SetProccessStatus(processName.toStdWString(), false);
+    SetProcessStatus(processId, false);
 }
 
 void
