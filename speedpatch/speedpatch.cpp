@@ -37,10 +37,18 @@ static HANDLE hShare;
 static bool* pEnable;
 
 typedef VOID (WINAPI* SLEEP) (DWORD);
-typedef UINT_PTR (WINAPI* SETTIMER) (HWND, UINT_PTR, UINT, TIMERPROC);
+typedef UINT_PTR (WINAPI* SETTIMER) (HWND,
+                                     UINT_PTR,
+                                     UINT,
+                                     TIMERPROC
+                                     );
 typedef DWORD (WINAPI* TIMEGETTIME) (VOID);
-typedef MMRESULT (
-    WINAPI* TIMESETEVENT) (UINT, UINT, LPTIMECALLBACK, DWORD_PTR, UINT);
+typedef MMRESULT (WINAPI* TIMESETEVENT) (UINT,
+                                         UINT,
+                                         LPTIMECALLBACK,
+                                         DWORD_PTR,
+                                         UINT
+                                         );
 
 typedef LONG (WINAPI* GETMESSAGETIME) (VOID);
 typedef DWORD (WINAPI* GETTICKCOUNT) (VOID);
@@ -96,17 +104,25 @@ void Init()
 {
     DWORD processId = GetCurrentProcessId();
     std::wstring filemapName = GetProcessFileMapName(processId);
-    hShare = CreateFileMapping(INVALID_HANDLE_VALUE,
-                               NULL,
-                               PAGE_READWRITE,
-                               0,
-                               sizeof (bool),
-                               filemapName.c_str());
+    hShare = CreateFileMapping(
+        INVALID_HANDLE_VALUE,
+        NULL,
+        PAGE_READWRITE,
+        0,
+        sizeof (bool),
+        filemapName.c_str()
+        );
     if (hShare == NULL)
     {
         return;
     }
-    pEnable = (bool*) MapViewOfFile(hShare, FILE_MAP_ALL_ACCESS, 0, 0, sizeof (bool));
+    pEnable = (bool*) MapViewOfFile(
+        hShare,
+        FILE_MAP_ALL_ACCESS,
+        0,
+        0,
+        sizeof (bool)
+        );
     *pEnable = true;
 }
 
@@ -127,12 +143,19 @@ BOOL GetStatus()
 void SetProcessStatus(DWORD processId, BOOL status)
 {
     std::wstring filemapName = GetProcessFileMapName(processId);
-    HANDLE hShare_ = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, filemapName.c_str());
+    HANDLE hShare_ = OpenFileMapping(FILE_MAP_ALL_ACCESS,
+                                     FALSE,
+                                     filemapName.c_str()
+                                     );
     if (hShare_ == NULL)
     {
         return;
     }
-    bool* pStatus = (bool*) MapViewOfFile(hShare_, FILE_MAP_ALL_ACCESS, 0, 0, sizeof (bool));
+    bool* pStatus = (bool*) MapViewOfFile(hShare_,
+                                          FILE_MAP_ALL_ACCESS,
+                                          0,
+                                          0,
+                                          sizeof (bool));
     *pStatus = status;
     UnmapViewOfFile(pStatus);
     CloseHandle(hShare_);
@@ -486,7 +509,9 @@ VOID MH_UNHOOK(T* pTarget)
     MH_RemoveHook(reinterpret_cast<LPVOID> (pTarget));
 }
 
-LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK HookProc(int    nCode,
+                          WPARAM wParam,
+                          LPARAM lParam)
 {
     if (nCode >= 0)
     {
