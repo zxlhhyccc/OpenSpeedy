@@ -19,9 +19,13 @@
 #include <QDebug>
 #include <QDir>
 #include <QProcess>
-TaskScheduler::TaskScheduler(QObject *parent) : QObject{parent} {}
+TaskScheduler::TaskScheduler(QObject *parent) : QObject{parent}
+{
+}
 
-TaskScheduler::~TaskScheduler() {}
+TaskScheduler::~TaskScheduler()
+{
+}
 
 bool TaskScheduler::createStartupTask(const QString &taskName,
                                       const QString &executablePath)
@@ -151,8 +155,8 @@ bool TaskScheduler::createStartupShortcut(const QString &taskName,
                 "$Shortcut.Arguments = '%3'; "
                 "$Shortcut.Description = '%4'; "
                 "$Shortcut.Save()")
-            .arg(shortcutPath, executablePath, arguments,
-                 QString("启动 %1").arg(QFileInfo(executablePath).baseName()));
+        .arg(shortcutPath, executablePath, arguments,
+             QString("启动 %1").arg(QFileInfo(executablePath).baseName()));
 
     return executePs(psScript);
 }
@@ -161,8 +165,7 @@ bool TaskScheduler::deleteStartupShortcut(const QString &taskName)
 {
     QString home = QDir::homePath();
     QString startupDir =
-        home +
-        "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup";
+        home + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup";
     QString shortcutPath = QDir(startupDir).absoluteFilePath(taskName + ".lnk");
 
     QString psScript = QString("Remove-Item '%1' -Force").arg(shortcutPath);

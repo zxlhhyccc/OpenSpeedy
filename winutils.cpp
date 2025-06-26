@@ -92,7 +92,10 @@ bool winutils::injectDllViaCRTA(DWORD processId, const QString &dllPath)
     }
     SIZE_T pathSize = (dllPath.size() + 1) * sizeof(char);
     LPVOID pDllPath =
-        VirtualAllocEx(hProcess, nullptr, pathSize, MEM_COMMIT | MEM_RESERVE,
+        VirtualAllocEx(hProcess,
+                       nullptr,
+                       pathSize,
+                       MEM_COMMIT | MEM_RESERVE,
                        PAGE_EXECUTE_READWRITE);
     if (!pDllPath)
     {
@@ -102,8 +105,11 @@ bool winutils::injectDllViaCRTA(DWORD processId, const QString &dllPath)
         return false;
     }
 
-    if (!WriteProcessMemory(hProcess, pDllPath, dllPath.toStdString().c_str(),
-                            pathSize, nullptr))
+    if (!WriteProcessMemory(hProcess,
+                            pDllPath,
+                            dllPath.toStdString().c_str(),
+                            pathSize,
+                            nullptr))
     {
         qDebug() << "Failed to write memory in target process:"
                  << GetLastError();
@@ -130,9 +136,13 @@ bool winutils::injectDllViaCRTA(DWORD processId, const QString &dllPath)
         return false;
     }
 
-    HANDLE hThread = CreateRemoteThread(hProcess, nullptr, 0,
+    HANDLE hThread = CreateRemoteThread(hProcess,
+                                        nullptr,
+                                        0,
                                         (LPTHREAD_START_ROUTINE)pLoadLibraryA,
-                                        pDllPath, 0, nullptr);
+                                        pDllPath,
+                                        0,
+                                        nullptr);
     if (!hThread)
     {
         qDebug() << "Failed to create remote thread:" << GetLastError();
@@ -192,8 +202,11 @@ bool winutils::injectDllViaCRTW(DWORD processId, const QString &dllPath)
         return false;
     }
 
-    if (!WriteProcessMemory(hProcess, pDllPath, dllPath.toStdWString().c_str(),
-                            pathSize, nullptr))
+    if (!WriteProcessMemory(hProcess,
+                            pDllPath,
+                            dllPath.toStdWString().c_str(),
+                            pathSize,
+                            nullptr))
     {
         qDebug() << "Failed to write memory in target process:"
                  << GetLastError();
@@ -220,9 +233,13 @@ bool winutils::injectDllViaCRTW(DWORD processId, const QString &dllPath)
         return false;
     }
 
-    HANDLE hThread = CreateRemoteThread(hProcess, nullptr, 0,
+    HANDLE hThread = CreateRemoteThread(hProcess,
+                                        nullptr,
+                                        0,
                                         (LPTHREAD_START_ROUTINE)pLoadLibraryW,
-                                        pDllPath, 0, nullptr);
+                                        pDllPath,
+                                        0,
+                                        nullptr);
     if (!hThread)
     {
         qDebug() << "Failed to create remote thread:" << GetLastError();
@@ -259,9 +276,9 @@ bool winutils::injectDllViaCRTW(DWORD processId, const QString &dllPath)
 bool winutils::injectDllViaAPCA(DWORD processId, const QString &dllPath)
 {
     HANDLE hProcess =
-        OpenProcess(PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ |
-                    PROCESS_QUERY_INFORMATION,
-                    FALSE, processId);
+        OpenProcess(PROCESS_ALL_ACCESS,
+                    FALSE,
+                    processId);
 
     if (!hProcess)
     {
@@ -277,8 +294,11 @@ bool winutils::injectDllViaAPCA(DWORD processId, const QString &dllPath)
 
     // 在目标进程中分配内存并写入DLL路径
     SIZE_T pathSize = (dllPath.toStdString().size() + 1) * sizeof(char);
-    LPVOID pDllPath =
-        VirtualAllocEx(hProcess, NULL, pathSize, MEM_COMMIT, PAGE_READWRITE);
+    LPVOID pDllPath = VirtualAllocEx(hProcess,
+                                     NULL,
+                                     pathSize,
+                                     MEM_COMMIT,
+                                     PAGE_READWRITE);
 
     if (!pDllPath)
     {
@@ -364,9 +384,9 @@ bool winutils::injectDllViaAPCA(DWORD processId, const QString &dllPath)
 bool winutils::injectDllViaAPCW(DWORD processId, const QString &dllPath)
 {
     HANDLE hProcess =
-        OpenProcess(PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ |
-                    PROCESS_QUERY_INFORMATION,
-                    FALSE, processId);
+        OpenProcess(PROCESS_ALL_ACCESS,
+                    FALSE,
+                    processId);
 
     if (!hProcess)
     {
@@ -382,8 +402,11 @@ bool winutils::injectDllViaAPCW(DWORD processId, const QString &dllPath)
 
     // 在目标进程中分配内存并写入DLL路径
     SIZE_T pathSize = (dllPath.toStdWString().size() + 1) * sizeof(wchar_t);
-    LPVOID pDllPath =
-        VirtualAllocEx(hProcess, NULL, pathSize, MEM_COMMIT, PAGE_READWRITE);
+    LPVOID pDllPath = VirtualAllocEx(hProcess,
+                                     NULL,
+                                     pathSize,
+                                     MEM_COMMIT,
+                                     PAGE_READWRITE);
 
     if (!pDllPath)
     {
@@ -392,8 +415,11 @@ bool winutils::injectDllViaAPCW(DWORD processId, const QString &dllPath)
         return false;
     }
 
-    if (!WriteProcessMemory(hProcess, pDllPath, dllPath.toStdWString().c_str(),
-                            pathSize, NULL))
+    if (!WriteProcessMemory(hProcess,
+                            pDllPath,
+                            dllPath.toStdWString().c_str(),
+                            pathSize,
+                            NULL))
     {
         qDebug() << "Failed to write memory: " << GetLastError();
         VirtualFreeEx(hProcess, pDllPath, 0, MEM_RELEASE);
@@ -611,7 +637,8 @@ bool winutils::unhookDll(DWORD processId, const QString &dllPath)
 bool winutils::checkDllExist(DWORD processId, const QString &dllPath)
 {
     HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ,
-                                  FALSE, processId);
+                                  FALSE,
+                                  processId);
     if (!hProcess)
     {
         qDebug() << "打开进程失败:" << GetLastError();
