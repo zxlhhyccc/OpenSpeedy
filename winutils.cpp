@@ -294,8 +294,11 @@ bool winutils::injectDllViaAPCA(DWORD processId, const QString &dllPath)
 
     // 在目标进程中分配内存并写入DLL路径
     SIZE_T pathSize = (dllPath.toStdString().size() + 1) * sizeof(char);
-    LPVOID pDllPath =
-        VirtualAllocEx(hProcess, NULL, pathSize, MEM_COMMIT, PAGE_READWRITE);
+    LPVOID pDllPath = VirtualAllocEx(hProcess,
+                                     NULL,
+                                     pathSize,
+                                     MEM_COMMIT,
+                                     PAGE_READWRITE);
 
     if (!pDllPath)
     {
@@ -399,8 +402,11 @@ bool winutils::injectDllViaAPCW(DWORD processId, const QString &dllPath)
 
     // 在目标进程中分配内存并写入DLL路径
     SIZE_T pathSize = (dllPath.toStdWString().size() + 1) * sizeof(wchar_t);
-    LPVOID pDllPath =
-        VirtualAllocEx(hProcess, NULL, pathSize, MEM_COMMIT, PAGE_READWRITE);
+    LPVOID pDllPath = VirtualAllocEx(hProcess,
+                                     NULL,
+                                     pathSize,
+                                     MEM_COMMIT,
+                                     PAGE_READWRITE);
 
     if (!pDllPath)
     {
@@ -409,8 +415,11 @@ bool winutils::injectDllViaAPCW(DWORD processId, const QString &dllPath)
         return false;
     }
 
-    if (!WriteProcessMemory(hProcess, pDllPath, dllPath.toStdWString().c_str(),
-                            pathSize, NULL))
+    if (!WriteProcessMemory(hProcess,
+                            pDllPath,
+                            dllPath.toStdWString().c_str(),
+                            pathSize,
+                            NULL))
     {
         qDebug() << "Failed to write memory: " << GetLastError();
         VirtualFreeEx(hProcess, pDllPath, 0, MEM_RELEASE);
