@@ -914,43 +914,43 @@
     </message>
     <message>
         <location filename="processmonitor.cpp" line="236"/>
-        <location filename="processmonitor.cpp" line="289"/>
+        <location filename="processmonitor.cpp" line="290"/>
         <source>高</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="processmonitor.cpp" line="239"/>
-        <location filename="processmonitor.cpp" line="292"/>
+        <location filename="processmonitor.cpp" line="293"/>
         <source>中</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="processmonitor.cpp" line="242"/>
-        <location filename="processmonitor.cpp" line="295"/>
+        <location filename="processmonitor.cpp" line="296"/>
         <source>低</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="processmonitor.cpp" line="245"/>
-        <location filename="processmonitor.cpp" line="298"/>
+        <location filename="processmonitor.cpp" line="299"/>
         <source>实时</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="processmonitor.cpp" line="248"/>
-        <location filename="processmonitor.cpp" line="301"/>
+        <location filename="processmonitor.cpp" line="302"/>
         <source>未知</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="398"/>
-        <location filename="processmonitor.cpp" line="409"/>
+        <location filename="processmonitor.cpp" line="399"/>
+        <location filename="processmonitor.cpp" line="410"/>
         <source>正常</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="403"/>
-        <location filename="processmonitor.cpp" line="414"/>
+        <location filename="processmonitor.cpp" line="404"/>
+        <location filename="processmonitor.cpp" line="415"/>
         <source>异常退出</source>
         <translation type="unfinished"></translation>
     </message>

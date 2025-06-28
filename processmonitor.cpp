@@ -27,17 +27,17 @@
 #include <QtConcurrent/QtConcurrent>
 #include <QtWinExtras/QtWin>
 #include <psapi.h>
-ProcessMonitor::ProcessMonitor(QSettings* settings,
+ProcessMonitor::ProcessMonitor(QSettings*   settings,
                                QTreeWidget* treeWidget,
-                               QLabel* treeStatusLabel,
-                               QLabel* injector32StatusLabel,
-                               QLabel* injector64StatusLabel,
-                               QObject* parent)
-  : m_treeWidget(treeWidget)
-  , m_treeStatusLabel(treeStatusLabel)
-  , m_injector32StatusLabel(injector32StatusLabel)
-  , m_injector64StatusLabel(injector64StatusLabel)
-  , m_settings(settings)
+                               QLabel*      treeStatusLabel,
+                               QLabel*      injector32StatusLabel,
+                               QLabel*      injector64StatusLabel,
+                               QObject*     parent)
+    : m_treeWidget(treeWidget)
+    , m_treeStatusLabel(treeStatusLabel)
+    , m_injector32StatusLabel(injector32StatusLabel)
+    , m_injector64StatusLabel(injector64StatusLabel)
+    , m_settings(settings)
 {
     m_treeWidget->header()->setMinimumHeight(40);
     m_treeWidget->setColumnWidth(0, 300);
@@ -80,8 +80,8 @@ ProcessMonitor::refresh()
     {
         update(processList);
         m_treeStatusLabel->setText(QString(tr("搜索到%1个进程, 已过滤展示%2个"))
-                                     .arg(processList.size())
-                                     .arg(processList.size()));
+                                   .arg(processList.size())
+                                   .arg(processList.size()));
     }
     else
     {
@@ -93,8 +93,8 @@ ProcessMonitor::refresh()
         }
         update(filtered);
         m_treeStatusLabel->setText(QString(tr("搜索到%1个进程, 已过滤展示%2个"))
-                                     .arg(processList.size())
-                                     .arg(filtered.size()));
+                                   .arg(processList.size())
+                                   .arg(filtered.size()));
     }
 }
 
@@ -152,7 +152,7 @@ void
 ProcessMonitor::init()
 {
     QStringList targetNames =
-      m_settings->value(CONFIG_TARGETNAMES_KEY).toStringList();
+        m_settings->value(CONFIG_TARGETNAMES_KEY).toStringList();
     m_targetNames = QSet<QString>(targetNames.begin(), targetNames.end());
 }
 
@@ -232,21 +232,21 @@ ProcessMonitor::update(const QList<ProcessInfo>& processList)
             QString priority;
             switch (info.priorityClass)
             {
-                case HIGH_PRIORITY_CLASS:
-                    priority = tr("高");
-                    break;
-                case NORMAL_PRIORITY_CLASS:
-                    priority = tr("中");
-                    break;
-                case IDLE_PRIORITY_CLASS:
-                    priority = tr("低");
-                    break;
-                case REALTIME_PRIORITY_CLASS:
-                    priority = tr("实时");
-                    break;
-                default:
-                    priority = tr("未知");
-                    break;
+            case HIGH_PRIORITY_CLASS:
+                priority = tr("高");
+                break;
+            case NORMAL_PRIORITY_CLASS:
+                priority = tr("中");
+                break;
+            case IDLE_PRIORITY_CLASS:
+                priority = tr("低");
+                break;
+            case REALTIME_PRIORITY_CLASS:
+                priority = tr("实时");
+                break;
+            default:
+                priority = tr("未知");
+                break;
             }
             item->setText(4, priority);
             if (m_targetNames.contains(info.name))
@@ -270,6 +270,7 @@ ProcessMonitor::update(const QList<ProcessInfo>& processList)
             QTreeWidgetItem* item = new SortTreeWidgetItem();
 
             item->setText(0, info.name);
+            item->setData(0, Qt::UserRole, info.name.toLower());
             item->setText(1, QString::number(info.pid));
             item->setData(1, Qt::UserRole, (long long)info.pid);
             item->setText(2,
@@ -285,21 +286,21 @@ ProcessMonitor::update(const QList<ProcessInfo>& processList)
             QString priority;
             switch (info.priorityClass)
             {
-                case HIGH_PRIORITY_CLASS:
-                    priority = tr("高");
-                    break;
-                case NORMAL_PRIORITY_CLASS:
-                    priority = tr("中");
-                    break;
-                case IDLE_PRIORITY_CLASS:
-                    priority = tr("低");
-                    break;
-                case REALTIME_PRIORITY_CLASS:
-                    priority = tr("实时");
-                    break;
-                default:
-                    priority = tr("未知");
-                    break;
+            case HIGH_PRIORITY_CLASS:
+                priority = tr("高");
+                break;
+            case NORMAL_PRIORITY_CLASS:
+                priority = tr("中");
+                break;
+            case IDLE_PRIORITY_CLASS:
+                priority = tr("低");
+                break;
+            case REALTIME_PRIORITY_CLASS:
+                priority = tr("实时");
+                break;
+            default:
+                priority = tr("未知");
+                break;
             }
             item->setText(4, priority);
             item->setCheckState(5, Qt::Unchecked);
@@ -359,10 +360,10 @@ ProcessMonitor::startBridge32()
     connect(m_bridge32,
             &QProcess::readyReadStandardOutput,
             [&]()
-            {
-                QByteArray data = m_bridge32->readAllStandardOutput();
-                qDebug() << "收到输出:" << QString(data).trimmed();
-            });
+    {
+        QByteArray data = m_bridge32->readAllStandardOutput();
+        qDebug() << "收到输出:" << QString(data).trimmed();
+    });
 }
 
 void
@@ -383,10 +384,10 @@ ProcessMonitor::startBridge64()
     connect(m_bridge64,
             &QProcess::readyReadStandardOutput,
             [&]()
-            {
-                QByteArray data = m_bridge64->readAllStandardOutput();
-                qDebug() << "收到输出:" << QString(data).trimmed();
-            });
+    {
+        QByteArray data = m_bridge64->readAllStandardOutput();
+        qDebug() << "收到输出:" << QString(data).trimmed();
+    });
 }
 
 void
@@ -463,7 +464,7 @@ ProcessMonitor::getDefaultIcon(const QString& processName)
                           &sfi,
                           sizeof(SHFILEINFO),
                           SHGFI_USEFILEATTRIBUTES | SHGFI_ICON |
-                            SHGFI_SMALLICON))
+                          SHGFI_SMALLICON))
         {
             // 将HICON转换为QIcon
             icon = QtWin::fromHICON(sfi.hIcon);
@@ -483,7 +484,7 @@ ProcessMonitor::getDefaultIcon(const QString& processName)
                           &sfi,
                           sizeof(SHFILEINFO),
                           SHGFI_USEFILEATTRIBUTES | SHGFI_ICON |
-                            SHGFI_SMALLICON))
+                          SHGFI_SMALLICON))
         {
             // 将HICON转换为QIcon
             icon = QtWin::fromHICON(sfi.hIcon);
@@ -499,7 +500,7 @@ QIcon
 ProcessMonitor::getProcessIcon(QString processPath)
 {
     int lastSlashPos =
-      std::max(processPath.lastIndexOf('/'), processPath.lastIndexOf('\\'));
+        std::max(processPath.lastIndexOf('/'), processPath.lastIndexOf('\\'));
     QString processName;
     if (lastSlashPos == -1)
     {
@@ -533,7 +534,7 @@ ProcessMonitor::getProcessIcon(QString processPath)
     }
 
     HICON hIcon =
-      ExtractIconW(nullptr, reinterpret_cast<LPCWSTR>(processPath.utf16()), 0);
+        ExtractIconW(nullptr, reinterpret_cast<LPCWSTR>(processPath.utf16()), 0);
     if (hIcon)
     {
         QIcon icon = QtWin::fromHICON(hIcon);

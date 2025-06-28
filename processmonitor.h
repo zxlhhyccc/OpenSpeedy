@@ -33,125 +33,139 @@
 
 class ProcessMonitor : public QObject
 {
-    Q_OBJECT
-  public:
-    explicit ProcessMonitor(QSettings* settings,
-                            QTreeWidget* treeWidget,
-                            QLabel* treeStatusLabel,
-                            QLabel* injector32StatusLabel,
-                            QLabel* injector64StatusLabel,
+Q_OBJECT
+public:
+explicit ProcessMonitor(QSettings*   settings,
+                        QTreeWidget* treeWidget,
+                        QLabel*      treeStatusLabel,
+                        QLabel*      injector32StatusLabel,
+                        QLabel*      injector64StatusLabel,
 
-                            QObject* parent = nullptr);
-    ~ProcessMonitor();
+                        QObject*     parent = nullptr);
+~ProcessMonitor();
 
-    // 设置刷新间隔（毫秒）
-    void setInterval(int msec);
-    // 设置过滤
-    void setFilter(QString processName);
+// 设置刷新间隔（毫秒）
+void setInterval(int msec);
+// 设置过滤
+void setFilter(QString processName);
 
-    void changeSpeed(double factor);
+void changeSpeed(double factor);
 
-  public slots:
-    // 定时刷新槽函数
-    void refresh();
+public slots:
+// 定时刷新槽函数
+void refresh();
 
-    void start();
+void start();
 
-  private slots:
-    void onItemChanged(QTreeWidgetItem* item, int column);
+private slots:
+void onItemChanged(QTreeWidgetItem* item, int column);
 
-  private:
-    QTreeWidget* m_treeWidget;
-    QLabel* m_treeStatusLabel;
-    QLabel* m_injector32StatusLabel;
-    QLabel* m_injector64StatusLabel;
-    QString m_filter;
-    QTimer* m_timer = nullptr;
-    QString m_dllPath;
+private:
+QTreeWidget* m_treeWidget;
+QLabel* m_treeStatusLabel;
+QLabel* m_injector32StatusLabel;
+QLabel* m_injector64StatusLabel;
+QString m_filter;
+QTimer* m_timer = nullptr;
+QString m_dllPath;
 
-    QProcess* m_bridge32;
-    QProcess* m_bridge64;
+QProcess* m_bridge32;
+QProcess* m_bridge64;
 
-    QSettings* m_settings;
+QSettings* m_settings;
 
-    // 图标缓存
-    QHash<QString, QIcon> m_iconCache;
+// 图标缓存
+QHash<QString, QIcon> m_iconCache;
 
-    // 存储进程ID到TreeWidgetItem的映射
-    QMap<DWORD, QTreeWidgetItem*> m_processItems;
+// 存储进程ID到TreeWidgetItem的映射
+QMap<DWORD, QTreeWidgetItem*> m_processItems;
 
-    // 存储需要加速的进程
-    QSet<QString> m_targetNames;
+// 存储需要加速的进程
+QSet<QString> m_targetNames;
 
-    void init();
+void init();
 
-    void dump();
+void dump();
 
-    void update(const QList<ProcessInfo>& processList);
+void update(const QList<ProcessInfo>& processList);
 
-    void injectDll(DWORD processId, bool is64Bit);
+void injectDll(DWORD processId, bool is64Bit);
 
-    void unhookDll(DWORD processId, bool is64Bit);
+void unhookDll(DWORD processId, bool is64Bit);
 
-    void startBridge32();
+void startBridge32();
 
-    void startBridge64();
+void startBridge64();
 
-    void healthcheckBridge();
+void healthcheckBridge();
 
-    void terminalBridge();
+void terminalBridge();
 
-    // 获取进程图标
-    static QIcon getProcessIcon(QString processPath);
+// 获取进程图标
+static QIcon getProcessIcon(QString processPath);
 
-    static QIcon getDefaultIcon(const QString& processName);
+static QIcon getDefaultIcon(const QString& processName);
 
-    QIcon getProcessIconCached(DWORD proccessId);
+QIcon getProcessIconCached(DWORD proccessId);
 };
 
 class SortTreeWidgetItem : public QTreeWidgetItem
 {
-  public:
-    SortTreeWidgetItem(QTreeWidget* parent = nullptr)
-      : QTreeWidgetItem(parent)
-    {
-    }
+public:
+SortTreeWidgetItem(QTreeWidget* parent = nullptr)
+    : QTreeWidgetItem(parent)
+{
+}
 
-    bool operator<(const QTreeWidgetItem& other) const override
-    {
-        int column = treeWidget()->sortColumn();
+bool operator<(const QTreeWidgetItem& other) const override
+{
+    int column = treeWidget()->sortColumn();
 
-        QVariant ldata = this->data(column, Qt::UserRole);
-        QVariant rdata = other.data(column, Qt::UserRole);
-        if (ldata.isValid() && rdata.isValid())
+    QVariant ldata = this->data(column, Qt::UserRole);
+    QVariant rdata = other.data(column, Qt::UserRole);
+    if (ldata.isValid() && rdata.isValid())
+    {
+        if (ldata.type() == QVariant::UInt && rdata.type() == QVariant::UInt)
         {
             return ldata.toUInt() < rdata.toUInt();
         }
         else
         {
-            QString ltext = this->text(column);
-            QString rtext = other.text(column);
-            return ltext < rtext;
+            return ldata.toString() < rdata.toString();
         }
     }
-
-    bool operator>(const QTreeWidgetItem& other) const
+    else
     {
-        int column = treeWidget()->sortColumn();
+        QString ltext = this->text(column);
+        QString rtext = other.text(column);
+        return ltext < rtext;
+    }
+}
 
-        QVariant ldata = this->data(column, Qt::UserRole);
-        QVariant rdata = other.data(column, Qt::UserRole);
-        if (ldata.isValid() && rdata.isValid())
+bool operator>(const QTreeWidgetItem& other) const
+{
+    int column = treeWidget()->sortColumn();
+
+    QVariant ldata = this->data(column, Qt::UserRole);
+    QVariant rdata = other.data(column, Qt::UserRole);
+    if (ldata.isValid() && rdata.isValid())
+    {
+        if (ldata.type() == QVariant::UInt && rdata.type() == QVariant::UInt)
         {
             return ldata.toUInt() > rdata.toUInt();
         }
         else
         {
-            QString ltext = this->text(column);
-            QString rtext = other.text(column);
-            return ltext > rtext;
+            return ldata.toString() > rdata.toString();
         }
     }
+    else
+    {
+        QString ltext = this->text(column);
+        QString rtext = other.text(column);
+        return ltext > rtext;
+    }
+}
 };
 
 #endif // PROCESSMONITOR_H
