@@ -634,28 +634,28 @@
         <translation>🪟 操作系統</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="79"/>
-        <location filename="mainwindow.cpp" line="84"/>
+        <location filename="mainwindow.cpp" line="87"/>
+        <location filename="mainwindow.cpp" line="92"/>
         <source>%1倍</source>
         <translation>%1倍</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="80"/>
-        <location filename="mainwindow.cpp" line="85"/>
+        <location filename="mainwindow.cpp" line="88"/>
+        <location filename="mainwindow.cpp" line="93"/>
         <source>✖️%1倍</source>
         <translation>✖️%1倍</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="354"/>
-        <location filename="mainwindow.cpp" line="367"/>
-        <location filename="mainwindow.cpp" line="380"/>
+        <location filename="mainwindow.cpp" line="362"/>
+        <location filename="mainwindow.cpp" line="375"/>
+        <location filename="mainwindow.cpp" line="388"/>
         <source>提示</source>
         <translation>提示</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="355"/>
-        <location filename="mainwindow.cpp" line="368"/>
-        <location filename="mainwindow.cpp" line="381"/>
+        <location filename="mainwindow.cpp" line="363"/>
+        <location filename="mainwindow.cpp" line="376"/>
+        <location filename="mainwindow.cpp" line="389"/>
         <source>直到重启应用后，界面的语言才会生效</source>
         <translation>直到重啟應用後，界面的語言才會生效</translation>
     </message>
