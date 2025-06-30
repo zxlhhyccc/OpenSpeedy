@@ -28,6 +28,14 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    QScreen *screen = QGuiApplication::primaryScreen();
+    if (screen != nullptr)
+    {
+        this->move(
+            (screen->geometry().width() - this->width())/2,
+            (screen->geometry().height() - this->height())/2);
+    }
     init();
 }
 
@@ -57,15 +65,15 @@ void MainWindow::recreate()
 void MainWindow::refresh()
 {
     ui->cpuContent->setText(QString("<span style='color:blue'>%1%</span>")
-                                .arg(m_cpu->getUsage(), 5, 'f', 1, ' '));
+                            .arg(m_cpu->getUsage(), 5, 'f', 1, ' '));
 
     double memUsage = m_mem->getUsage();
     double memTotal = m_mem->getTotal();
     ui->memContent->setText(
         QString("<span style='color:blue'>(%1G / %2G) %3%</span>")
-            .arg(memUsage, 0, 'f', 1)
-            .arg(memTotal, 0, 'f', 1)
-            .arg(memUsage / memTotal * 100, 4, 'f', 1));
+        .arg(memUsage, 0, 'f', 1)
+        .arg(memTotal, 0, 'f', 1)
+        .arg(memUsage / memTotal * 100, 4, 'f', 1));
 }
 
 void MainWindow::on_sliderCtrl_valueChanged(int value)
@@ -159,10 +167,10 @@ void MainWindow::createTray()
     // 连接信号和槽
     connect(showAction, &QAction::triggered, this,
             [&]
-            {
-                showNormal();
-                activateWindow();
-            });
+    {
+        showNormal();
+        activateWindow();
+    });
     connect(hideAction, &QAction::triggered, this, &MainWindow::hide);
     connect(quitAction, &QAction::triggered, qApp, &QApplication::quit);
 
@@ -297,30 +305,30 @@ void MainWindow::init()
     /* 首选项菜单 */
     connect(ui->menuPreference, &QMenu::aboutToShow,
             [this]
-            {
-                ui->menuPreference->hide();
-                QTimer::singleShot(50,
-                                   [this]()
-                                   {
-                                       m_preferenceDlg->show();
-                                       m_preferenceDlg->activateWindow();
-                                       m_preferenceDlg->raise();
-                                   });
-            });
+    {
+        ui->menuPreference->hide();
+        QTimer::singleShot(50,
+                           [this]()
+        {
+            m_preferenceDlg->show();
+            m_preferenceDlg->activateWindow();
+            m_preferenceDlg->raise();
+        });
+    });
 
     /* 关于菜单 */
     connect(ui->menuAbout, &QMenu::aboutToShow,
             [this]
-            {
-                ui->menuAbout->hide();
-                QTimer::singleShot(50,
-                                   [this]()
-                                   {
-                                       m_aboutDlg->show();
-                                       m_aboutDlg->activateWindow();
-                                       m_aboutDlg->raise();
-                                   });
-            });
+    {
+        ui->menuAbout->hide();
+        QTimer::singleShot(50,
+                           [this]()
+        {
+            m_aboutDlg->show();
+            m_aboutDlg->activateWindow();
+            m_aboutDlg->raise();
+        });
+    });
 
     m_languageGroup = new QActionGroup(this);
     m_languageGroup->setExclusive(true);
@@ -329,7 +337,7 @@ void MainWindow::init()
     m_languageGroup->addAction(ui->actionEN);
     QString language =
         m_settings->value(CONFIG_LANGUAGE, QLocale().system().name())
-            .toString();
+        .toString();
     if (language == "zh_CN")
     {
         ui->actionCN->setChecked(true);
@@ -345,42 +353,42 @@ void MainWindow::init()
 
     connect(ui->actionCN, &QAction::triggered,
             [this]
-            {
-                m_settings->setValue(CONFIG_LANGUAGE, "zh_CN");
-                QMessageBox msgBox(this);
-                msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint |
-                                      Qt::CustomizeWindowHint);
-                msgBox.setIcon(QMessageBox::Information);
-                msgBox.setWindowTitle(tr("提示"));
-                msgBox.setText(tr("直到重启应用后，界面的语言才会生效"));
-                msgBox.exec();
-            });
+    {
+        m_settings->setValue(CONFIG_LANGUAGE, "zh_CN");
+        QMessageBox msgBox(this);
+        msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint |
+                              Qt::CustomizeWindowHint);
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setWindowTitle(tr("提示"));
+        msgBox.setText(tr("直到重启应用后，界面的语言才会生效"));
+        msgBox.exec();
+    });
 
     connect(ui->actionTW, &QAction::triggered,
             [this]
-            {
-                m_settings->setValue(CONFIG_LANGUAGE, "zh_TW");
-                QMessageBox msgBox(this);
-                msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint |
-                                      Qt::CustomizeWindowHint);
-                msgBox.setIcon(QMessageBox::Information);
-                msgBox.setWindowTitle(tr("提示"));
-                msgBox.setText(tr("直到重启应用后，界面的语言才会生效"));
-                msgBox.exec();
-            });
+    {
+        m_settings->setValue(CONFIG_LANGUAGE, "zh_TW");
+        QMessageBox msgBox(this);
+        msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint |
+                              Qt::CustomizeWindowHint);
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setWindowTitle(tr("提示"));
+        msgBox.setText(tr("直到重启应用后，界面的语言才会生效"));
+        msgBox.exec();
+    });
 
     connect(ui->actionEN, &QAction::triggered,
             [this]
-            {
-                m_settings->setValue(CONFIG_LANGUAGE, "en_US");
-                QMessageBox msgBox(this);
-                msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint |
-                                      Qt::CustomizeWindowHint);
-                msgBox.setIcon(QMessageBox::Information);
-                msgBox.setWindowTitle(tr("提示"));
-                msgBox.setText(tr("直到重启应用后，界面的语言才会生效"));
-                msgBox.exec();
-            });
+    {
+        m_settings->setValue(CONFIG_LANGUAGE, "en_US");
+        QMessageBox msgBox(this);
+        msgBox.setWindowFlags(Qt::Dialog | Qt::WindowTitleHint |
+                              Qt::CustomizeWindowHint);
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setWindowTitle(tr("提示"));
+        msgBox.setText(tr("直到重启应用后，界面的语言才会生效"));
+        msgBox.exec();
+    });
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -434,7 +442,7 @@ bool MainWindow::nativeEventFilter(const QByteArray &eventType,
                         currentValue + m_preferenceDlg->getIncreaseStep());
                     qDebug() << "全局快捷键: 增加速度到"
                              << speedFactor(currentValue +
-                                            m_preferenceDlg->getIncreaseStep());
+                                   m_preferenceDlg->getIncreaseStep());
                 }
             }
             break;
@@ -453,7 +461,7 @@ bool MainWindow::nativeEventFilter(const QByteArray &eventType,
                         currentValue - m_preferenceDlg->getDecreaseStep());
                     qDebug() << "全局快捷键: 降低速度到"
                              << speedFactor(currentValue -
-                                            m_preferenceDlg->getDecreaseStep());
+                                   m_preferenceDlg->getDecreaseStep());
                 }
             }
             break;
