@@ -80,7 +80,7 @@
 # install 
 winget install openspeedy
 
-# open a new terminal, you can run openspeedy by following comman
+# open a new terminal, you can run openspeedy by following command
 openspeedy
 ``` 
 
