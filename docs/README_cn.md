@@ -83,10 +83,10 @@
 📦 **方式1: Winget**
 
 ``` powershell
-# install 
+# 安装命令如下
 winget install openspeedy
 
-# you can run openspeedy by following comman
+# 运行openspeedy
 openspeedy
 ```
 
