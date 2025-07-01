@@ -75,10 +75,25 @@
 - 同时可以加速x86和x64平台进程
 - 无内核侵入性，Ring3层Hook，不破坏系统内核
 
-# 📥安装
-1. 访问[安装页面](https://github.com/game1024/OpenSpeedy/releases) 下载最新版本
-2. 解压缩下载的文件包到任意位置
-3. 无需安装，直接运行 OpenSpeedy.exe 即可使用
+
+
+
+
+# 💾 安装
+📦 **方式1: Winget**
+
+``` powershell
+# install 
+winget install openspeedy
+
+# you can run openspeedy by following comman
+openspeedy
+```
+
+📥 **方式2: 手动下载**
+
+访问[安装页面](https://github.com/game1024/OpenSpeedy/releases) 下载最新版本
+
 
 # 💻 操作系统要求
 - OS: Windows10 以上
