@@ -86,7 +86,7 @@
 # 安装命令如下
 winget install openspeedy
 
-# 运行openspeedy
+# 重新打开终端，运行openspeedy
 openspeedy
 ```
 
