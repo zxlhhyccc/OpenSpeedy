@@ -73,10 +73,22 @@
 - Supports accelerating both x86 and x64 processes
 - Non-invasive to the kernel: Ring3 level Hook, does not compromise the system kernel
 
-# 📥 Installation
-1. Visit the [Installation Page](https://github.com/game1024/OpenSpeedy/releases) to download the latest version
-2. Extract the downloaded package to any location
-3. No installation required, just run OpenSpeedy.exe to use
+# 💾 Installation
+📦 **Method1: Winget**
+
+``` powershell
+# install 
+winget install openspeedy
+
+# you can run openspeedy by following comman
+openspeedy
+``` 
+
+📥 **Method2: Manual Download**
+
+Visit the [Installation Page](https://github.com/game1024/OpenSpeedy/releases) to download the latest version
+
+
 
 # 💻 System Requirements
 - OS: Windows 10 or later
