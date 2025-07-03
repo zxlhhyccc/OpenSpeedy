@@ -116,7 +116,7 @@ OpenSpeedyは、以下のWindowsシステム時間関数をHookすることで�
 - [FAQ](https://github.com/game1024/OpenSpeedy/wiki#faq) - まずはWikiを確認して問題の場所を特定できます
 - [GitHub Issues](https://github.com/game1024/OpenSpeedy/issues) - 不具合報告
 - WeChat Group
-<img width="30%" src="https://github.com/user-attachments/assets/9fa1b998-6030-42ee-a5ae-1753927f57d8">
+<img width="30%" src="https://github.com/user-attachments/assets/77846023-281f-4bf8-8df1-f7c77cda547e">
 
 # 📜 ライセンス
 OpenSpeedyはGNU v3ライセンスに従っています。
