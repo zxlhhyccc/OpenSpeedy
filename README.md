@@ -132,7 +132,7 @@ If you encounter any issues during use, feel free to provide feedback via:
 - [FAQ](https://github.com/game1024/OpenSpeedy/wiki#faq) - You can first check the wiki to locate the issue.
 - [GitHub Issues](https://github.com/game1024/OpenSpeedy/issues) - Submit issue reports
 - WeChat Group
-<img width="30%" src="https://github.com/user-attachments/assets/9fa1b998-6030-42ee-a5ae-1753927f57d8">
+<img width="30%" src="https://github.com/user-attachments/assets/77846023-281f-4bf8-8df1-f7c77cda547e">
 
 # 🎁 Sponosor
 If you find the OpenSpeedy project helpful, you can buy me a coffee~ ☕️
