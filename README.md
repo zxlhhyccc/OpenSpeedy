@@ -137,7 +137,7 @@ If you encounter any issues during use, feel free to provide feedback via:
 # 🎁 Sponosor
 If you find the OpenSpeedy project helpful, you can buy me a coffee~ ☕️
 
-<img width="30%" src="https://github.com/user-attachments/assets/83410e8d-329a-4785-8e3e-65905bebd4b6">
+365VPN uses dedicated lines to connect worldwide, offering speeds of up to 10Gbps. Download now to start surfing for free🏄: https://ref.365tz87989.com/?r=RWQVZD
 
 # 📜 License
 OpenSpeedy is licensed under the GNU v3 License.
