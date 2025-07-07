@@ -786,7 +786,7 @@ QTreeWidget {
            </column>
            <column>
             <property name="text">
-             <string>体系结构</string>
+             <string>架构</string>
             </property>
             <property name="font">
              <font>

@@ -44,6 +44,7 @@ ProcessMonitor::ProcessMonitor(QSettings*   settings,
     m_treeWidget->setColumnWidth(5, 50);
     m_treeWidget->setUniformRowHeights(true);
     m_treeWidget->sortByColumn(0, Qt::AscendingOrder);
+    m_treeWidget->resizeColumnToContents(2);
     m_treeWidget->resizeColumnToContents(3);
 
     connect(m_treeWidget,
