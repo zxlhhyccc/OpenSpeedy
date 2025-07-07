@@ -301,6 +301,10 @@
     <message>
         <location filename="mainwindow.ui" line="789"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="568"/>
+        <source>架构</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="566"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="566"/>
         <source>体系结构</source>
@@ -902,55 +906,55 @@
 <context>
     <name>ProcessMonitor</name>
     <message>
-        <location filename="processmonitor.cpp" line="82"/>
-        <location filename="processmonitor.cpp" line="95"/>
+        <location filename="processmonitor.cpp" line="83"/>
+        <location filename="processmonitor.cpp" line="96"/>
         <source>搜索到%1个进程, 已过滤展示%2个</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="124"/>
+        <location filename="processmonitor.cpp" line="125"/>
         <source>加速中</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="236"/>
-        <location filename="processmonitor.cpp" line="290"/>
+        <location filename="processmonitor.cpp" line="237"/>
+        <location filename="processmonitor.cpp" line="291"/>
         <source>高</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="239"/>
-        <location filename="processmonitor.cpp" line="293"/>
+        <location filename="processmonitor.cpp" line="240"/>
+        <location filename="processmonitor.cpp" line="294"/>
         <source>中</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="242"/>
-        <location filename="processmonitor.cpp" line="296"/>
+        <location filename="processmonitor.cpp" line="243"/>
+        <location filename="processmonitor.cpp" line="297"/>
         <source>低</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="245"/>
-        <location filename="processmonitor.cpp" line="299"/>
+        <location filename="processmonitor.cpp" line="246"/>
+        <location filename="processmonitor.cpp" line="300"/>
         <source>实时</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="248"/>
-        <location filename="processmonitor.cpp" line="302"/>
+        <location filename="processmonitor.cpp" line="249"/>
+        <location filename="processmonitor.cpp" line="303"/>
         <source>未知</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="399"/>
-        <location filename="processmonitor.cpp" line="410"/>
+        <location filename="processmonitor.cpp" line="400"/>
+        <location filename="processmonitor.cpp" line="411"/>
         <source>正常</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="404"/>
-        <location filename="processmonitor.cpp" line="415"/>
+        <location filename="processmonitor.cpp" line="405"/>
+        <location filename="processmonitor.cpp" line="416"/>
         <source>异常退出</source>
         <translation type="unfinished"></translation>
     </message>

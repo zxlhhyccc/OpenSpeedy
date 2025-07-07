@@ -179,7 +179,7 @@
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="542"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="542"/>
         <source>⚡变速速率</source>
-        <translation>⚡變速速率</translation>
+        <translation>⚡變速倍率</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="75"/>
@@ -347,7 +347,7 @@
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="559"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="559"/>
         <source>Ctrl + Alt + 0 重置速度</source>
-        <translation>Ctrl + Alt + 0 重置速度</translation>
+        <translation>Ctrl + Alt + 0 重設速度</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="635"/>
@@ -369,7 +369,7 @@
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="561"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="561"/>
         <source>🔍输入进程名搜索...</source>
-        <translation>🔍輸入行程名搜索...</translation>
+        <translation>🔍輸入行程名搜尋...</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="756"/>
@@ -428,10 +428,8 @@
     <message>
         <location filename="mainwindow.ui" line="789"/>
         <location filename="build/Qt5_15_static_32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="568"/>
-        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="566"/>
-        <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="566"/>
-        <source>体系结构</source>
-        <translation>體系架構</translation>
+        <source>架构</source>
+        <translation>架構</translation>
     </message>
     <message>
         <location filename="build/CMAKE-32bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="533"/>
@@ -457,7 +455,7 @@
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="565"/>
         <location filename="build/Qt5_15_static_64bit-Release/ui_mainwindow.h" line="258"/>
         <source>优先级</source>
-        <translation>優先級</translation>
+        <translation>優先順序</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="811"/>
@@ -511,7 +509,7 @@
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="571"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="571"/>
         <source>⌨️快捷键</source>
-        <translation>⌨️快捷鍵</translation>
+        <translation>⌨️快速鍵</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="871"/>
@@ -665,6 +663,12 @@
         <source>是否注入</source>
         <translation>是否注入</translation>
     </message>
+    <message>
+        <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_mainwindow.h" line="566"/>
+        <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_mainwindow.h" line="566"/>
+        <source>体系结构</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PreferenceDialog</name>
@@ -676,7 +680,7 @@
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="288"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="288"/>
         <source>快捷键</source>
-        <translation>快捷鍵</translation>
+        <translation>快速鍵</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="40"/>
@@ -792,7 +796,7 @@
         <location filename="build/Qt5_15_static_64bit-Debug/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="299"/>
         <location filename="build/Qt5_15_static_64bit-Release/OpenSpeedy_autogen/include/ui_preferencedialog.h" line="299"/>
         <source>重置速度</source>
-        <translation>重置速度</translation>
+        <translation>重設速度</translation>
     </message>
     <message>
         <location filename="preferencedialog.ui" line="197"/>
@@ -897,61 +901,61 @@
     <message>
         <location filename="preferencedialog.cpp" line="282"/>
         <source>%1 重置速度</source>
-        <translation>%1 重置速度</translation>
+        <translation>%1 重設速度</translation>
     </message>
 </context>
 <context>
     <name>ProcessMonitor</name>
     <message>
-        <location filename="processmonitor.cpp" line="82"/>
-        <location filename="processmonitor.cpp" line="95"/>
+        <location filename="processmonitor.cpp" line="83"/>
+        <location filename="processmonitor.cpp" line="96"/>
         <source>搜索到%1个进程, 已过滤展示%2个</source>
-        <translation>搜索到%1個行程，已過濾顯示%2個</translation>
+        <translation>搜尋到%1個行程，已篩選顯示%2個</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="124"/>
+        <location filename="processmonitor.cpp" line="125"/>
         <source>加速中</source>
         <translation>加速中</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="236"/>
-        <location filename="processmonitor.cpp" line="290"/>
+        <location filename="processmonitor.cpp" line="237"/>
+        <location filename="processmonitor.cpp" line="291"/>
         <source>高</source>
         <translation>高</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="239"/>
-        <location filename="processmonitor.cpp" line="293"/>
+        <location filename="processmonitor.cpp" line="240"/>
+        <location filename="processmonitor.cpp" line="294"/>
         <source>中</source>
-        <translation>中</translation>
+        <translation>標準</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="242"/>
-        <location filename="processmonitor.cpp" line="296"/>
+        <location filename="processmonitor.cpp" line="243"/>
+        <location filename="processmonitor.cpp" line="297"/>
         <source>低</source>
-        <translation>低</translation>
+        <translation>在標準以下</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="245"/>
-        <location filename="processmonitor.cpp" line="299"/>
+        <location filename="processmonitor.cpp" line="246"/>
+        <location filename="processmonitor.cpp" line="300"/>
         <source>实时</source>
-        <translation>實時</translation>
+        <translation>即時</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="248"/>
-        <location filename="processmonitor.cpp" line="302"/>
+        <location filename="processmonitor.cpp" line="249"/>
+        <location filename="processmonitor.cpp" line="303"/>
         <source>未知</source>
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="399"/>
-        <location filename="processmonitor.cpp" line="410"/>
+        <location filename="processmonitor.cpp" line="400"/>
+        <location filename="processmonitor.cpp" line="411"/>
         <source>正常</source>
         <translation>正常</translation>
     </message>
     <message>
-        <location filename="processmonitor.cpp" line="404"/>
-        <location filename="processmonitor.cpp" line="415"/>
+        <location filename="processmonitor.cpp" line="405"/>
+        <location filename="processmonitor.cpp" line="416"/>
         <source>异常退出</source>
         <translation>異常退出</translation>
     </message>
