@@ -118,6 +118,11 @@ OpenSpeedyは、以下のWindowsシステム時間関数をHookすることで�
 - WeChat Group
 <img width="30%" src="https://github.com/user-attachments/assets/77846023-281f-4bf8-8df1-f7c77cda547e">
 
+🎁 スポンサー
+もしOpenSpeedyプロジェクトが役に立ったと感じたら、コーヒーをご馳走していただけると嬉しいです～ ☕️
+
+365VPNは専用回線を利用して世界中を接続し、最大10Gbpsの速度を提供します。今すぐダウンロードして無料でサーフィンを始めましょう🏄: https://ref.365tz87989.com/?r=RWQVZD
+
 # 📜 ライセンス
 OpenSpeedyはGNU v3ライセンスに従っています。
 
