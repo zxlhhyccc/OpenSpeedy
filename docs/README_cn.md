@@ -92,7 +92,7 @@ openspeedy
 
 📥 **方式2: 手动下载**
 
-访问[安装页面](https://github.com/game1024/OpenSpeedy/releases) 下载最新版本
+访问 [安装页面](https://github.com/game1024/OpenSpeedy/releases) 下载最新版本
 
 
 # 💻 操作系统要求
