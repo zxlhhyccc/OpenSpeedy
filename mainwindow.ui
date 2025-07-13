@@ -632,7 +632,7 @@ QSlider::handle:horizontal:pressed {
          <string notr="true"/>
         </property>
         <property name="title">
-         <string>💻系统进程</string>
+         <string>💻进程</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
