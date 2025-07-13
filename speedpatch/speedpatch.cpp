@@ -1,4 +1,4 @@
-/*
+﻿/*
  * OpenSpeedy - Open Source Game Speed Controller
  * Copyright (C) 2025 Game1024
  *
@@ -19,6 +19,7 @@
  * <https://www.gnu.org/licenses/>.
  */
 #include <windows.h>
+#include <winternl.h>
 #include "Minhook.h"
 #include "speedpatch.h"
 #include <atomic>
@@ -37,18 +38,22 @@ static HANDLE hShare;
 static bool* pEnable;
 
 typedef VOID (WINAPI* SLEEP) (DWORD);
-typedef UINT_PTR (WINAPI* SETTIMER) (HWND,
-                                     UINT_PTR,
-                                     UINT,
-                                     TIMERPROC
-                                     );
+typedef DWORD (WINAPI* SLEEPEX) (DWORD, BOOL);
+
+typedef UINT_PTR (WINAPI* SETTIMER) (
+    HWND,
+    UINT_PTR,
+    UINT,
+    TIMERPROC
+    );
 typedef DWORD (WINAPI* TIMEGETTIME) (VOID);
-typedef MMRESULT (WINAPI* TIMESETEVENT) (UINT,
-                                         UINT,
-                                         LPTIMECALLBACK,
-                                         DWORD_PTR,
-                                         UINT
-                                         );
+typedef MMRESULT (WINAPI* TIMESETEVENT) (
+    UINT,
+    UINT,
+    LPTIMECALLBACK,
+    DWORD_PTR,
+    UINT
+    );
 
 typedef LONG (WINAPI* GETMESSAGETIME) (VOID);
 typedef DWORD (WINAPI* GETTICKCOUNT) (VOID);
@@ -60,10 +65,22 @@ typedef BOOL (WINAPI* QUERYPERFORMANCEFREQUENCY) (LARGE_INTEGER*);
 typedef VOID (WINAPI* GETSYSTEMTIMEASFILETIME) (LPFILETIME);
 typedef VOID (WINAPI* GETSYSTEMTIMEPRECISEASFILETIME) (LPFILETIME);
 
+typedef BOOL (WINAPI* SETWAITABLETIMEREX) (
+    HANDLE,
+    const LARGE_INTEGER*,
+    LONG,
+    PTIMERAPCROUTINE,
+    LPVOID,
+    PREASON_CONTEXT,
+    ULONG);
+
 inline VOID shouldUpdateAll();
 
 static SLEEP pfnKernelSleep = NULL;
 static SLEEP pfnDetourSleep = NULL;
+
+static SLEEPEX pfnKernelSleepEx = NULL;
+static SLEEPEX pfnDetourSleepEx = NULL;
 
 static SETTIMER pfnKernelSetTimer = NULL;
 static SETTIMER pfnDetourSetTimer = NULL;
@@ -94,6 +111,9 @@ static GETSYSTEMTIMEASFILETIME pfnDetourGetSystemTimeAsFileTime = NULL;
 
 static GETSYSTEMTIMEPRECISEASFILETIME pfnKernelGetSystemTimePreciseAsFileTime = NULL;
 static GETSYSTEMTIMEPRECISEASFILETIME pfnDetourGetSystemTimePreciseAsFileTime = NULL;
+
+static SETWAITABLETIMEREX pfnKernelSetWaitableTimerEx = NULL;
+static SETWAITABLETIMEREX pfnDetourSetWaitableTimerEx = NULL;
 
 SPEEDPATCH_API void ChangeSpeed(double factor_)
 {
@@ -197,6 +217,12 @@ VOID WINAPI DetourSleep(DWORD dwMilliseconds)
 {
     std::shared_lock<std::shared_mutex> lock(mutex);
     pfnKernelSleep(dwMilliseconds / SpeedFactor());
+}
+
+DWORD WINAPI DetourSleepEx(DWORD dwMilliseconds, BOOL bAlertable)
+{
+    std::shared_lock<std::shared_mutex> lock(mutex);
+    return pfnKernelSleepEx(dwMilliseconds / SpeedFactor(), bAlertable);
 }
 
 UINT_PTR WINAPI DetourSetTimer(HWND      hWnd,
@@ -484,6 +510,27 @@ DetourGetSystemTimePreciseAsFileTime(LPFILETIME lpSystemTimeAsFileTime)
     (*lpSystemTimeAsFileTime) = { ulRtn.LowPart, ulRtn.HighPart };
 }
 
+BOOL WINAPI DetourSetWaitableTimerEx(
+    HANDLE               hTimer,
+    const LARGE_INTEGER* lpDueTime,
+    LONG                 lPeriod,
+    PTIMERAPCROUTINE     pfnCompletionRoutine,
+    LPVOID               lpArgToCompletionRoutine,
+    PREASON_CONTEXT      WakeContext,
+    ULONG                TolerableDelay
+    )
+{
+    LARGE_INTEGER dueTime = {0};
+    dueTime.QuadPart = lpDueTime->QuadPart / SpeedFactor();
+    return pfnKernelSetWaitableTimerEx(hTimer,
+                                       &dueTime,
+                                       lPeriod,
+                                       pfnCompletionRoutine,
+                                       lpArgToCompletionRoutine,
+                                       WakeContext,
+                                       TolerableDelay);
+}
+
 inline VOID shouldUpdateAll()
 {
     shouldUpdateTimeGetTime = true;
@@ -498,10 +545,18 @@ inline VOID shouldUpdateAll()
 template <typename S, typename T>
 inline VOID MH_HOOK(S* pTarget, S* pDetour, T** ppOriginal)
 {
-    MH_CreateHook(reinterpret_cast<LPVOID> (pTarget),
-                  reinterpret_cast<LPVOID> (pDetour),
-                  reinterpret_cast<LPVOID*> (ppOriginal));
-    MH_EnableHook(reinterpret_cast<LPVOID> (pTarget));
+
+    if (MH_CreateHook(reinterpret_cast<LPVOID> (pTarget),
+                      reinterpret_cast<LPVOID> (pDetour),
+                      reinterpret_cast<LPVOID*> (ppOriginal)) != MH_OK)
+    {
+        MessageBoxW(NULL, L"MH装载失败", L"DLL", MB_OK);
+    }
+
+    if (MH_EnableHook(reinterpret_cast<LPVOID> (pTarget)) != MH_OK)
+    {
+        MessageBoxW(NULL, L"MH装载失败", L"DLL", MB_OK);
+    }
 }
 
 template <typename T>
@@ -533,9 +588,13 @@ BOOL APIENTRY DllMain(HMODULE hModule,
                       LPVOID  lpReserved)
 {
     FILETIME now = { 0 };
+    HMODULE hKernel32;
+    SETWAITABLETIMEREX pSetWaitableTimerEx;
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
+        hKernel32 = GetModuleHandleW(L"kernel32.dll");
+
         if (MH_Initialize() != MH_OK)
         {
             MessageBoxW(NULL, L"MH装载失败", L"DLL", MB_OK);
@@ -587,8 +646,17 @@ BOOL APIENTRY DllMain(HMODULE hModule,
         baselineDetourGetSystemTimePreciseAsFileTime.store(now);
         prevcallDetourGetSystemTimePreciseAsFileTime.store(now);
 
-        MH_HOOK(
-            &Sleep, &DetourSleep, reinterpret_cast<LPVOID*> (&pfnKernelSleep));
+        MH_HOOK(&Sleep,
+                &DetourSleep,
+                reinterpret_cast<LPVOID*> (&pfnKernelSleep));
+        MH_HOOK(&SleepEx,
+                &DetourSleepEx,
+                reinterpret_cast<LPVOID*>(&pfnKernelSleepEx));
+
+        pSetWaitableTimerEx = (SETWAITABLETIMEREX)GetProcAddress(hKernel32, "SetWaitableTimerEx");
+        MH_HOOK(pSetWaitableTimerEx,
+                &DetourSetWaitableTimerEx,
+                reinterpret_cast<LPVOID*>(&pfnKernelSetWaitableTimerEx));
         MH_HOOK(&SetTimer,
                 &DetourSetTimer,
                 reinterpret_cast<LPVOID*> (&pfnKernelSetTimer));
@@ -617,6 +685,8 @@ BOOL APIENTRY DllMain(HMODULE hModule,
                 &DetourGetSystemTimePreciseAsFileTime,
                 reinterpret_cast<LPVOID*> (
                     &pfnKernelGetSystemTimePreciseAsFileTime));
+
+
         break;
     case DLL_THREAD_ATTACH:
         break;
@@ -633,6 +703,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
             MH_UNHOOK(pfnKernelSleep);
             MH_UNHOOK(pfnKernelSetTimer);
             MH_UNHOOK(pfnKernelTimeGetTime);
+            MH_UNHOOK(pfnKernelTimeSetEvent);
             MH_UNHOOK(pfnKernelGetTickCount);
             MH_UNHOOK(pfnKernelGetTickCount64);
             MH_UNHOOK(pfnKernelQueryPerformanceCounter);
