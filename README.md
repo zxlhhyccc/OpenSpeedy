@@ -131,8 +131,7 @@ OpenSpeedy achieves game speed adjustment by hooking the following Windows syste
 If you encounter any issues during use, feel free to provide feedback via:
 - [FAQ](https://github.com/game1024/OpenSpeedy/wiki#faq) - You can first check the wiki to locate the issue.
 - [GitHub Issues](https://github.com/game1024/OpenSpeedy/issues) - Submit issue reports
-- WeChat Group
-<img width="30%" src="https://github.com/user-attachments/assets/d77cb35d-6c92-4480-89c9-40f124c4df08">
+
 
 # 🎁 Sponosor
 If you find the OpenSpeedy project helpful, you can buy me a coffee~ ☕️
