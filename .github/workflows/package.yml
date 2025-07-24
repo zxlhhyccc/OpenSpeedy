@@ -47,7 +47,7 @@ jobs:
         api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
         organization-id: '58b9835d-38ea-4898-a564-76610c01cecd'
         project-slug: OpenSpeedy
-        signing-policy-slug: test-signing
+        signing-policy-slug: release-signing
         github-artifact-id: ${{ steps.upload-unsigned-artifacts.outputs.artifact-id }}
         artifact-configuration-slug: initial
         wait-for-completion: true
