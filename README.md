@@ -133,12 +133,24 @@ If you encounter any issues during use, feel free to provide feedback via:
 - [GitHub Issues](https://github.com/game1024/OpenSpeedy/issues) - Submit issue reports
 
 
-# 🎁 Sponosor
+# 🎁 Buy me a coffee
 If you find the OpenSpeedy project helpful, you can buy me a coffee~ ☕️
 
 365VPN uses dedicated lines to connect worldwide, offering speeds of up to 10Gbps. Download now to start surfing for free🏄: https://ref.365tz87989.com/?r=RWQVZD
 
-This program uses free code signing provided by [SignPath.io](https://about.signpath.io/?utm_source=foundation&utm_medium=github&utm_campaign=0install), and a certificate by the [SignPath Foundation](https://signpath.org/?utm_source=foundation&utm_medium=github&utm_campaign=0install).
+# Sponsors
+
+<table>
+  <td>
+    <a href="https://signpath.org/" target="_blank"><img src="https://avatars.githubusercontent.com/u/34448643" height="30" alt="SignPath logo" /></a>
+  </td>
+
+  <td>
+    This program uses free code signing provided by <a href="https://about.signpath.io/?utm_source=foundation&utm_medium=github&utm_campaign=0install">SignPath.io</a> and a certificate by the <a href="https://signpath.org/?utm_source=foundation&utm_medium=github&utm_campaign=0install">SignPath Foundation</a>
+
+  </td>
+</table>
+
 
 # 📜 License
 OpenSpeedy is licensed under the GNU v3 License.
