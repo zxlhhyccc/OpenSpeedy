@@ -162,11 +162,11 @@ OpenSpeedy uses source code from the following projects. Thanks to the open-sour
 
 Disclaimer: OpenSpeedy is intended for educational and research purposes only. Users assume all risks and responsibilities for using this software. The author is not responsible for any loss or legal liability resulting from the use of this software.
 
+<a href="https://openomy.com/game1024/openspeedy" target="_blank" style="display: block; width: 100%;" align="center">
+  <img src="https://openomy.com/svg?repo=game1024/openspeedy&chart=bubble&latestMonth=3" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
+</a>
 
 <p align="center">
   <img src="https://api.star-history.com/svg?repos=game1024/openspeedy&type=Date" Alt="Star History Chart">
 </p>
 
-<a href="https://openomy.com/game1024/openspeedy" target="_blank" style="display: block; width: 100%;" align="center">
-  <img src="https://openomy.com/svg?repo=game1024/openspeedy&chart=bubble&latestMonth=3" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
-</a>
