@@ -131,6 +131,10 @@ OpenSpeedyは以下のプロジェクトのソースコードを使用してい�
 
 免責事項: OpenSpeedyは教育及び研究目的のみでご利用ください。本ソフトウェアの使用に伴うすべてのリスクと責任は利用者にあります。著者は本ソフトウェアの使用によるいかなる損害や法的責任も一切負いません。
 
+<a href="https://openomy.com/game1024/openspeedy" target="_blank" style="display: block; width: 100%;" align="center">
+  <img src="https://openomy.com/svg?repo=game1024/openspeedy&chart=bubble&latestMonth=3" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
+</a>
+
 <p align="center">
   <img src="https://api.star-history.com/svg?repos=game1024/openspeedy&type=Date" Alt="Star History Chart">
 </p>
