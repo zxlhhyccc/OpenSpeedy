@@ -113,7 +113,7 @@ openspeedy
 <video src="https://github.com/user-attachments/assets/74471b1f-7f95-4de8-b5aa-7edc85c9d5f0" width="70%"></video>
 
 # 🔧 技术原理
-如果想要了解如何编译项目，可以参考[开发者文档](https://github.com/game1024/OpenSpeedy/wiki/Developer)
+如果想要了解如何编译项目，可以参考[开发者文档](https://github.com/game1024/OpenSpeedy/wiki/%E5%BC%80%E5%8F%91%E8%80%85%E6%96%87%E6%A1%A3)
 
 
 OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调整：
