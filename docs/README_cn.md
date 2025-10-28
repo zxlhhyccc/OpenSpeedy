@@ -144,8 +144,8 @@ OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调
 
 |名称|介绍|备注|
 |-|-|-|
-|365VPN|使用专线连接全球, 体验至高10Gbps/s网速. 下载立刻开始免费冲浪🏄|[领取资格](https://ref.365tz87989.com/?r=RWQVZD)|
-|银河录像局|高质量AI服务(GPT、Claude、MJ) + 视频会员服务平台(Netflix、Youtube)|[领取资格](https://nf.video/pGt2q), 优惠码:game1024|
+|365VPN|使用专线连接全球, 体验至高10Gbps/s网速. 下载立刻开始免费冲浪🏄|[体验地址](https://ref.365tz87989.com/?r=RWQVZD)|
+|银河录像局|高质量AI服务(GPT、Claude、MJ) + 视频会员服务平台(Netflix、Youtube)|[体验地址](https://nf.video/pGt2q), 优惠码:game1024|
 
 # 📜 开源协议
 OpenSpeedy 遵循 GNU v3 许可证。
