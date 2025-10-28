@@ -144,7 +144,7 @@ OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调
 
 |名称|介绍|备注|
 |-|-|-|
-|365VPN|好用，稳定，不限流量，全系统的VPN|[体验地址](https://ref.365tz87989.com/?r=RWQVZD)|
+|365VPN|好用，稳定，不限流量的全系统VPN|[体验地址](https://ref.365tz87989.com/?r=RWQVZD)|
 |银河录像局|专业的AI大模型账号合租平台(GPT,Claude,Grok,MJ)|[体验地址](https://nf.video/pGt2q), 优惠码:game1024|
 
 # 📜 开源协议
