@@ -1,0 +1,56 @@
+name: Build OpenSpeedy
+
+on:
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+    outputs:
+      artifact-id: ${{ steps.upload-unsigned-artifacts.outputs.artifact-id }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Build 32-bit
+      shell: cmd
+      run: |
+        echo Building 32-bit...
+        call script\initenv.bat
+        call script\build32.bat
+
+    - name: Build 64-bit
+      shell: cmd
+      run: |
+        echo Building 64-bit...
+        call script\initenv.bat
+        call script\build64.bat
+
+    - name: Collect artifacts to flat directory
+      shell: cmd
+      run: |
+        echo Collecting artifacts...
+        
+        if not exist "artifacts" mkdir "artifacts"
+        
+        copy "build\CMAKE-64bit-Release\OpenSpeedy.exe" "artifacts\"
+        copy "build\CMAKE-64bit-Release\speedpatch64.dll" "artifacts\"
+        copy "build\CMAKE-64bit-Release\bridge64.exe" "artifacts\"
+        copy "build\CMAKE-32bit-Release\speedpatch32.dll" "artifacts\"
+        copy "build\CMAKE-32bit-Release\bridge32.exe" "artifacts\"
+        
+        echo Artifacts directory contents:
+        dir "artifacts"
+        
+    - name: Upload unsigned artifacts
+      id: upload-unsigned-artifacts
+      uses: actions/upload-artifact@v4
+      if: success()
+      with:
+        name: OpenSpeedy-unsigned-artifacts
+        path: artifacts/
+        if-no-files-found: warn
+    

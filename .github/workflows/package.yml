@@ -1,0 +1,133 @@
+name: Package
+on:
+  workflow_dispatch:
+    inputs:
+      build_id:
+        description: '构建工作流ID'
+        required: true
+        type: string
+      version:
+        description: '版本号'
+        required: true
+        default: '1.0.0'
+        type: string
+      artifact_name:
+        description: '签名的制品名称'
+        required: true
+        default: 'OpenSpeedy-unsigned-artifacts'
+        type: string
+
+jobs:
+  package:
+    runs-on: windows-latest  # GitHub-hosted runner
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Download build artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ github.event.inputs.artifact_name }}
+        run-id: ${{ github.event.inputs.build_id }}
+        path: artifacts/
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - id: upload-unsigned-artifacts
+      name: Re-upload as new artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: OpenSpeedy-unsigned-artifacts  
+        path: artifacts/          
+        retention-days: 30       
+        
+    - name: SignPath signing
+      uses: signpath/github-action-submit-signing-request@v1.1
+      with:
+        api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+        organization-id: '58b9835d-38ea-4898-a564-76610c01cecd'
+        project-slug: OpenSpeedy
+        signing-policy-slug: release-signing
+        github-artifact-id: ${{ steps.upload-unsigned-artifacts.outputs.artifact-id }}
+        artifact-configuration-slug: initial
+        wait-for-completion: true
+        output-artifact-directory: signed-artifacts/
+        parameters: |
+          version: ${{ toJSON(github.event.inputs.version) }}
+        
+    - name: Upload signed artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: OpenSpeedy-signed-artifacts
+        path: signed-artifacts/
+        retention-days: 30
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.13' 
+
+    - name: Cache Qt Installer Framework
+      uses: actions/cache@v4
+      id: cache-qtifw
+      with:
+        path: ${{ github.workspace }}/Qt/Tools/QtInstallerFramework
+        key: qtifw-4.7.0-${{ runner.os }}
+        restore-keys: |
+          qtifw-4.7.0-
+          qtifw-
+
+    - name: Install Qt Installer Framework
+      if: steps.cache-qtifw.outputs.cache-hit != 'true'
+      run: |
+        pip install aqtinstall
+        python3 -m aqt install-tool -O ${{ github.workspace }}/Qt/ windows desktop tools_ifw qt.tools.ifw.47
+    
+    - name: Add Qt Installer Framework to PATH
+      run: |
+        echo "${{ github.workspace }}/Qt/Tools/QtInstallerFramework/4.7/bin/" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+    - name: Package installer
+      run: |
+        Copy-Item -Path "signed-artifacts/*" -Destination "installer/packages/com.openspeedy.app/data/" -Recurse -Force
+        $version = "${{ github.event.inputs.version }}"
+
+        $configXmlPath = "installer\config\config.xml"
+        [xml]$configXml = Get-Content $configXmlPath
+        $configXml.Installer.Version = $version
+        $configXml.Save((Resolve-Path $configXmlPath))
+
+        $packageXmlPath = "installer\packages\com.openspeedy.app\meta\package.xml"
+        [xml]$packageXml = Get-Content $packageXmlPath
+        $packageXml.Package.Version = $version
+        $packageXml.Save((Resolve-Path $packageXmlPath))
+
+        Write-Host "Updated package version to: $version"
+        binarycreator.exe -c installer\config\config.xml -p installer\packages OpenSpeedy-installer-${{ github.event.inputs.version }}.exe
+
+    - id: upload-unsigned-installer
+      name: Upload installer
+      uses: actions/upload-artifact@v4
+      with:
+        name: OpenSpeedy-unsigned-installer-${{ github.event.inputs.version }}
+        path: OpenSpeedy-installer-${{ github.event.inputs.version }}.exe
+
+    - name: SignPath signing
+      uses: signpath/github-action-submit-signing-request@v1.1
+      with:
+        api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+        organization-id: '58b9835d-38ea-4898-a564-76610c01cecd'
+        project-slug: OpenSpeedy
+        signing-policy-slug: release-signing
+        github-artifact-id: ${{ steps.upload-unsigned-installer.outputs.artifact-id }}
+        artifact-configuration-slug: installer
+        wait-for-completion: true
+        output-artifact-directory: signed-installer/
+        parameters: |
+          version: ${{ toJSON(github.event.inputs.version) }}    
+
+    - name: Upload signed installer
+      uses: actions/upload-artifact@v4
+      with:
+        name: OpenSpeedy-signed-installer-${{ github.event.inputs.version }}
+        path: signed-installer/
+        retention-days: 30

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+  <Name>OpenSpeedy</Name>
+  <Version>1.0.0</Version>
+  <Title>OpenSpeedy</Title>
+  <Publisher>Game1024</Publisher>
+  <StartMenuDir>OpenSpeedy</StartMenuDir>
+  <TargetDir>@HomeDir@/OpenSpeedy</TargetDir>
+  <WizardStyle>Modern</WizardStyle>
+  <AllowNonAsciiCharacters>true</AllowNonAsciiCharacters>
+</Installer>
