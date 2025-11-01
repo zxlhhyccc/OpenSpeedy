@@ -21,11 +21,11 @@ for /f "delims=" %%i in ('"%QT_QMAKE_EXECUTABLE%" -query QT_INSTALL_PREFIX') do 
 echo "%QT_QMAKE_EXECUTABLE%"
 echo "%QT_INSTALL_PREFIX%"
 
-cmake.exe ^
+cmake ^
 -DQT_QMAKE_EXECUTABLE:FILEPATH="%QT_QMAKE_EXECUTABLE%" ^
 -DCMAKE_PREFIX_PATH:PATH="%QT_INSTALL_PREFIX%" ^
 -DCMAKE_BUILD_TYPE=Release ^
 -S %SOURCE_DIR% ^
 -B %BUILD_DIR%
 
-cmake.exe --build "%BUILD_DIR%" --config Release
+cmake --build "%BUILD_DIR%" --config Release

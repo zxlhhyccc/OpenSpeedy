@@ -1,4 +1,4 @@
-set VC_TOOLS_32BIT="D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars32.bat"
+﻿set VC_TOOLS_32BIT="D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars32.bat"
 set VC_TOOLS_64BIT="D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
 set BUILD_DIR_32BIT="%~dp0..\build\x86_static-Release"
 set BUILD_DIR_64BIT="%~dp0..\build\x64_static-Release"

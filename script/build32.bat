@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 echo =================================
 echo Build 32 bit Qt5.15 static library
 echo =================================
