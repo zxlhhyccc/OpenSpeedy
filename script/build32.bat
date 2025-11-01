@@ -5,7 +5,7 @@ echo =================================
 
 if "%VCINSTALLDIR%"=="" (
     echo Initializing Visual Studio 2022 32-bit environment...
-    call "%VC_TOOLS_32BIT%"
+    call %VC_TOOLS_32BIT%
 ) else (
     echo Visual Studio environment already initialized
     echo VCINSTALLDIR: %VCINSTALLDIR%
