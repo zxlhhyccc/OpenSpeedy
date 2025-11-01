@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 讨论区 / Discussions
+    url: https://github.com/game1024/Speedy/discussions
+    about: 如有疑问或需要帮助，请访问讨论区 / For questions or help, please visit Discussions
+  - name: 📖 文档 / Documentation
+    url: https://github.com/game1024/Speedy/blob/master/README.md
+    about: 查看项目文档和使用说明 / View project documentation and usage guide
+  - name: ⚠️ 重要提示 / Important Notice
+    url: https://github.com/game1024/Speedy/blob/master/README.md
+    about: 本项目仅支持离线软件，不支持在线服务类软件 / This project only supports offline software, not online services

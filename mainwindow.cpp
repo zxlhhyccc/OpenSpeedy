@@ -32,9 +32,25 @@ MainWindow::MainWindow(QWidget *parent)
     QScreen *screen = QGuiApplication::primaryScreen();
     if (screen != nullptr)
     {
-        this->move(
-            (screen->geometry().width() - this->width())/2,
-            (screen->geometry().height() - this->height())/2);
+        qreal dpiScale = screen->devicePixelRatio();
+        QRect screenGeometry = screen->availableGeometry();
+        int windowWidth = 1024;
+        int windowHeight = 768;
+
+        if (dpiScale >= 2)
+        {
+            windowWidth = static_cast<int>(1024 / 1.5);
+            windowHeight = static_cast<int>(768 / 1.5);
+        }
+
+        windowWidth = qMin(windowWidth, screenGeometry.width()-100);
+        windowHeight = qMin(windowHeight, screenGeometry.height()-100);
+        this->resize(windowWidth, windowHeight);
+
+        int x = (screenGeometry.width() - this->frameGeometry().width()) / 2 ;
+        int y = (screenGeometry.height() - this->frameGeometry().height()) /2;
+        this->move(x, y);
+
     }
     init();
 }
@@ -55,10 +71,28 @@ MainWindow::~MainWindow()
 
 void MainWindow::recreate()
 {
+    // step1: 获取主屏幕的缩放比例
+    // step2: 根据缩放比例调整窗口大小
+    // step3: 确保窗口不会超出屏幕范围
+    QScreen* primaryScreen = QApplication::primaryScreen();
+    qreal dpiScale = primaryScreen->devicePixelRatio();
+    QRect screenGeometry = primaryScreen->availableGeometry();
+
+    int windowWidth = 1024;
+    int windowHeight = 768;
+
+    if (dpiScale >= 2)
+    {
+        windowWidth = static_cast<int>(1024 / 1.5);
+        windowHeight = static_cast<int>(768 / 1.5);
+    }
+
+    windowWidth = qMin(windowWidth, screenGeometry.width()-100);
+    windowHeight = qMin(windowHeight, screenGeometry.height()-100);
+    this->resize(windowWidth, windowHeight);
     layout()->invalidate();
     layout()->activate();
-    adjustSize();
-
+    //adjustSize();
     recreateTray();
 }
 
@@ -156,10 +190,8 @@ void MainWindow::createTray()
     trayIcon->setIcon(QIcon(":/icons/images/icon.ico"));
     trayIcon->setToolTip("OpenSpeedy");
 
-    // 创建托盘菜单
+    // 创建托盘菜单、创建动作
     trayMenu = new QMenu(this);
-
-    // 创建动作
     showAction = new QAction("显示", this);
     hideAction = new QAction("隐藏", this);
     quitAction = new QAction("退出", this);
