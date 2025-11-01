@@ -7,16 +7,13 @@ body:
     attributes:
       value: |
         ## 重要提示 / Important Notice
-        
+
         ⚠️ **本项目仅支持离线使用场景，对于在线类软件（如网络游戏、在线服务、网盘等）的功能请求不提供支持。**
-        
-        ⚠️ **This project only supports offline usage scenarios. Feature requests for online software (such as online games, online services, etc.) are NOT supported.**
         
         ---
         
         感谢您的建议！请详细描述您希望添加的功能。
         
-        Thank you for your suggestion! Please describe the feature you'd like to see.
 
   - type: textarea
     id: problem

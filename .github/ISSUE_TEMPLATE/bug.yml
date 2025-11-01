@@ -9,15 +9,11 @@ body:
         ## 重要提示 / Important Notice
         
         ⚠️ **本项目仅支持离线使用场景，对于在线类软件（如网络游戏、在线服务、网盘等）的问题不提供支持。**
-        
-        ⚠️ **This project only supports offline usage scenarios. Issues related to online software (such as online games, online services, etc.) are NOT supported.**
-        
+                
         ---
         
         感谢您反馈问题！请填写以下信息以帮助我们更好地定位和解决问题。
         
-        Thank you for reporting! Please fill in the following information to help us locate and resolve the issue.
-
   - type: input
     id: software-version
     attributes:
