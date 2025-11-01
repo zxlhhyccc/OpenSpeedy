@@ -76,9 +76,6 @@
 - 无内核侵入性，Ring3层Hook，不破坏系统内核
 
 
-
-
-
 # 💾 安装
 📦 **方式1: Winget**
 
@@ -113,8 +110,8 @@ openspeedy
 <video src="https://github.com/user-attachments/assets/74471b1f-7f95-4de8-b5aa-7edc85c9d5f0" width="70%"></video>
 
 # 🔧 技术原理
-如果想要了解如何编译项目，可以参考[开发者文档](https://github.com/game1024/OpenSpeedy/wiki/Developer)
 
+如果想要了解如何编译项目，可以参考[开发者文档](https://github.com/game1024/OpenSpeedy/wiki/%E5%BC%80%E5%8F%91%E8%80%85%E6%96%87%E6%A1%A3)
 
 OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调整：
 
@@ -145,7 +142,11 @@ OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调
 # 🎁 赞助
 如果觉得OpenSpeedy项目对你有帮助，可以请我喝杯咖啡～☕️
 
-365VPN使用专线连接全球，体验至高10Gbps/s网速。 下载立刻开始免费冲浪🏄：https://ref.365tz87989.com/?r=RWQVZD
+
+|名称|介绍|备注|
+|-|-|-|
+|365VPN|我用过最稳定的，不限流的全系统VPN|[体验地址](https://ref.365tz87989.com/?r=RWQVZD)|
+|银河录像局|我用过最方便的AI大模型合租平台(GPT,Claude,Grok,MJ)|[体验地址](https://nf.video/pGt2q), 优惠码:game1024|
 
 # 📜 开源协议
 OpenSpeedy 遵循 GNU v3 许可证。

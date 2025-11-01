@@ -136,7 +136,10 @@ If you encounter any issues during use, feel free to provide feedback via:
 # 🎁 Buy me a coffee
 If you find the OpenSpeedy project helpful, you can buy me a coffee~ ☕️
 
-365VPN uses dedicated lines to connect worldwide, offering speeds of up to 10Gbps. Download now to start surfing for free🏄: https://ref.365tz87989.com/?r=RWQVZD
+|Name|Description|
+|--|--|
+|365VPN|uses dedicated lines to connect worldwide, offering speeds of up to 10Gbps. Download now to start surfing for free🏄: https://ref.365tz87989.com/?r=RWQVZD|
+
 
 # Sponsors
 
