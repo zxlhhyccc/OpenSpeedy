@@ -71,7 +71,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::recreate()
 {
-<<<<<<< HEAD
     // step1: 获取主屏幕的缩放比例
     // step2: 根据缩放比例调整窗口大小
     // step3: 确保窗口不会超出屏幕范围
@@ -94,12 +93,6 @@ void MainWindow::recreate()
     layout()->invalidate();
     layout()->activate();
     //adjustSize();
-=======
-    layout()->invalidate();
-    layout()->activate();
-    adjustSize();
->>>>>>> f40616997999912b250940edf300a06f259b261c
-
     recreateTray();
 }
 
@@ -197,15 +190,8 @@ void MainWindow::createTray()
     trayIcon->setIcon(QIcon(":/icons/images/icon.ico"));
     trayIcon->setToolTip("OpenSpeedy");
 
-<<<<<<< HEAD
     // 创建托盘菜单、创建动作
     trayMenu = new QMenu(this);
-=======
-    // 创建托盘菜单
-    trayMenu = new QMenu(this);
-
-    // 创建动作
->>>>>>> f40616997999912b250940edf300a06f259b261c
     showAction = new QAction("显示", this);
     hideAction = new QAction("隐藏", this);
     quitAction = new QAction("退出", this);

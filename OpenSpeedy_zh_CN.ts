@@ -8,6 +8,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="206"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="206"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="206"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="206"/>
         <source>关于</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16,6 +17,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="207"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="207"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="207"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="207"/>
         <source>OpenSpeedy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24,6 +26,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="209"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="209"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="209"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="209"/>
         <source>😄</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32,6 +35,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="212"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="212"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="212"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="212"/>
         <source>General Public License v3</source>
         <translation type="unfinished"></translation>
     </message>
@@ -40,6 +44,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="214"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="214"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="214"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="214"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/game1024&quot;&gt;&lt;span style=&quot; text-decoration: none; color:#003e92;&quot;&gt;game1024&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -48,6 +53,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="217"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="217"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="217"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="217"/>
         <source>v0.0.0</source>
         <translation type="unfinished"></translation>
     </message>
@@ -56,6 +62,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="210"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="210"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="210"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="210"/>
         <source>作者：</source>
         <translation type="unfinished"></translation>
     </message>
@@ -64,6 +71,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="216"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="216"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="216"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="216"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/game1024/OpenSpeedy&quot;&gt;&lt;span style=&quot; text-decoration: none; color:#003e92;&quot;&gt;game1024/OpenSpeedy&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -72,6 +80,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="219"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="219"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="219"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="219"/>
         <source>主页：</source>
         <translation type="unfinished"></translation>
     </message>
@@ -80,6 +89,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="208"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="208"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="208"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="208"/>
         <source>版本：</source>
         <translation type="unfinished"></translation>
     </message>
@@ -88,6 +98,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="218"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="218"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="218"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="218"/>
         <source>协议：</source>
         <translation type="unfinished"></translation>
     </message>
@@ -96,6 +107,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="213"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="213"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="213"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="213"/>
         <source>🚀</source>
         <translation type="unfinished"></translation>
     </message>
@@ -104,6 +116,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="215"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="215"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="215"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="215"/>
         <source>🌳</source>
         <translation type="unfinished"></translation>
     </message>
@@ -112,6 +125,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="211"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="211"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_aboutdialog.h" line="211"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_aboutdialog.h" line="211"/>
         <source>📜</source>
         <translation type="unfinished"></translation>
     </message>
@@ -128,6 +142,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="541"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="541"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="541"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="541"/>
         <source>OpenSpeedy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -136,6 +151,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="545"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="545"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="545"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="545"/>
         <source>⚡变速速率</source>
         <translation type="unfinished"></translation>
     </message>
@@ -144,6 +160,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="547"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="547"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="547"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="547"/>
         <source>🖥️ 操作系统</source>
         <translation type="unfinished"></translation>
     </message>
@@ -152,6 +169,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="548"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="548"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="548"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="548"/>
         <source>windows 11 24H2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -160,6 +178,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="549"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="549"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="549"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="549"/>
         <source>🔥 CPU</source>
         <translation type="unfinished"></translation>
     </message>
@@ -168,6 +187,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="550"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="550"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="550"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="550"/>
         <source>10.0%</source>
         <translation type="unfinished"></translation>
     </message>
@@ -176,6 +196,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="551"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="551"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="551"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="551"/>
         <source>📊 内存</source>
         <translation type="unfinished"></translation>
     </message>
@@ -184,6 +205,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="552"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="552"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="552"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="552"/>
         <source> ( 7.2G / 32.0G ) 12.3%</source>
         <translation type="unfinished"></translation>
     </message>
@@ -192,6 +214,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="553"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="553"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="553"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="553"/>
         <source>♥️ 32bit 注入器</source>
         <translation type="unfinished"></translation>
     </message>
@@ -204,6 +227,8 @@
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="556"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="554"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="556"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="554"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="556"/>
         <source>正常</source>
         <translation type="unfinished"></translation>
     </message>
@@ -212,6 +237,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="555"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="555"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="555"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="555"/>
         <source>♥️ 64bit 注入器</source>
         <translation type="unfinished"></translation>
     </message>
@@ -220,6 +246,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="557"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="557"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="557"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="557"/>
         <source>▲
 原速</source>
         <translation type="unfinished"></translation>
@@ -229,6 +256,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="563"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="563"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="563"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="563"/>
         <source>💻进程</source>
         <translation type="unfinished"></translation>
     </message>
@@ -237,6 +265,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="568"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="568"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="568"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="568"/>
         <source>架构</source>
         <translation type="unfinished"></translation>
     </message>
@@ -245,6 +274,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="559"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="559"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="559"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="559"/>
         <source>✖️1.0倍</source>
         <translation type="unfinished"></translation>
     </message>
@@ -253,6 +283,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="560"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="560"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="560"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="560"/>
         <source>Ctrl + Alt + ⬆️ 增加速度</source>
         <translation type="unfinished"></translation>
     </message>
@@ -261,6 +292,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="561"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="561"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="561"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="561"/>
         <source>Ctrl + Alt + ⬇️ 减少速度</source>
         <translation type="unfinished"></translation>
     </message>
@@ -269,6 +301,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="562"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="562"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="562"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="562"/>
         <source>Ctrl + Alt + 0 重置速度</source>
         <translation type="unfinished"></translation>
     </message>
@@ -277,6 +310,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="546"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="546"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="546"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="546"/>
         <source>开机自启</source>
         <translation type="unfinished"></translation>
     </message>
@@ -285,6 +319,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="564"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="564"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="564"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="564"/>
         <source>🔍输入进程名搜索...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -293,6 +328,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="571"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="571"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="571"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="571"/>
         <source>进程名称</source>
         <translation type="unfinished"></translation>
     </message>
@@ -301,6 +337,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="570"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="570"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="570"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="570"/>
         <source>PID</source>
         <translation type="unfinished"></translation>
     </message>
@@ -309,6 +346,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="569"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="569"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="569"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="569"/>
         <source>内存使用</source>
         <translation type="unfinished"></translation>
     </message>
@@ -317,6 +355,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="567"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="567"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="567"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="567"/>
         <source>优先级</source>
         <translation type="unfinished"></translation>
     </message>
@@ -325,6 +364,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="566"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="566"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="566"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="566"/>
         <source>是否加速</source>
         <translation type="unfinished"></translation>
     </message>
@@ -333,6 +373,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="572"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="572"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="572"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="572"/>
         <source>搜索到1200个进程, 已过滤展示20个</source>
         <translation type="unfinished"></translation>
     </message>
@@ -341,6 +382,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="573"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="573"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="573"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="573"/>
         <source>📖关于</source>
         <translation type="unfinished"></translation>
     </message>
@@ -349,6 +391,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="574"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="574"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="574"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="574"/>
         <source>⌨️快捷键</source>
         <translation type="unfinished"></translation>
     </message>
@@ -357,6 +400,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="575"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="575"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="575"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="575"/>
         <source>🌐语言</source>
         <translation type="unfinished"></translation>
     </message>
@@ -365,6 +409,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="542"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="542"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="542"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="542"/>
         <source>中文(简体)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -373,6 +418,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="544"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="544"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="544"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="544"/>
         <source>中文(繁體)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -381,6 +427,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="543"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="543"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="543"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="543"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
@@ -418,6 +465,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="288"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="288"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="288"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="288"/>
         <source>快捷键</source>
         <translation type="unfinished"></translation>
     </message>
@@ -426,6 +474,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="289"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="289"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="289"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="289"/>
         <source>档位3</source>
         <translation type="unfinished"></translation>
     </message>
@@ -434,6 +483,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="290"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="290"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="290"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="290"/>
         <source>速度</source>
         <translation type="unfinished"></translation>
     </message>
@@ -442,6 +492,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="291"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="291"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="291"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="291"/>
         <source>Ctrl+Alt+1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -450,6 +501,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="292"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="292"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="292"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="292"/>
         <source>减少速度</source>
         <translation type="unfinished"></translation>
     </message>
@@ -462,6 +514,8 @@
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="307"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="293"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="307"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="293"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="307"/>
         <source>按键</source>
         <translation type="unfinished"></translation>
     </message>
@@ -470,6 +524,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="294"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="294"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="294"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="294"/>
         <source>Ctrl+Alt+5</source>
         <translation type="unfinished"></translation>
     </message>
@@ -478,6 +533,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="295"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="295"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="295"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="295"/>
         <source>档位5</source>
         <translation type="unfinished"></translation>
     </message>
@@ -486,6 +542,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="296"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="296"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="296"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="296"/>
         <source>Ctrl+Alt+3</source>
         <translation type="unfinished"></translation>
     </message>
@@ -494,6 +551,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="297"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="297"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="297"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="297"/>
         <source>档位1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -502,6 +560,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="298"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="298"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="298"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="298"/>
         <source>Ctrl+Alt+0</source>
         <translation type="unfinished"></translation>
     </message>
@@ -510,6 +569,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="299"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="299"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="299"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="299"/>
         <source>重置速度</source>
         <translation type="unfinished"></translation>
     </message>
@@ -518,6 +578,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="300"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="300"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="300"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="300"/>
         <source>Ctrl+Alt+Up</source>
         <translation type="unfinished"></translation>
     </message>
@@ -526,6 +587,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="301"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="301"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="301"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="301"/>
         <source>Ctrl+Alt+4</source>
         <translation type="unfinished"></translation>
     </message>
@@ -534,6 +596,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="302"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="302"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="302"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="302"/>
         <source>档位2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -542,6 +605,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="303"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="303"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="303"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="303"/>
         <source>Ctrl+Alt+2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -550,6 +614,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="304"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="304"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="304"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="304"/>
         <source>Ctrl+Alt+Down</source>
         <translation type="unfinished"></translation>
     </message>
@@ -558,6 +623,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="305"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="305"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="305"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="305"/>
         <source>增加速度</source>
         <translation type="unfinished"></translation>
     </message>
@@ -566,6 +632,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="306"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="306"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="306"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="306"/>
         <source>档位4</source>
         <translation type="unfinished"></translation>
     </message>
@@ -574,6 +641,7 @@
         <location filename="build/x64_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="308"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="308"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_preferencedialog.h" line="308"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_preferencedialog.h" line="308"/>
         <source>步幅</source>
         <translation type="unfinished"></translation>
     </message>
