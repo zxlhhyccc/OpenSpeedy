@@ -9,7 +9,7 @@ Component.prototype.createOperations = function()
         // call the base create operations function
         component.createOperations();
         
-        component.addOperation("CreateShortcut", "@TargetDir@/OpenSpeedy.exe", "@DesktopDir@/OpenSpeedy.lnk");
+        component.addOperation("CreateShortcut", "@TargetDir@/Speedy.exe", "@DesktopDir@/Speedy.lnk");
     } 
     catch (e) 
     {

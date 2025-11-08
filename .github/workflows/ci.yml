@@ -36,7 +36,7 @@ jobs:
         
         if not exist "artifacts" mkdir "artifacts"
         
-        copy "build\CMAKE_x64_static-Release\OpenSpeedy.exe" "artifacts\"
+        copy "build\CMAKE_x64_static-Release\Speedy.exe" "artifacts\"
         copy "build\CMAKE_x64_static-Release\speedpatch64.dll" "artifacts\"
         copy "build\CMAKE_x64_static-Release\bridge64.exe" "artifacts\"
         copy "build\CMAKE_x86_static-Release\speedpatch32.dll" "artifacts\"
