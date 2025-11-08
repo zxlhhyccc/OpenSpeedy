@@ -138,11 +138,9 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="mainwindow.ui" line="37"/>
         <location filename="build/CMAKE_x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="541"/>
         <location filename="build/x64_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="541"/>
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="541"/>
-        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="541"/>
         <source>OpenSpeedy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -312,6 +310,12 @@
         <location filename="build/x86_static-Debug/Speedy_autogen/include/ui_mainwindow.h" line="546"/>
         <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="546"/>
         <source>开机自启</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="37"/>
+        <location filename="build/x86_static-Release/Speedy_autogen/include/ui_mainwindow.h" line="541"/>
+        <source>Speedy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
