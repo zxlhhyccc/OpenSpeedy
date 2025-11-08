@@ -34,7 +34,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>OpenSpeedy</string>
+   <string>Speedy</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow {
