@@ -84,7 +84,7 @@
 winget install openspeedy
 
 # 打开一个新的终端，运行openspeedy
-openspeedy
+speedy
 ```
 
 📥 **方式2: 手动下载**
