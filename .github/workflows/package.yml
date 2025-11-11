@@ -14,7 +14,7 @@ on:
       artifact_name:
         description: '签名的制品名称'
         required: true
-        default: 'OpenSpeedy-unsigned-artifacts'
+        default: 'Speedy-unsigned-artifacts'
         type: string
 
 jobs:

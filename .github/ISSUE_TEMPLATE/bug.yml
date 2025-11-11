@@ -1,0 +1,132 @@
+name: Bug Report / 错误报告
+description: 报告软件中的错误或问题 / Report a bug or issue
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 重要提示 / Important Notice
+        
+        ⚠️ **本项目仅支持离线使用场景，对于在线类软件（如网络游戏、在线服务、网盘等）的问题不提供支持。**
+                
+        ---
+        
+        感谢您反馈问题！请填写以下信息以帮助我们更好地定位和解决问题。
+        
+  - type: input
+    id: software-version
+    attributes:
+      label: 软件版本 / Software Version
+      description: 您使用的 OpenSpeedy 版本是什么？
+      placeholder: 例如：v1.0.0 或 commit hash
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os-version
+    attributes:
+      label: 操作系统 / Operating System
+      description: 您使用的操作系统版本
+      options:
+        - Windows 11 (23H2)
+        - Windows 11 (22H2)
+        - Windows 11 (21H2)
+        - Windows 10 (22H2)
+        - Windows 10 (21H2)
+        - Windows 10 (20H2)
+        - Windows 10 (其他版本 / Other)
+        - Windows 8.1
+        - Windows 8
+        - Windows 7
+        - 其他 / Other
+    validations:
+      required: true
+
+  - type: input
+    id: os-build
+    attributes:
+      label: 系统版本号 / OS Build Number
+      description: 可以在"设置 > 系统 > 关于"中找到 / Can be found in "Settings > System > About"
+      placeholder: 例如：22621.1234
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述 / Bug Description
+      description: 请详细描述您遇到的问题
+      placeholder: 描述问题的具体表现...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤 / Steps to Reproduce
+      description: 如何复现这个问题？
+      placeholder: |
+        1. 打开软件...
+        2. 点击...
+        3. 看到错误...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望行为 / Expected Behavior
+      description: 您期望发生什么？
+      placeholder: 描述期望的正确行为...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际行为 / Actual Behavior
+      description: 实际发生了什么？
+      placeholder: 描述实际发生的情况...
+    validations:
+      required: true
+
+  - type: textarea
+    id: target-software
+    attributes:
+      label: 目标软件信息 / Target Software Information
+      description: 您正在使用 OpenSpeedy 优化哪个软件？请提供软件名称和版本
+      placeholder: |
+        软件名称：
+        软件版本：
+        软件类型：离线软件 / 单机软件
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志或错误信息 / Logs or Error Messages
+      description: 如有相关日志或错误信息，请粘贴在此
+      render: shell
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 截图 / Screenshots
+      description: 如果适用，请添加截图来帮助解释您的问题
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 其他信息 / Additional Context
+      description: 其他可能有助于解决问题的信息
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 确认事项 / Confirmation
+      description: 请确认以下事项
+      options:
+        - label: 我确认这是一个离线软件的问题，不涉及在线服务 / I confirm this is about offline software, not online services
+          required: true
+        - label: 我已经搜索过现有的 issues，没有找到类似问题 / I have searched existing issues and found no duplicates
+          required: true
+        - label: 我使用的是最新版本的软件 / I am using the latest version of the software
+          required: false

@@ -36,11 +36,11 @@ jobs:
         
         if not exist "artifacts" mkdir "artifacts"
         
-        copy "build\CMAKE-64bit-Release\OpenSpeedy.exe" "artifacts\"
-        copy "build\CMAKE-64bit-Release\speedpatch64.dll" "artifacts\"
-        copy "build\CMAKE-64bit-Release\bridge64.exe" "artifacts\"
-        copy "build\CMAKE-32bit-Release\speedpatch32.dll" "artifacts\"
-        copy "build\CMAKE-32bit-Release\bridge32.exe" "artifacts\"
+        copy "build\CMAKE_x64_static-Release\Speedy.exe" "artifacts\"
+        copy "build\CMAKE_x64_static-Release\speedpatch64.dll" "artifacts\"
+        copy "build\CMAKE_x64_static-Release\bridge64.exe" "artifacts\"
+        copy "build\CMAKE_x86_static-Release\speedpatch32.dll" "artifacts\"
+        copy "build\CMAKE_x86_static-Release\bridge32.exe" "artifacts\"
         
         echo Artifacts directory contents:
         dir "artifacts"
@@ -50,7 +50,7 @@ jobs:
       uses: actions/upload-artifact@v4
       if: success()
       with:
-        name: OpenSpeedy-unsigned-artifacts
+        name: Speedy-unsigned-artifacts
         path: artifacts/
         if-no-files-found: warn
     

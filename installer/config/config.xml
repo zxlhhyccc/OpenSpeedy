@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Installer>
-  <Name>OpenSpeedy</Name>
+  <Name>Speedy</Name>
   <Version>1.0.0</Version>
-  <Title>OpenSpeedy</Title>
+  <Title>Speedy</Title>
   <Publisher>Game1024</Publisher>
-  <StartMenuDir>OpenSpeedy</StartMenuDir>
-  <TargetDir>@HomeDir@/OpenSpeedy</TargetDir>
+  <StartMenuDir>Speedy</StartMenuDir>
+  <TargetDir>@HomeDir@/Speedy</TargetDir>
   <WizardStyle>Modern</WizardStyle>
   <AllowNonAsciiCharacters>true</AllowNonAsciiCharacters>
 </Installer>

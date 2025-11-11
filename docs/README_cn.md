@@ -1,8 +1,9 @@
+<a href="https://nf.video/pGt2q"><img src="https://github.com/user-attachments/assets/ff4e4df3-c290-49dc-852c-5e9227374be9"></img></a>
+
 <h1 align="center"> OpenSpeedy </h1>
 
-
 <p align="center">
-  <img style="margin:0 auto" width=100 height=100 src="https://github.com/user-attachments/assets/bdbe4a60-7692-4e9c-9df4-ad1711337c57">
+  <img style="margin:0 auto" width=100 height=100 src="https://github.com/user-attachments/assets/a82ceda2-9b7b-41e4-96dc-cd250c9bd3ff">
   </img>  
 </p>
 
@@ -84,7 +85,7 @@
 winget install openspeedy
 
 # 打开一个新的终端，运行openspeedy
-openspeedy
+speedy
 ```
 
 📥 **方式2: 手动下载**
@@ -110,8 +111,8 @@ openspeedy
 <video src="https://github.com/user-attachments/assets/74471b1f-7f95-4de8-b5aa-7edc85c9d5f0" width="70%"></video>
 
 # 🔧 技术原理
-如果想要了解如何编译项目，可以参考[开发者文档](https://github.com/game1024/OpenSpeedy/wiki/%E5%BC%80%E5%8F%91%E8%80%85%E6%96%87%E6%A1%A3)
 
+如果想要了解如何编译项目，可以参考[开发者文档](https://github.com/game1024/OpenSpeedy/wiki/%E5%BC%80%E5%8F%91%E8%80%85%E6%96%87%E6%A1%A3)
 
 OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调整：
 
@@ -141,6 +142,7 @@ OpenSpeedy 通过 Hook 以下 Windows 系统时间函数来实现游戏速度调
 
 # 🎁 赞助
 如果觉得OpenSpeedy项目对你有帮助，可以请我喝杯咖啡～☕️
+
 
 |名称|介绍|备注|
 |-|-|-|

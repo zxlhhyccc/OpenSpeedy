@@ -19,7 +19,7 @@
   <property name="minimumSize">
    <size>
     <width>800</width>
-    <height>640</height>
+    <height>480</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -34,7 +34,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>OpenSpeedy</string>
+   <string>Speedy</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow {
@@ -406,7 +406,7 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>300</width>
+                <width>200</width>
                 <height>40</height>
                </size>
               </property>
